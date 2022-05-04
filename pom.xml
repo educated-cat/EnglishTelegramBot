@@ -6,17 +6,25 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.6.7</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
     <groupId>com.educatedcat</groupId>
     <artifactId>EnglishTelegramBot</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>EnglishTelegramBot</name>
     <description>EnglishTelegramBot</description>
+
     <properties>
         <java.version>17</java.version>
+
+        <liquibase.version>4.9.1</liquibase.version>
+        <mysql.version>8.0.28</mysql.version>
+        <lomnok.version>1.18.24</lomnok.version>
+        <h2.version>2.1.212</h2.version>
     </properties>
+
     <dependencies>
+        <!-- Spring Boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -25,30 +33,38 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
+        <!-- Datasource-->
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
+            <version>${liquibase.version}</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
+            <version>${mysql.version}</version>
         </dependency>
+
+        <!-- Utils-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <version>${lomnok.version}</version>
         </dependency>
+
+        <!-- Test-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+            <version>${h2.version}</version>
         </dependency>
     </dependencies>
 
@@ -68,5 +84,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
