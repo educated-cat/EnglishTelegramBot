@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-    <component name="DatabaseMigrationSettings" liquibaseFileType="YAML"/>
+    <component name="DatabaseMigrationSettings" liquibaseFileType="YAML"
+               mainChangeLogName="#date(&quot;dd&quot;)-#date(&quot;HH&quot;)-#date(&quot;mm&quot;)-changelog">
+        <database-infos>
+            <database-info>
+                <option name="enabled" value="true"/>
+                <dbms-id>mysql</dbms-id>
+            </database-info>
+        </database-infos>
+    </component>
     <component name="JpaPluginProjectSettings" dtoSerializableType="2">
-        <option name="entityNameTemplate"/>
+        <option name="entityNameTemplate" value="${className}"/>
+        <option name="isLombokGetterAndSetter" value="true"/>
         <option name="useLazyOnToOneAssociations" value="true"/>
         <option name="scaffoldingLanguage"/>
     </component>
