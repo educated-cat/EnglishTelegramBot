@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    username: sa
+    password: sa
+    url: jdbc:sqlite:memory:myDb
+    driver-class-name: org.sqlite.JDBC
+  liquibase:
+    contexts: h2
+    change-log: db/changelog-master.xml
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
