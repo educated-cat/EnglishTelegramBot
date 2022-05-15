@@ -17,6 +17,5 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: '17'
-          cache: maven
       - name: Run Tests
-        run: mvn clean test
+        run: gradle clean test
