@@ -26,8 +26,7 @@ public class WordRestController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public WordDto create(@RequestBody WordDto dto) {
-		final Word word = wordService.save(dto);
-		return word.toDto();
+		return wordService.save(dto).toDto();
 	}
 	
 	@PutMapping("/{uuid}")
