@@ -18,7 +18,7 @@ public class Word {
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID",
 	                  strategy = "org.hibernate.id.UUIDGenerator")
-	@Column(name = "id", nullable = false, updatable = false)
+	@Column(name = "id")
 	private UUID id;
 	
 	@Column(name = "name", nullable = false)
