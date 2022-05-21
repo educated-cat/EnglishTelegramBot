@@ -1,2 +1,3 @@
-rootProject.name = 'EnglishTelegramBot'
-include 'dictionary'
+rootProject.name = "EnglishTelegramBot"
+include "dictionary"
+include "bot"
