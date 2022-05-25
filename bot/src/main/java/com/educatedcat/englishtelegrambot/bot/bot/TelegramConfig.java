@@ -1,4 +1,4 @@
-package com.educatedcat.englishtelegrambot.bot.telegram;
+package com.educatedcat.englishtelegrambot.bot.bot;
 
 import lombok.*;
 import org.springframework.context.annotation.*;

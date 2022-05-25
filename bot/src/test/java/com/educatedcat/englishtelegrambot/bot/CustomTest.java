@@ -1,25 +1,20 @@
 package com.educatedcat.englishtelegrambot.bot;
 
-import com.educatedcat.englishtelegrambot.bot.telegram.*;
-import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.*;
 import org.springframework.context.annotation.*;
+import org.telegram.telegrambots.meta.*;
 
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-class BotApplicationTests {
+public class CustomTest {
 	@Configuration
 	static class Config {
 		@Bean
 		@Primary
-		public EnglishTelegramBot englishTelegramBotMock() {
-			return mock(EnglishTelegramBot.class);
+		public TelegramBotsApi telegramBotsApiMock() {
+			return mock(TelegramBotsApi.class);
 		}
-	}
-	
-	@Test
-	void contextLoads() {
 	}
 	
 }
