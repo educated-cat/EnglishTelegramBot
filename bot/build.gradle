@@ -24,12 +24,7 @@ configurations.all {
 
 dependencies {
 	/* Spring Boot */
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
-	
-	/* Datasource */
-	implementation("org.liquibase:liquibase-core")
-	implementation("mysql:mysql-connector-java")
 	
 	/* Utils */
 	compileOnly("org.projectlombok:lombok")
@@ -40,7 +35,6 @@ dependencies {
 	
 	/* Test */
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("org.xerial:sqlite-jdbc")
 	testCompileOnly("org.projectlombok:lombok")
 	testAnnotationProcessor("org.projectlombok:lombok")
 }
