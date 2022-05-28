@@ -1,0 +1,11 @@
+server:
+  port: 9090
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+telegram:
+  bot:
+    username: username
+    token: token
