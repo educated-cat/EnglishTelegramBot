@@ -7,5 +7,5 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
 telegram:
   bot:
-    username: username
-    token: token
+    username: udemy_english_bot
+    token: 1784447636:AAGnAq2R408rk-hNUvsTg3CO76UahWMoGaE
