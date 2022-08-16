@@ -1,4 +1,4 @@
-package com.educatedcat.englishtelegrambot.bot.bot;
+package com.educatedcat.englishtelegrambot.bot;
 
 import lombok.*;
 import lombok.extern.slf4j.*;
@@ -52,18 +52,20 @@ public class EnglishTelegramBot extends TelegramLongPollingBot {
 		try {
 			sendMessage(updateReceiver.handle(update));
 		} catch (Exception e) {
-			SendMessage message = new SendMessage(update.getMessage().getChatId().toString(),
-			                                      messageSource.getMessage("bot.command.unknown", null,
-			                                                               Locale.ENGLISH));
+			// TODO: if command not found, then send message, otherwise throw an exception
+			final String chatId = update.hasMessage() ? update.getMessage().getChatId().toString()
+			                                          : update.getCallbackQuery().getMessage().getChatId().toString();
+			SendMessage message = new SendMessage(chatId, messageSource.getMessage("bot.command.unknown", null,
+			                                                                       Locale.ENGLISH));
 			sendMessage(message);
 		}
 	}
 	
-	private void sendMessage(BotApiMethod<Message> message) {
+	private void sendMessage(BotApiMethod<?> message) {
 		try {
 			this.execute(message);
 		} catch (Exception e) {
-			log.error("Unable to send message, message type={}", message.getClass().getSimpleName(), e);
+			log.error("Unable to send message, message value={}", message.getClass().getSimpleName(), e);
 		}
 	}
 }
