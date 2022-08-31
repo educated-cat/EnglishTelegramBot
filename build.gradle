@@ -1,0 +1,49 @@
+plugins {
+	id("io.spring.dependency-management").version("1.0.12.RELEASE")
+}
+
+subprojects {
+	group = "com.educatedcat.englishtelegrambot"
+	version = "0.0.1-SNAPSHOT"
+	
+	apply plugin: 'java'
+	apply plugin: 'io.spring.dependency-management'
+	apply plugin: 'java-library'
+	
+	repositories {
+		mavenCentral()
+	}
+	
+	configurations.all {
+		exclude group: "org.apache.logging.log4j"
+	}
+	
+	dependencyManagement {
+		imports {
+			mavenBom("org.springframework.boot:spring-boot-starter-parent:2.7.2")
+		}
+	}
+	
+	dependencies {
+		compileOnly("org.projectlombok:lombok")
+		annotationProcessor("org.projectlombok:lombok")
+		
+		testCompileOnly("org.projectlombok:lombok")
+		testAnnotationProcessor("org.projectlombok:lombok")
+	}
+	
+	compileJava {
+		sourceCompatibility = 17
+		targetCompatibility = 17
+	}
+	
+	test {
+		testLogging {
+			events "PASSED", "SKIPPED", "FAILED", "STANDARD_OUT", "STANDARD_ERROR"
+		}
+	}
+	
+	tasks.test {
+		useJUnitPlatform()
+	}
+}
