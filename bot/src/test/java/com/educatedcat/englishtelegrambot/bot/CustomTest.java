@@ -32,7 +32,6 @@ public class CustomTest {
 	@SuppressWarnings("unchecked")
 	void beforeEach() {
 		doReturn(null).when(bot).execute(any(BotApiMethod.class));
-//		given(bot.execute(any(BotApiMethod.class))).willReturn(null);
 	}
 	
 	protected BotApiMethod<?> handle(Update update) {

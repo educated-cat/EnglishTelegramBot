@@ -15,7 +15,6 @@ public class MapConfig {
 		}};
 	}
 	
-	// FIXME: check courseButtonHandler
 	@Bean
 	public EnumMap<MenuButtonType, ButtonHandler> buttonMap(StartButtonHandler startButtonHandler,
 	                                                        CourseButtonHandler courseButtonHandler,

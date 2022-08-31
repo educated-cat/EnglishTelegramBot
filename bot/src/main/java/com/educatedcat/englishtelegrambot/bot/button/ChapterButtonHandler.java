@@ -1,7 +1,7 @@
 package com.educatedcat.englishtelegrambot.bot.button;
 
 import com.educatedcat.englishtelegrambot.bot.keyboard.*;
-import org.springframework.beans.factory.annotation.*;
+import lombok.*;
 import org.springframework.context.*;
 import org.springframework.stereotype.*;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.*;
@@ -9,15 +9,10 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.*;
 import java.util.*;
 
 @Component
+@RequiredArgsConstructor
 public class ChapterButtonHandler extends AbstractButtonHandler {
 	private final LessonKeyboard lessonKeyboard;
 	private final MessageSource messageSource;
-	
-	@Autowired
-	public ChapterButtonHandler(LessonKeyboard lessonKeyboard, MessageSource messageSource) {
-		this.lessonKeyboard = lessonKeyboard;
-		this.messageSource = messageSource;
-	}
 	
 	@Override
 	protected String getText() {
