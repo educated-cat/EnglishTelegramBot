@@ -9,7 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AbstractButtonHandlerTest extends CustomTest {
+class AbstractButtonHandlerTest extends AbstractTest {
 	@Autowired
 	private ChapterButtonHandler chapterButtonHandler;
 	

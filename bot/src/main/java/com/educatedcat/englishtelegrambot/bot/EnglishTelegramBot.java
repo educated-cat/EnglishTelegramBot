@@ -53,11 +53,12 @@ public class EnglishTelegramBot extends TelegramLongPollingBot {
 	public void onUpdateReceived(Update update) {
 		try {
 			sendMessage(updateReceiver.handle(update));
-		} catch (UnknownCommandException | UnknownCallbackException | NotCommandException
-		         | UnsupportedOperationException e) {
+		} catch (UnknownCommandException | UnknownCallbackException | NotCommandException e) {
 			final String chatId = update.hasMessage() ? update.getMessage().getChatId().toString()
 			                                          : update.getCallbackQuery().getMessage().getChatId().toString();
 			sendMessage(new SendMessage(chatId, getErrorMessage(e)));
+		} catch (UnsupportedOperationException e) {
+			log.error("Unsupported operation, update=" + update, e);
 		}
 	}
 	

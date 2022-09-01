@@ -13,7 +13,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ChapterKeyboardTest extends CustomTest {
+class ChapterKeyboardTest extends AbstractTest {
 	@Autowired
 	private ChapterKeyboard chapterKeyboard;
 	

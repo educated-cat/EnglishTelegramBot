@@ -13,7 +13,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class WordKeyboardTest extends CustomTest {
+class WordKeyboardTest extends AbstractTest {
 	@Autowired
 	private WordKeyboard wordKeyboard;
 	

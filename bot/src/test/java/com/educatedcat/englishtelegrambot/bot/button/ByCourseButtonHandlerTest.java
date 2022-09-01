@@ -9,7 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ByCourseButtonHandlerTest extends CustomTest {
+class ByCourseButtonHandlerTest extends AbstractTest {
 	@Autowired
 	private ByCourseButtonHandler byCourseButtonHandler;
 	
@@ -19,7 +19,7 @@ class ByCourseButtonHandlerTest extends CustomTest {
 			setMessage(buildMessage());
 		}});
 		
-		assertEquals("Chose the course or continue from last one", sendMessage.getText());
+		assertEquals("Chose the course or continue from last one.", sendMessage.getText());
 		assertTrue(sendMessage.getReplyMarkup() instanceof CourseKeyboard);
 	}
 }
