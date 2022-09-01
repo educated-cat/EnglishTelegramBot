@@ -14,8 +14,12 @@ public class CommandHandlerImpl implements CommandHandler {
 	
 	@Override
 	public BotApiMethod<?> handle(Update update) {
-		final BotCommandType commandType = BotCommandType.valueOf(
-				update.getMessage().getText().substring(1).toUpperCase());
+		final BotCommandType commandType;
+		try {
+			commandType = BotCommandType.valueOf(update.getMessage().getText().substring(1).toUpperCase());
+		} catch (NullPointerException | IllegalArgumentException e) {
+			throw new UnknownCommandException(e);
+		}
 		return commandMap.get(commandType).execute(update);
 	}
 }

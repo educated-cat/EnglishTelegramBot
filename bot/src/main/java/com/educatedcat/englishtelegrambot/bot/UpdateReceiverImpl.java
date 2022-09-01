@@ -19,6 +19,8 @@ public class UpdateReceiverImpl implements UpdateReceiver {
 			return commandHandler.handle(update);
 		} else if (update.hasCallbackQuery()) {
 			return callbackHandler.handle(update);
+		} else if (update.hasMessage() && !update.getMessage().isCommand()) {
+			throw new NotCommandException();
 		} else {
 			throw new UnsupportedOperationException();
 		}
