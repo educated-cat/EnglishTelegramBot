@@ -18,8 +18,8 @@ import java.util.concurrent.atomic.*;
 import static org.mockito.BDDMockito.*;
 
 @SpringBootTest
-public class CustomTest {
-	private final AtomicLong chatId = new AtomicLong();
+public abstract class AbstractTest {
+	protected final AtomicLong chatId = new AtomicLong();
 	
 	@Autowired
 	protected EnglishTelegramBot bot;
@@ -31,6 +31,7 @@ public class CustomTest {
 	@SneakyThrows
 	@SuppressWarnings("unchecked")
 	void beforeEach() {
+		reset(bot);
 		doReturn(null).when(bot).execute(any(BotApiMethod.class));
 	}
 	
@@ -73,11 +74,11 @@ public class CustomTest {
 		}};
 	}
 	
-	protected Message buildMessage(BotCommandType type) {
+	protected Message buildMessage(BotCommandType type, Long chatId) {
 		return new Message() {{
 			setText(String.format("/%s", type.name()));
 			setEntities(Collections.singletonList(new MessageEntity("bot_command", 0, 1)));
-			setChat(new Chat(chatId.incrementAndGet(), "chat"));
+			setChat(new Chat(chatId, "chat"));
 		}};
 	}
 }

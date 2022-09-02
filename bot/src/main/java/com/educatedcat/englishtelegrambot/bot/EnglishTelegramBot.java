@@ -1,5 +1,7 @@
 package com.educatedcat.englishtelegrambot.bot;
 
+import com.educatedcat.englishtelegrambot.bot.callback.*;
+import com.educatedcat.englishtelegrambot.bot.command.*;
 import lombok.*;
 import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,13 +53,22 @@ public class EnglishTelegramBot extends TelegramLongPollingBot {
 	public void onUpdateReceived(Update update) {
 		try {
 			sendMessage(updateReceiver.handle(update));
-		} catch (Exception e) {
-			// TODO: if command not found, then send message, otherwise throw an exception
+		} catch (UnknownCommandException | UnknownCallbackException | NotCommandException e) {
 			final String chatId = update.hasMessage() ? update.getMessage().getChatId().toString()
 			                                          : update.getCallbackQuery().getMessage().getChatId().toString();
-			SendMessage message = new SendMessage(chatId, messageSource.getMessage("bot.command.unknown", null,
-			                                                                       Locale.ENGLISH));
-			sendMessage(message);
+			sendMessage(new SendMessage(chatId, getErrorMessage(e)));
+		} catch (UnsupportedOperationException e) {
+			log.error("Unsupported operation, update=" + update, e);
+		}
+	}
+	
+	private String getErrorMessage(Exception e) {
+		if (e instanceof UnknownCommandException) {
+			return messageSource.getMessage("bot.command.unknown", null, Locale.ENGLISH);
+		} else if (e instanceof NotCommandException) {
+			return messageSource.getMessage("bot.command.not", null, Locale.ENGLISH);
+		} else {
+			return messageSource.getMessage("bot.error.unexpected", null, Locale.ENGLISH);
 		}
 	}
 	

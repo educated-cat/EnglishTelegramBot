@@ -20,7 +20,12 @@ public class CallbackHandlerImpl implements CallbackHandler {
 	@SneakyThrows
 	public BotApiMethod<?> handle(Update update) {
 		CallbackQuery callbackQuery = update.getCallbackQuery();
-		ButtonCallback callback = objectMapper.readValue(callbackQuery.getData(), ButtonCallback.class);
+		final ButtonCallback callback;
+		try {
+			callback = objectMapper.readValue(callbackQuery.getData(), ButtonCallback.class);
+		} catch (Exception e) {
+			throw new UnknownCallbackException(e);
+		}
 		return buttonMap.get(callback.button()).execute(update);
 	}
 }

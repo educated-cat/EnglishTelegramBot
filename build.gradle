@@ -16,6 +16,7 @@ subprojects {
 	
 	configurations.all {
 		exclude group: "org.apache.logging.log4j"
+		exclude group: "org.skyscreamer"
 	}
 	
 	dependencyManagement {
