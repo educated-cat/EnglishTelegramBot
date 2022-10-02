@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+	<changeSet id="2022-10-02-20-58" author="Ilya Malyshev">
+		<createTable tableName="chapters_lessons">
+			<column name="chapter_id" type="BINARY(16)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="lesson_id" type="BINARY(16)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+		
+		<addForeignKeyConstraint baseTableName="chapters_lessons" baseColumnNames="chapter_id"
+		                         constraintName="chapters_lessons_chapter_id_chapters_id"
+		                         referencedTableName="chapters"
+		                         referencedColumnNames="id"/>
+		<addForeignKeyConstraint baseTableName="chapters_lessons" baseColumnNames="lesson_id"
+		                         constraintName="chapters_lessons_lesson_id_lessons_id"
+		                         referencedTableName="lessons"
+		                         referencedColumnNames="id"/>
+		
+		<createIndex tableName="chapters_lessons" indexName="idx_chapters_lessons_chapter_id">
+			<column name="chapter_id"/>
+		</createIndex>
+		
+		<createIndex tableName="chapters_lessons" indexName="idx_chapters_lessons_lesson_id">
+			<column name="lesson_id"/>
+		</createIndex>
+	</changeSet>
+</databaseChangeLog>
