@@ -1,20 +1,16 @@
 package com.educatedcat.englishtelegrambot.word;
 
-import org.springframework.beans.factory.annotation.*;
+import lombok.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/words")
 public class WordRestController {
 	private final WordService wordService;
-	
-	@Autowired
-	public WordRestController(WordService wordService) {
-		this.wordService = wordService;
-	}
 	
 	@GetMapping("/{uuid}")
 	public WordDto findById(@PathVariable UUID uuid) {

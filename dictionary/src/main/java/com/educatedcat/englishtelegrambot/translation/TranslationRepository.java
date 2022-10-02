@@ -1,9 +1,10 @@
 package com.educatedcat.englishtelegrambot.translation;
 
+import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.*;
 
 import java.util.*;
 
 @NoRepositoryBean
-public interface TranslationRepository<T extends BaseTranslation> extends CrudRepository<T, UUID> {
+interface TranslationRepository extends JpaRepository<AbstractTranslation, UUID> {
 }

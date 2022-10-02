@@ -1,7 +1,8 @@
 package com.educatedcat.englishtelegrambot.word;
 
+import com.educatedcat.englishtelegrambot.translation.*;
+import lombok.*;
 import lombok.extern.slf4j.*;
-import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.*;
 
@@ -9,16 +10,13 @@ import java.util.*;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class WordServiceImpl implements WordService {
 	private final WordRepository wordRepository;
-	
-	@Autowired
-	public WordServiceImpl(WordRepository wordRepository) {
-		this.wordRepository = wordRepository;
-	}
+	private final TranslationService translationService;
 	
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public Optional<Word> find(UUID uuid) {
 		return wordRepository.findById(uuid);
 	}
@@ -26,7 +24,8 @@ public class WordServiceImpl implements WordService {
 	@Override
 	@Transactional
 	public Word save(WordDto dto) {
-		return wordRepository.save(new Word(dto));
+		final AbstractTranslation translation = translationService.save(dto);
+		return wordRepository.save(new Word(dto, translation));
 	}
 	
 	@Override
