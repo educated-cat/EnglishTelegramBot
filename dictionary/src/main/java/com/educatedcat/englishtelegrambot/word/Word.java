@@ -11,8 +11,9 @@ import java.util.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
+@DynamicUpdate
+@NoArgsConstructor
 @Table(name = "words")
 public class Word {
 	@Id
