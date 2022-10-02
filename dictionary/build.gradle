@@ -9,5 +9,5 @@ dependencies {
 	
 	/* Test */
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("org.xerial:sqlite-jdbc")
+	testImplementation("com.h2database:h2:1.4.200")
 }
