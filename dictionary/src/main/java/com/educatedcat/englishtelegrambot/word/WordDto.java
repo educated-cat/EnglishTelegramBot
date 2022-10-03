@@ -1,9 +1,8 @@
 package com.educatedcat.englishtelegrambot.word;
 
+import com.educatedcat.englishtelegrambot.translation.*;
+
 import java.util.*;
 
-public record WordDto(UUID id, String name, String transcription) {
-	public WordDto(String name, String transcription) {
-		this(null, name, transcription);
-	}
+public record WordDto(UUID id, String name, String transcription, String translation, Language language) {
 }

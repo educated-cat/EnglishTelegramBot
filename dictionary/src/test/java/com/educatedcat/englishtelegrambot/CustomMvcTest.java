@@ -1,8 +1,8 @@
 package com.educatedcat.englishtelegrambot;
 
 import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.core.type.*;
 import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.node.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.autoconfigure.web.servlet.*;
 import org.springframework.boot.test.context.*;
@@ -31,21 +31,22 @@ public class CustomMvcTest {
 	}
 	
 	protected <T> CustomResultActions<T> performRequest(MockHttpServletRequestBuilder builder, Object payload,
-	                                                    Class<T> result)
-			throws Exception {
+	                                                    Class<T> result) throws Exception {
 		ResultActions ra = mvc.perform(jsonRequest(builder, payload));
 		return getResultActions(ra, result == null ? null : parseResult(ra.andReturn(), result));
 	}
 	
-	protected MockHttpServletRequestBuilder jsonRequest(MockHttpServletRequestBuilder builder,
-	                                                    Object object) throws JsonProcessingException {
+	protected <T> CustomResultActions<T> performRequest(MockHttpServletRequestBuilder builder, TypeReference<T> result)
+			throws Exception {
+		ResultActions ra = mvc.perform(jsonRequest(builder, null));
+		return getResultActions(ra, result == null ? null : parseResult(ra.andReturn(), result));
+	}
+	
+	protected MockHttpServletRequestBuilder jsonRequest(MockHttpServletRequestBuilder builder, Object object)
+			throws JsonProcessingException {
 		return builder
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(object instanceof String ? (String) object : objectMapper.writeValueAsString(object));
-	}
-	
-	protected ObjectNode parseResult(MvcResult result) throws IOException {
-		return objectMapper.readValue(result.getResponse().getContentAsString(), ObjectNode.class);
 	}
 	
 	@SuppressWarnings({"unchecked"})
@@ -53,6 +54,10 @@ public class CustomMvcTest {
 		return tClass.equals(String.class)
 		       ? (T) result.getResponse().getContentAsString()
 		       : objectMapper.readValue(result.getResponse().getContentAsString(), tClass);
+	}
+	
+	protected <T> T parseResult(MvcResult result, TypeReference<T> typeReference) throws IOException {
+		return objectMapper.readValue(result.getResponse().getContentAsString(), typeReference);
 	}
 	
 	private <T> CustomResultActions<T> getResultActions(ResultActions ra, T result) {

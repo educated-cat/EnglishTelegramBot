@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+	<changeSet id="2022-09-24-13-27" author="Ilya Malyshev">
+		<addColumn tableName="words">
+			<column name="translation_id" type="BINARY(16)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="translation_type" type="VARCHAR(3)">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+	</changeSet>
+	
+	<changeSet id="2022-09-24-13-28" author="Ilya Malyshev">
+		<renameTable oldTableName="ru_translations" newTableName="rus_translations"/>
+		<renameColumn tableName="rus_translations" oldColumnName="id" newColumnName="id" columnDataType="BINARY(16)"/>
+		<renameColumn tableName="words" oldColumnName="id" newColumnName="id" columnDataType="BINARY(16)"/>
+	</changeSet>
+</databaseChangeLog>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+	<changeSet id="2022-10-02-18-35" author="Ilya Malyshev">
+		<createTable tableName="lessons_words">
+			<column name="lesson_id" type="BINARY(16)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="word_id" type="BINARY(16)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+		
+		<addForeignKeyConstraint baseTableName="lessons_words" baseColumnNames="lesson_id"
+		                         constraintName="lessons_words_lesson_id_lessons_id"
+		                         referencedTableName="lessons"
+		                         referencedColumnNames="id"/>
+		<addForeignKeyConstraint baseTableName="lessons_words" baseColumnNames="word_id"
+		                         constraintName="lessons_words_word_id_words_id"
+		                         referencedTableName="words"
+		                         referencedColumnNames="id"/>
+		
+		<createIndex tableName="lessons_words" indexName="idx_lessons_words_lesson_id">
+			<column name="lesson_id"/>
+		</createIndex>
+		
+		<createIndex tableName="lessons_words" indexName="idx_lessons_words_word_id">
+			<column name="word_id"/>
+		</createIndex>
+	</changeSet>
+</databaseChangeLog>

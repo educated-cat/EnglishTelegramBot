@@ -2,10 +2,10 @@ spring:
   datasource:
     username: sa
     password: sa
-    url: jdbc:sqlite:memory:myDb
-    driver-class-name: org.sqlite.JDBC
+    url: jdbc:h2:mem:myDb
+    driver-class-name: org.h2.Driver
   liquibase:
-    contexts: h2
+    contexts: test
     change-log: db/changelog-master.xml
   jpa:
     properties:
