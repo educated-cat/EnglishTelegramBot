@@ -1,5 +1,6 @@
 package com.educatedcat.englishtelegrambot.chapter;
 
+import com.educatedcat.englishtelegrambot.course.*;
 import com.educatedcat.englishtelegrambot.lesson.*;
 import lombok.*;
 import org.hibernate.annotations.*;
@@ -34,6 +35,10 @@ public class Chapter {
 	           }
 	)
 	private List<Lesson> lessons;
+	
+	@JoinColumn(nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Course course;
 	
 	ChapterDto toDto() {
 		return new ChapterDto(id, name);

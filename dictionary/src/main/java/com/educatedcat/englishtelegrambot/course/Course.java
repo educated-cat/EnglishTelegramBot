@@ -24,8 +24,8 @@ public class Course {
 	@Column(name = "name", nullable = false)
 	private String name;
 	
-	@OneToMany
-	private List<Chapter> lessons;
+	@OneToMany(mappedBy = "course")
+	private List<Chapter> chapters;
 	
 	CourseDto toDto() {
 		return new CourseDto(id, name);

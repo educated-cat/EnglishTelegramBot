@@ -11,9 +11,9 @@ import java.util.*;
 public class ChapterRestController {
 	private final ChapterService chapterService;
 	
-	@GetMapping
-	public List<ChapterDto> findAll() {
-		return chapterService.findAll()
+	@GetMapping("/{courseId}")
+	public List<ChapterDto> findAll(@PathVariable UUID courseId) {
+		return chapterService.findAllByCourseId(courseId)
 		                     .stream()
 		                     .map(Chapter::toDto)
 		                     .toList();
