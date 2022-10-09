@@ -1,5 +1,6 @@
 package com.educatedcat.englishtelegrambot.lesson;
 
+import com.educatedcat.englishtelegrambot.chapter.*;
 import com.educatedcat.englishtelegrambot.word.*;
 import lombok.*;
 import org.hibernate.annotations.*;
@@ -16,9 +17,10 @@ import java.util.*;
 @Table(name = "lessons")
 public class Lesson {
 	@Id
+	@Type(type = "uuid-char")
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-	@Column(name = "id")
+	@Column(name = "id", columnDefinition = "VARCHAR(36)")
 	private UUID id;
 	
 	@Column(name = "name", nullable = false)
@@ -34,6 +36,10 @@ public class Lesson {
 	           }
 	)
 	private List<Word> words;
+	
+	@JoinColumn(nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Chapter chapter;
 	
 	LessonDto toDto() {
 		return new LessonDto(id, name);

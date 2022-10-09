@@ -2,6 +2,7 @@ package com.educatedcat.englishtelegrambot.translation;
 
 import com.educatedcat.englishtelegrambot.word.*;
 import lombok.*;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
 import java.util.*;
@@ -15,6 +16,8 @@ import java.util.*;
 @MappedSuperclass
 public abstract class AbstractTranslation {
 	@Id
+	@Type(type = "uuid-char")
+	@Column(name = "id", columnDefinition = "VARCHAR(36)")
 	private UUID id;
 	
 	@Column(nullable = false)

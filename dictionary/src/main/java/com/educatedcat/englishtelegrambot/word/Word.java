@@ -17,9 +17,10 @@ import java.util.*;
 @Table(name = "words")
 public class Word {
 	@Id
+	@Type(type = "uuid-char")
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-	@Column(name = "id")
+	@Column(name = "id", columnDefinition = "VARCHAR(36)")
 	private UUID id;
 	
 	@Column(name = "name", nullable = false)
@@ -34,7 +35,7 @@ public class Word {
 	     fetch = FetchType.LAZY)
 	@AnyMetaDef(name = "WordMetaDef",
 	            metaType = "string",
-	            idType = "uuid-binary",
+	            idType = "uuid-char",
 	            metaValues = {
 			            @MetaValue(value = "RUS", targetEntity = RusTranslation.class),
 			            @MetaValue(value = "DEU", targetEntity = DeuTranslation.class)
