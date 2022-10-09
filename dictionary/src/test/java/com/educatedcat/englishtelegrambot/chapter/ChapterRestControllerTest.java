@@ -15,8 +15,16 @@ class ChapterRestControllerTest extends CustomMvcTest {
 	
 	@Test
 	@SneakyThrows
-	void findAll() {
-		List<ChapterDto> lessons = performRequest(get("/api/chapters/" + UUID.randomUUID()),
+	void findAllInCourseByChapterId() {
+		performRequest(get("/api/chapters/" + UUID.randomUUID()), ChapterDto.class)
+				.andExpect(status().isNotFound())
+				.andReturnDto();
+	}
+	
+	@Test
+	@SneakyThrows
+	void findAllInCourse() {
+		List<ChapterDto> lessons = performRequest(get("/api/chapters/by-course/" + UUID.randomUUID()),
 		                                          new TypeReference<List<ChapterDto>>() {
 		                                          }).andExpect(status().isOk())
 		                                            .andReturnDto();
