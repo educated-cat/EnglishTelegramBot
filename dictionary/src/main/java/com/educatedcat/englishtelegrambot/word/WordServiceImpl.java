@@ -22,6 +22,12 @@ public class WordServiceImpl implements WordService {
 	}
 	
 	@Override
+	@Transactional(readOnly = true)
+	public List<Word> findAllByLessonId(UUID lessonId) {
+		return wordRepository.findAllByLessonsContaining(lessonId);
+	}
+	
+	@Override
 	@Transactional
 	public Word save(WordDto dto) {
 		final AbstractTranslation translation = translationService.save(dto);

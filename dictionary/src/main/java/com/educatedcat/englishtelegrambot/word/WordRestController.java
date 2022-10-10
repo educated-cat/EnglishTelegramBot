@@ -19,6 +19,14 @@ public class WordRestController {
 		                  .orElseThrow();
 	}
 	
+	@GetMapping("/by-lesson/{lessonId}")
+	public List<WordDto> findAllByLessonId(@PathVariable UUID lessonId) {
+		return wordService.findAllByLessonId(lessonId)
+		                  .stream()
+		                  .map(Word::toDto)
+		                  .toList();
+	}
+	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public WordDto create(@RequestBody WordDto dto) {

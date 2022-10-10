@@ -1,5 +1,6 @@
 package com.educatedcat.englishtelegrambot.word;
 
+import com.educatedcat.englishtelegrambot.lesson.*;
 import com.educatedcat.englishtelegrambot.translation.*;
 import lombok.*;
 import org.hibernate.annotations.*;
@@ -42,6 +43,17 @@ public class Word {
 	            })
 	@JoinColumn(name = "translation_id")
 	private AbstractTranslation translation;
+	
+	@ManyToMany
+	@JoinTable(name = "lessons_words",
+	           joinColumns = {
+			           @JoinColumn(name = "lesson_id")
+	           },
+	           inverseJoinColumns = {
+			           @JoinColumn(name = "word_id")
+	           }
+	)
+	private List<Lesson> lessons;
 	
 	public Word(WordDto dto, AbstractTranslation translation) {
 		this.name = dto.name();
