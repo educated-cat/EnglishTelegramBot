@@ -11,8 +11,16 @@ import java.util.*;
 public class LessonRestController {
 	private final LessonService lessonService;
 	
-	@GetMapping("/{chapterId}")
-	public List<LessonDto> findAll(@PathVariable UUID chapterId) {
+	@GetMapping("/{id}")
+	public List<LessonDto> findAllInChapterByLessonId(@PathVariable UUID id) {
+		return lessonService.findLessonsById(id)
+		                    .stream()
+		                    .map(Lesson::toDto)
+		                    .toList();
+	}
+	
+	@GetMapping("/by-chapter/{chapterId}")
+	public List<LessonDto> findAllInChapter(@PathVariable UUID chapterId) {
 		return lessonService.findAllByChapterId(chapterId)
 		                    .stream()
 		                    .map(Lesson::toDto)
