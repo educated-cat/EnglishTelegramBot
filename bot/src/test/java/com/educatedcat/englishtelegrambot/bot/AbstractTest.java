@@ -1,6 +1,9 @@
 package com.educatedcat.englishtelegrambot.bot;
 
+import com.educatedcat.englishtelegrambot.bot.button.*;
 import com.educatedcat.englishtelegrambot.bot.command.*;
+import com.educatedcat.englishtelegrambot.bot.user.User;
+import com.educatedcat.englishtelegrambot.bot.user.*;
 import lombok.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,11 +21,15 @@ import java.util.concurrent.atomic.*;
 import static org.mockito.BDDMockito.*;
 
 @SpringBootTest
-public abstract class AbstractTest {
-	protected final AtomicLong chatId = new AtomicLong();
+public class AbstractTest {
+	protected static final AtomicLong chatId = new AtomicLong();
+	protected static final AtomicLong userId = new AtomicLong();
 	
 	@Autowired
 	protected EnglishTelegramBot bot;
+	
+	@Autowired
+	protected UserService userService;
 	
 	@Autowired
 	private UpdateReceiver updateReceiver;
@@ -37,6 +44,28 @@ public abstract class AbstractTest {
 	
 	protected BotApiMethod<?> handle(Update update) {
 		return updateReceiver.handle(update);
+	}
+	
+	protected Message buildMessage() {
+		return new Message() {{
+			setText("text");
+			setEntities(Collections.singletonList(new MessageEntity("bot_command", 0, 1)));
+			setChat(new Chat(chatId.incrementAndGet(), "chat"));
+		}};
+	}
+	
+	protected Message buildMessage(BotCommandType type, Long chatId) {
+		return new Message() {{
+			setText(String.format("/%s", type.name()));
+			setEntities(Collections.singletonList(new MessageEntity("bot_command", 0, 1)));
+			setChat(new Chat(chatId, "chat"));
+		}};
+	}
+	
+	protected User createUser() {
+		final Long userId = AbstractTest.userId.incrementAndGet();
+		userService.createUser(userId, MenuButtonType.START, null);
+		return userService.findById(userId).orElseThrow();
 	}
 	
 	@Configuration
@@ -64,21 +93,5 @@ public abstract class AbstractTest {
 			return spy(new EnglishTelegramBot(telegramBotsApiMock(), updateReceiver, messageSource, botUsername,
 			                                  botToken));
 		}
-	}
-	
-	protected Message buildMessage() {
-		return new Message() {{
-			setText("text");
-			setEntities(Collections.singletonList(new MessageEntity("bot_command", 0, 1)));
-			setChat(new Chat(chatId.incrementAndGet(), "chat"));
-		}};
-	}
-	
-	protected Message buildMessage(BotCommandType type, Long chatId) {
-		return new Message() {{
-			setText(String.format("/%s", type.name()));
-			setEntities(Collections.singletonList(new MessageEntity("bot_command", 0, 1)));
-			setChat(new Chat(chatId, "chat"));
-		}};
 	}
 }
