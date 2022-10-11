@@ -14,12 +14,13 @@ import java.util.*;
 @Setter
 @Entity
 @Table(name = "user_states")
+@DynamicInsert
 @DynamicUpdate
 @NoArgsConstructor
 public class UserState {
+	// TODO: use SEQUENCE
 	@Id
-	@GenericGenerator(name = "assigned", strategy = "org.hibernate.id.Assigned")
-	@GeneratedValue(generator = "assigned")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Enumerated
@@ -30,13 +31,11 @@ public class UserState {
 	@Column(columnDefinition = "VARCHAR(36)")
 	private UUID buttonTypeId;
 	
-	@MapsId
-	@JoinColumn(name = "id")
-	@OneToOne(fetch = FetchType.LAZY)
+	@ManyToOne
+	@JoinColumn(name = "user_id")
 	private User user;
 	
 	public UserState(User user, MenuButtonType buttonType, UUID buttonTypeId) {
-		this.id = user.getId();
 		this.buttonType = buttonType;
 		this.buttonTypeId = buttonTypeId;
 		this.user = user;

@@ -13,8 +13,8 @@ class UserServiceTest extends AbstractTest {
 		User created = createUser();
 		
 		assertNotNull(created.getId());
-		assertEquals(created.getId(), created.getState().getId());
-		assertEquals(MenuButtonType.START, created.getState().getButtonType());
-		assertNull(created.getState().getButtonTypeId());
+		assertEquals(created.getId(), created.getStates().get(0).getId());
+		assertEquals(MenuButtonType.START, created.getStates().get(0).getButtonType());
+		assertNull(created.getStates().get(0).getButtonTypeId());
 	}
 }

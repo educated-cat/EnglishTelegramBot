@@ -7,6 +7,6 @@ import java.util.*;
 
 interface UserRepository extends JpaRepository<User, Long> {
 	@Override
-	@EntityGraph("User.state")
+//	@EntityGraph("User.states")
 	Optional<User> findById(@NonNull Long id);
 }

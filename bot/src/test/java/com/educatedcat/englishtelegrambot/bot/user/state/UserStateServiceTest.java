@@ -19,10 +19,10 @@ class UserStateServiceTest extends AbstractTest {
 		UUID courseId = UUID.randomUUID();
 		User created = createUser();
 		
-		userStateService.updateState(created.getId(), MenuButtonType.COURSE, courseId);
+		userStateService.updateState(created.getStates().get(0).getId(), MenuButtonType.COURSE, courseId);
 		
 		User updated = userService.findById(created.getId()).orElseThrow();
-		assertEquals(MenuButtonType.COURSE, updated.getState().getButtonType());
-		assertEquals(courseId, updated.getState().getButtonTypeId());
+		assertEquals(MenuButtonType.COURSE, updated.getStates().get(0).getButtonType());
+		assertEquals(courseId, updated.getStates().get(0).getButtonTypeId());
 	}
 }

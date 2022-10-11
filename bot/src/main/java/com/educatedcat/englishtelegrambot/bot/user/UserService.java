@@ -7,5 +7,5 @@ import java.util.*;
 public interface UserService {
 	Optional<User> findById(Long id);
 	
-	void createUser(Long id, MenuButtonType buttonType, UUID buttonTypeId);
+	void createUser(Long id, MenuButtonType buttonType);
 }

@@ -1,6 +1,5 @@
 package com.educatedcat.englishtelegrambot.bot.user;
 
-import com.educatedcat.englishtelegrambot.bot.button.*;
 import com.educatedcat.englishtelegrambot.bot.user.state.*;
 import lombok.*;
 import org.hibernate.annotations.*;
@@ -11,9 +10,9 @@ import javax.persistence.Table;
 import javax.persistence.*;
 import java.util.*;
 
-@NamedEntityGraph(name = "User.state",
+@NamedEntityGraph(name = "User.states",
                   attributeNodes = {
-		                  @NamedAttributeNode("state")
+		                  @NamedAttributeNode("states")
                   })
 @Getter
 @Setter
@@ -26,13 +25,15 @@ public class User {
 	@GeneratedValue(generator = "assigned")
 	private Long id;
 	
-	// TODO: fix cascade MERGE, use PERSIST instead
-	@JoinColumn(name = "id", nullable = false, unique = true)
-	@OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE}, mappedBy = "user")
-	private UserState state;
+	@OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST}, mappedBy = "user")
+	private List<UserState> states;
 	
-	public User(Long id, MenuButtonType buttonType, UUID buttonTypeId) {
+	public User(Long id) {
 		this.id = id;
-		state = new UserState(this, buttonType, buttonTypeId);
+		states = new ArrayList<>();
+	}
+	
+	public void addState(UserState state) {
+		states.add(state);
 	}
 }

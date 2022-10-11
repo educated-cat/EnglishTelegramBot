@@ -64,7 +64,7 @@ public class AbstractTest {
 	
 	protected User createUser() {
 		final Long userId = AbstractTest.userId.incrementAndGet();
-		userService.createUser(userId, MenuButtonType.START, null);
+		userService.createUser(userId, MenuButtonType.START);
 		return userService.findById(userId).orElseThrow();
 	}
 	
