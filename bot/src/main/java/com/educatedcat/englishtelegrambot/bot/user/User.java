@@ -6,6 +6,7 @@ import org.hibernate.annotations.*;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.*;
 import java.util.*;
@@ -25,6 +26,9 @@ public class User {
 	@GeneratedValue(generator = "assigned")
 	private Long id;
 	
+	// Size of button groups
+	// TODO: limit size
+	@OrderBy("createDate DESC")
 	@OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST}, mappedBy = "user")
 	private List<UserState> states;
 	

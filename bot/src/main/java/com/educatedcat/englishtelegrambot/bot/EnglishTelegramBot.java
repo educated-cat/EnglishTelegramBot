@@ -1,9 +1,11 @@
 package com.educatedcat.englishtelegrambot.bot;
 
+import com.educatedcat.englishtelegrambot.bot.button.*;
 import com.educatedcat.englishtelegrambot.bot.callback.*;
 import com.educatedcat.englishtelegrambot.bot.command.*;
 import com.educatedcat.englishtelegrambot.bot.course.*;
 import com.educatedcat.englishtelegrambot.bot.response.*;
+import com.educatedcat.englishtelegrambot.bot.user.*;
 import com.fasterxml.jackson.databind.*;
 import lombok.*;
 import lombok.extern.slf4j.*;
@@ -31,6 +33,7 @@ public class EnglishTelegramBot extends TelegramLongPollingBot {
 	private final CommandHandler commandHandler;
 	private final CallbackHandler callbackHandler;
 	private final ObjectMapper objectMapper;
+	private final UserService userService;
 	
 	@Autowired
 	@SneakyThrows
@@ -38,13 +41,14 @@ public class EnglishTelegramBot extends TelegramLongPollingBot {
 	                          MessageSource messageSource,
 	                          @Value("${telegram.bot.username}") String botUsername,
 	                          @Value("${telegram.bot.token}") String botToken, CommandHandler commandHandler,
-	                          CallbackHandler callbackHandler, ObjectMapper objectMapper) {
+	                          CallbackHandler callbackHandler, ObjectMapper objectMapper, UserService userService) {
 		this.messageSource = messageSource;
 		this.botUsername = botUsername;
 		this.botToken = botToken;
 		this.commandHandler = commandHandler;
 		this.callbackHandler = callbackHandler;
 		this.objectMapper = objectMapper;
+		this.userService = userService;
 		
 		telegramBotsApi.registerBot(this);
 	}
@@ -64,7 +68,10 @@ public class EnglishTelegramBot extends TelegramLongPollingBot {
 		try {
 			final BotApiMethod<?> result;
 			if (update.hasMessage()) {
-				result = commandHandler.handle(new MessageBotResponse(update));
+				var response = new MessageBotResponse(update);
+				userService.saveOrUpdate(response.chatId(), MenuButtonType.START, null);
+				
+				result = commandHandler.handle(response);
 			} else if (update.hasCallbackQuery()) {
 				final ButtonCallback callback;
 				try {
@@ -72,10 +79,14 @@ public class EnglishTelegramBot extends TelegramLongPollingBot {
 				} catch (Exception e) {
 					throw new UnknownCallbackException(e);
 				}
-				result = callbackHandler.handle(new CallbackQueryBotResponse(update, callback));
+				
+				var response = new CallbackQueryBotResponse(update, callback);
+				userService.saveOrUpdate(response.chatId(), response.getCallback().button(), null);
+				result = callbackHandler.handle(response);
 			} else {
 				throw new UnsupportedOperationException(); // TODO: handle this exception
 			}
+			
 			sendMessage(result);
 		} catch (UnknownCommandException | UnknownCallbackException | NotCommandException e) {
 			final String chatId = update.hasMessage() ? update.getMessage().getChatId().toString()

@@ -8,6 +8,7 @@ import org.hibernate.annotations.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.*;
+import java.time.*;
 import java.util.*;
 
 @Getter
@@ -30,6 +31,10 @@ public class UserState {
 	@Type(type = "uuid-char")
 	@Column(columnDefinition = "VARCHAR(36)")
 	private UUID buttonTypeId;
+	
+	@CreationTimestamp
+	@Column(nullable = false, updatable = false)
+	private LocalDateTime createDate;
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")

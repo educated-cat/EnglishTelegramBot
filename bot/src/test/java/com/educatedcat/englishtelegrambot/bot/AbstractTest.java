@@ -1,6 +1,5 @@
 package com.educatedcat.englishtelegrambot.bot;
 
-import com.educatedcat.englishtelegrambot.bot.button.*;
 import com.educatedcat.englishtelegrambot.bot.command.*;
 import com.educatedcat.englishtelegrambot.bot.user.User;
 import com.educatedcat.englishtelegrambot.bot.user.*;
@@ -62,8 +61,9 @@ public class AbstractTest {
 	
 	protected User createUser() {
 		final Long userId = AbstractTest.userId.incrementAndGet();
-		userService.createUser(userId, MenuButtonType.START);
-		return userService.findById(userId).orElseThrow();
+//		userService.createUser(userId, MenuButtonType.START);
+//		return userService.findById(userId).orElseThrow();
+		return null;
 	}
 	
 	@Configuration

@@ -14,16 +14,23 @@ public class UserServiceImpl implements UserService {
 	private final UserRepository userRepository;
 	
 	@Override
-	@Transactional(readOnly = true)
-	public Optional<User> findById(Long id) {
-		return userRepository.findById(id);
+	@Transactional
+	public void saveOrUpdate(Long id, MenuButtonType buttonType, UUID buttonTypeId) {
+		userRepository.findById(id)
+		              .ifPresentOrElse(user -> user.getStates()
+		                                           .stream()
+		                                           .findFirst()
+		                                           .filter(userState -> userState.getButtonType() == buttonType)
+		                                           .ifPresentOrElse(userState -> {
+		                                                            },
+		                                                            () -> user.addState(new UserState(user, buttonType,
+		                                                                                              buttonTypeId))),
+		                               () -> createUser(id, buttonType));
 	}
 	
-	@Override
-	@Transactional
-	public void createUser(Long id, MenuButtonType buttonType) {
+	private void createUser(Long id, MenuButtonType buttonType) {
 		User user = userRepository.save(new User(id));
-		UserState state = new UserState(user, MenuButtonType.START, null);
+		UserState state = new UserState(user, buttonType, null);
 		user.addState(state);
 	}
 }
