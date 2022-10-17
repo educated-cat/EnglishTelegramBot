@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LessonButtonHandlerTest extends AbstractTest {
 	@Autowired
-	private LessonButtonHandler lessonButtonHandler;
+	private LessonCallbackButtonHandler lessonButtonHandler;
 	
 	@Test
 	void execute() {

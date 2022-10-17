@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ByCourseButtonHandlerTest extends AbstractTest {
 	@Autowired
-	private ByCourseButtonHandler byCourseButtonHandler;
+	private ByCourseCallbackButtonHandler byCourseButtonHandler;
 	
 	@Test
 	void execute() {

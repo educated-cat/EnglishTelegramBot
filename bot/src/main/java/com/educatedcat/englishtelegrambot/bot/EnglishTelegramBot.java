@@ -2,6 +2,9 @@ package com.educatedcat.englishtelegrambot.bot;
 
 import com.educatedcat.englishtelegrambot.bot.callback.*;
 import com.educatedcat.englishtelegrambot.bot.command.*;
+import com.educatedcat.englishtelegrambot.bot.course.*;
+import com.educatedcat.englishtelegrambot.bot.response.*;
+import com.fasterxml.jackson.databind.*;
 import lombok.*;
 import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,21 +23,28 @@ import java.util.*;
 @Component
 public class EnglishTelegramBot extends TelegramLongPollingBot {
 	
-	private final UpdateReceiver updateReceiver;
 	private final MessageSource messageSource;
+	// TODO: move to ConfigurationProperties bean
 	private final String botUsername;
 	private final String botToken;
 	
+	private final CommandHandler commandHandler;
+	private final CallbackHandler callbackHandler;
+	private final ObjectMapper objectMapper;
+	
 	@Autowired
 	@SneakyThrows
-	public EnglishTelegramBot(TelegramBotsApi telegramBotsApi, UpdateReceiver updateReceiver,
+	public EnglishTelegramBot(TelegramBotsApi telegramBotsApi,
 	                          MessageSource messageSource,
 	                          @Value("${telegram.bot.username}") String botUsername,
-	                          @Value("${telegram.bot.token}") String botToken) {
-		this.updateReceiver = updateReceiver;
+	                          @Value("${telegram.bot.token}") String botToken, CommandHandler commandHandler,
+	                          CallbackHandler callbackHandler, ObjectMapper objectMapper) {
 		this.messageSource = messageSource;
 		this.botUsername = botUsername;
 		this.botToken = botToken;
+		this.commandHandler = commandHandler;
+		this.callbackHandler = callbackHandler;
+		this.objectMapper = objectMapper;
 		
 		telegramBotsApi.registerBot(this);
 	}
@@ -52,7 +62,21 @@ public class EnglishTelegramBot extends TelegramLongPollingBot {
 	@Override
 	public void onUpdateReceived(Update update) {
 		try {
-			sendMessage(updateReceiver.handle(update));
+			final BotApiMethod<?> result;
+			if (update.hasMessage()) {
+				result = commandHandler.handle(new MessageBotResponse(update));
+			} else if (update.hasCallbackQuery()) {
+				final ButtonCallback callback;
+				try {
+					callback = objectMapper.readValue(update.getCallbackQuery().getData(), ButtonCallback.class);
+				} catch (Exception e) {
+					throw new UnknownCallbackException(e);
+				}
+				result = callbackHandler.handle(new CallbackQueryBotResponse(update, callback));
+			} else {
+				throw new UnsupportedOperationException(); // TODO: handle this exception
+			}
+			sendMessage(result);
 		} catch (UnknownCommandException | UnknownCallbackException | NotCommandException e) {
 			final String chatId = update.hasMessage() ? update.getMessage().getChatId().toString()
 			                                          : update.getCallbackQuery().getMessage().getChatId().toString();
@@ -72,6 +96,7 @@ public class EnglishTelegramBot extends TelegramLongPollingBot {
 		}
 	}
 	
+	// TODO: move to another bean
 	private void sendMessage(BotApiMethod<?> message) {
 		try {
 			this.execute(message);

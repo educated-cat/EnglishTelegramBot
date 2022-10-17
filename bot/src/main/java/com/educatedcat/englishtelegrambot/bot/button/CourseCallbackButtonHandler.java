@@ -10,17 +10,17 @@ import java.util.*;
 
 @Component
 @RequiredArgsConstructor
-public class ChapterButtonHandler extends AbstractButtonHandler {
-	private final LessonKeyboard lessonKeyboard;
+public class CourseCallbackButtonHandler extends AbstractCallbackButtonHandler {
+	private final ChapterKeyboard chapterKeyboard;
 	private final MessageSource messageSource;
 	
 	@Override
 	protected String getText() {
-		return messageSource.getMessage("page.lesson", null, Locale.ENGLISH);
+		return messageSource.getMessage("page.chapter", null, Locale.ENGLISH);
 	}
 	
 	@Override
 	protected InlineKeyboardMarkup getKeyboard() {
-		return lessonKeyboard;
+		return chapterKeyboard;
 	}
 }

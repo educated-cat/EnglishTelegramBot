@@ -10,7 +10,7 @@ import java.util.*;
 
 @Component
 @RequiredArgsConstructor
-public class StartButtonHandler extends AbstractButtonHandler {
+public class StartButtonHandler extends AbstractCommandButtonHandler {
 	private final StartKeyboard startKeyboard;
 	private final MessageSource messageSource;
 	

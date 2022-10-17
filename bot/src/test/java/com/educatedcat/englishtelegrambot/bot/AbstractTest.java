@@ -31,9 +31,6 @@ public class AbstractTest {
 	@Autowired
 	protected UserService userService;
 	
-	@Autowired
-	private UpdateReceiver updateReceiver;
-	
 	@BeforeEach
 	@SneakyThrows
 	@SuppressWarnings("unchecked")
@@ -43,7 +40,8 @@ public class AbstractTest {
 	}
 	
 	protected BotApiMethod<?> handle(Update update) {
-		return updateReceiver.handle(update);
+		return null;
+//		return responseHandler.handle(update);
 	}
 	
 	protected Message buildMessage() {
@@ -71,9 +69,6 @@ public class AbstractTest {
 	@Configuration
 	static class Config {
 		@Autowired
-		private UpdateReceiver updateReceiver;
-		
-		@Autowired
 		private MessageSource messageSource;
 		
 		@Value("${telegram.bot.username}")
@@ -90,8 +85,9 @@ public class AbstractTest {
 		@Bean
 		@Primary
 		public EnglishTelegramBot englishTelegramBotSpy() {
-			return spy(new EnglishTelegramBot(telegramBotsApiMock(), updateReceiver, messageSource, botUsername,
-			                                  botToken));
+			return null;
+			/*return spy(new EnglishTelegramBot(telegramBotsApiMock(), responseHandler, messageSource, botUsername,
+			                                  botToken, commandHandler, callbackHandler));*/
 		}
 	}
 }

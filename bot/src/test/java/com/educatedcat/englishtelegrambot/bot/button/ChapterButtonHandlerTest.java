@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ChapterButtonHandlerTest extends AbstractTest {
 	@Autowired
-	private ChapterButtonHandler chapterButtonHandler;
+	private ChapterCallbackButtonHandler chapterButtonHandler;
 	
 	@Test
 	void execute() {
