@@ -8,7 +8,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.*;
 @Component
 @RequiredArgsConstructor
 public class LessonCallbackButtonHandler extends AbstractCallbackButtonHandler {
-	private final WordKeyboard wordKeyboard;
+	private final WordKeyboardFactory wordKeyboardFactory;
 	
 	@Override
 	protected String getText() {
@@ -17,6 +17,6 @@ public class LessonCallbackButtonHandler extends AbstractCallbackButtonHandler {
 	
 	@Override
 	protected InlineKeyboardMarkup getKeyboard() {
-		return wordKeyboard;
+		return wordKeyboardFactory.build();
 	}
 }

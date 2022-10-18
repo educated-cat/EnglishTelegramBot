@@ -14,7 +14,7 @@ public class CallbackHandlerImpl implements CallbackHandler {
 	
 	@Override
 	@SneakyThrows
-	public BotApiMethod<?> handle(CallbackQueryBotResponse response) {
+	public BotApiMethod<?> handle(BotResponse response) {
 		return buttonMap.get(response.getCallback().button()).execute(response);
 	}
 }

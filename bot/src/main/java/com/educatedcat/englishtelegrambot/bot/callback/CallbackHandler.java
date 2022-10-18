@@ -4,5 +4,5 @@ import org.telegram.telegrambots.meta.api.methods.*;
 
 @FunctionalInterface
 public interface CallbackHandler {
-	BotApiMethod<?> handle(CallbackQueryBotResponse response);
+	BotApiMethod<?> handle(BotResponse response);
 }

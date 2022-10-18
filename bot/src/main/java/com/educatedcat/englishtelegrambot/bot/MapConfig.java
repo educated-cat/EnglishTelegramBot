@@ -17,11 +17,13 @@ public class MapConfig {
 	
 	// TODO: use List<Handler>
 	@Bean
-	public EnumMap<MenuButtonType, CallbackButtonHandler> buttonMap(CourseCallbackButtonHandler courseButtonHandler,
+	public EnumMap<MenuButtonType, CallbackButtonHandler> buttonMap(StartButtonHandler startButtonHandler,
+	                                                                CourseCallbackButtonHandler courseButtonHandler,
 	                                                                ChapterCallbackButtonHandler chapterButtonHandler,
 	                                                                LessonCallbackButtonHandler lessonButtonHandler,
 	                                                                ByCourseCallbackButtonHandler byCourseButtonHandler) {
 		return new EnumMap<>(MenuButtonType.class) {{
+			put(MenuButtonType.START, startButtonHandler);
 			put(MenuButtonType.COURSE, courseButtonHandler);
 			put(MenuButtonType.CHAPTER, chapterButtonHandler);
 			put(MenuButtonType.LESSON, lessonButtonHandler);

@@ -11,7 +11,7 @@ import java.util.*;
 @Component
 @RequiredArgsConstructor
 public class ChapterCallbackButtonHandler extends AbstractCallbackButtonHandler {
-	private final LessonKeyboard lessonKeyboard;
+	private final LessonKeyboardFactory lessonKeyboardFactory;
 	private final MessageSource messageSource;
 	
 	@Override
@@ -21,6 +21,6 @@ public class ChapterCallbackButtonHandler extends AbstractCallbackButtonHandler 
 	
 	@Override
 	protected InlineKeyboardMarkup getKeyboard() {
-		return lessonKeyboard;
+		return lessonKeyboardFactory.build();
 	}
 }

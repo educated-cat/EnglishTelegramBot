@@ -10,8 +10,8 @@ import java.util.*;
 
 @Component
 @RequiredArgsConstructor
-public class StartButtonHandler extends AbstractCommandButtonHandler {
-	private final StartKeyboard startKeyboard;
+public class StartButtonHandler extends AbstractCallbackButtonHandler {
+	private final StartKeyboardFactory startKeyboardFactory;
 	private final MessageSource messageSource;
 	
 	@Override
@@ -21,6 +21,6 @@ public class StartButtonHandler extends AbstractCommandButtonHandler {
 	
 	@Override
 	protected InlineKeyboardMarkup getKeyboard() {
-		return startKeyboard;
+		return startKeyboardFactory.build();
 	}
 }

@@ -2,8 +2,10 @@ package com.educatedcat.englishtelegrambot.bot.keyboard;
 
 import com.educatedcat.englishtelegrambot.bot.button.*;
 import com.educatedcat.englishtelegrambot.bot.course.*;
+import com.educatedcat.englishtelegrambot.bot.dictionary.*;
 import com.fasterxml.jackson.databind.*;
-import org.springframework.beans.factory.*;
+import lombok.*;
+import org.springframework.context.*;
 import org.springframework.util.*;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.*;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.*;
@@ -11,15 +13,22 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.*;
 import javax.annotation.*;
 import java.util.*;
 
-public abstract class BaseKeyboard extends InlineKeyboardMarkup implements InitializingBean {
+public abstract class BaseKeyboard extends InlineKeyboardMarkup {
 	protected final ObjectMapper objectMapper;
+	protected final MessageSource messageSource;
+	protected final List<? extends ButtonMarker> buttons;
 	
-	protected BaseKeyboard(ObjectMapper objectMapper) {
+	protected BaseKeyboard(ObjectMapper objectMapper, MessageSource messageSource,
+	                       List<? extends ButtonMarker> buttons) {
 		this.objectMapper = objectMapper;
+		this.messageSource = messageSource;
+		this.buttons = buttons;
+		
+		initialize();
 	}
 	
-	@Override
-	public void afterPropertiesSet() throws Exception {
+	@SneakyThrows
+	private void initialize() {
 		List<List<InlineKeyboardButton>> keyboard = new LinkedList<>();
 		List<InlineKeyboardButton> row = new LinkedList<>();
 		for (int i = 0; i < buttons().size(); i++) {

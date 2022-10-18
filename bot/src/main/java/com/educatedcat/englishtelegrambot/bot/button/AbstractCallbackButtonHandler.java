@@ -8,7 +8,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.*;
 
 public abstract class AbstractCallbackButtonHandler implements CallbackButtonHandler {
 	@Override
-	public BotApiMethod<?> execute(CallbackQueryBotResponse response) {
+	public BotApiMethod<?> execute(BotResponse response) {
 		if (response.editable()) {
 			return new EditMessageText(getText()) {{
 				setChatId(response.chatId());

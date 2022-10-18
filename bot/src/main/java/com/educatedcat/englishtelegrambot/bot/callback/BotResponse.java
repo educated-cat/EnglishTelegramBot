@@ -6,28 +6,36 @@ import org.springframework.lang.NonNull;
 import org.telegram.telegrambots.meta.api.objects.*;
 
 @Data
-public class CallbackQueryBotResponse {
+public class BotResponse {
+	private final Message message;
 	private final CallbackQuery callbackQuery;
 	private final ButtonCallback callback;
 	
-	public CallbackQueryBotResponse(@NonNull Update update, @NonNull ButtonCallback callback) {
+	public BotResponse(@NonNull Update update) {
+		this.message = update.getMessage();
+		this.callbackQuery = update.getCallbackQuery();
+		this.callback = null;
+	}
+	
+	public BotResponse(@NonNull Update update, @NonNull ButtonCallback callback) {
 		if (!update.hasCallbackQuery()) {
 			throw new IllegalArgumentException("CallbackQuery is not exists");
 		}
+		this.message = update.getCallbackQuery().getMessage();
 		this.callbackQuery = update.getCallbackQuery();
 		this.callback = callback;
 	}
 	
 	public Long chatId() {
-		return callbackQuery.getMessage().getChatId();
+		return message.getChatId();
 	}
 	
 	public Integer messageId() {
-		return callbackQuery.getMessage().getMessageId();
+		return message.getMessageId();
 	}
 	
 	public boolean hasMessage() {
-		return hasCallbackQuery() && callbackQuery.getMessage() != null;
+		return message != null;
 	}
 	
 	public boolean hasCallbackQuery() {
@@ -35,6 +43,6 @@ public class CallbackQueryBotResponse {
 	}
 	
 	public boolean editable() {
-		return hasCallbackQuery() && callbackQuery.getMessage().getMessageId() != null;
+		return hasCallbackQuery() && message.getMessageId() != null;
 	}
 }

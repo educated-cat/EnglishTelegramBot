@@ -2,32 +2,27 @@ package com.educatedcat.englishtelegrambot.bot.keyboard;
 
 import com.educatedcat.englishtelegrambot.bot.button.*;
 import com.educatedcat.englishtelegrambot.bot.course.*;
+import com.educatedcat.englishtelegrambot.bot.dictionary.*;
 import com.fasterxml.jackson.databind.*;
 import lombok.*;
-import org.springframework.beans.factory.annotation.*;
 import org.springframework.context.*;
-import org.springframework.stereotype.*;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.*;
 
 import java.util.*;
 import java.util.function.*;
 
-@Component
 public class CourseKeyboard extends BaseKeyboard {
-	private final MessageSource messageSource;
-	
-	@Autowired
-	protected CourseKeyboard(ObjectMapper objectMapper, MessageSource messageSource) {
-		super(objectMapper);
-		this.messageSource = messageSource;
+	protected CourseKeyboard(ObjectMapper objectMapper, MessageSource messageSource,
+	                         List<? extends ButtonMarker> buttons) {
+		super(objectMapper, messageSource, buttons);
 	}
 	
 	@Override
 	protected List<Map.Entry<MenuButtonType, Object>> buttons() {
-		return Arrays.stream(Course.values())
-		             .map((Function<Course, Map.Entry<MenuButtonType, Object>>) course ->
-				             new AbstractMap.SimpleEntry<>(MenuButtonType.COURSE, course.getName()))
-		             .toList();
+		return buttons.stream()
+		              .map((Function<ButtonMarker, Map.Entry<MenuButtonType, Object>>) dto -> new AbstractMap.SimpleEntry<>(
+				              MenuButtonType.COURSE, ((CourseDto) dto).name()))
+		              .toList();
 	}
 	
 	@Override

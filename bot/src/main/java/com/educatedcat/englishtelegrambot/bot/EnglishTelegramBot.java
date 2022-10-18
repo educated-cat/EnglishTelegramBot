@@ -4,7 +4,6 @@ import com.educatedcat.englishtelegrambot.bot.button.*;
 import com.educatedcat.englishtelegrambot.bot.callback.*;
 import com.educatedcat.englishtelegrambot.bot.command.*;
 import com.educatedcat.englishtelegrambot.bot.course.*;
-import com.educatedcat.englishtelegrambot.bot.response.*;
 import com.educatedcat.englishtelegrambot.bot.user.*;
 import com.fasterxml.jackson.databind.*;
 import lombok.*;
@@ -68,7 +67,7 @@ public class EnglishTelegramBot extends TelegramLongPollingBot {
 		try {
 			final BotApiMethod<?> result;
 			if (update.hasMessage()) {
-				var response = new MessageBotResponse(update);
+				var response = new BotResponse(update);
 				userService.saveOrUpdate(response.chatId(), MenuButtonType.START, null);
 				
 				result = commandHandler.handle(response);
@@ -80,7 +79,7 @@ public class EnglishTelegramBot extends TelegramLongPollingBot {
 					throw new UnknownCallbackException(e);
 				}
 				
-				var response = new CallbackQueryBotResponse(update, callback);
+				var response = new BotResponse(update, callback);
 				userService.saveOrUpdate(response.chatId(), response.getCallback().button(), null);
 				result = callbackHandler.handle(response);
 			} else {
