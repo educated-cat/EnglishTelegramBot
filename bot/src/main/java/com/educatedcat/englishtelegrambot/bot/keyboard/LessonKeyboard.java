@@ -3,25 +3,23 @@ package com.educatedcat.englishtelegrambot.bot.keyboard;
 import com.educatedcat.englishtelegrambot.bot.button.*;
 import com.educatedcat.englishtelegrambot.bot.course.*;
 import com.educatedcat.englishtelegrambot.bot.dictionary.*;
-import com.fasterxml.jackson.databind.*;
 import lombok.*;
 import org.springframework.context.*;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.*;
 
 import java.util.*;
-import java.util.function.*;
 
 public class LessonKeyboard extends BaseKeyboard {
-	protected LessonKeyboard(ObjectMapper objectMapper, MessageSource messageSource,
+	protected LessonKeyboard(KeyboardEntryMapper keyboardEntryMapper, MessageSource messageSource,
 	                         List<? extends ButtonMarker> buttons) {
-		super(objectMapper, messageSource, buttons);
+		super(keyboardEntryMapper, messageSource, buttons);
 	}
 	
 	@Override
-	protected List<Map.Entry<MenuButtonType, Object>> buttons() {
+	protected List<KeyboardEntry> buttons() {
 		return buttons.stream()
-		              .map((Function<ButtonMarker, Map.Entry<MenuButtonType, Object>>) dto ->
-				              new AbstractMap.SimpleEntry<>(MenuButtonType.LESSON, ((LessonDto) dto).name()))
+		              .map(buttonMarker -> (LessonDto) buttonMarker)
+		              .map(button -> new KeyboardEntry(MenuButtonType.LESSON, button.id(), button.name()))
 		              .toList();
 	}
 	
@@ -30,8 +28,8 @@ public class LessonKeyboard extends BaseKeyboard {
 	protected InlineKeyboardButton backButton() {
 		return InlineKeyboardButton.builder()
 		                           .text(messageSource.getMessage("button.back.message", null, Locale.ENGLISH))
-		                           .callbackData(objectMapper.writeValueAsString(
-				                           new ButtonCallback(MenuButtonType.COURSE, Course.BEGINNERS)))
+		                           .callbackData(keyboardEntryMapper.serialize(
+				                           new KeyboardEntry(MenuButtonType.COURSE, Course.BEGINNERS.getName())))
 		                           .build();
 	}
 }

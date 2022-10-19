@@ -1,9 +1,6 @@
 package com.educatedcat.englishtelegrambot.bot.keyboard;
 
-import com.educatedcat.englishtelegrambot.bot.button.*;
-import com.educatedcat.englishtelegrambot.bot.course.*;
 import com.educatedcat.englishtelegrambot.bot.dictionary.*;
-import com.fasterxml.jackson.databind.*;
 import lombok.*;
 import org.springframework.context.*;
 import org.springframework.util.*;
@@ -14,13 +11,13 @@ import javax.annotation.*;
 import java.util.*;
 
 public abstract class BaseKeyboard extends InlineKeyboardMarkup {
-	protected final ObjectMapper objectMapper;
+	protected final KeyboardEntryMapper keyboardEntryMapper;
 	protected final MessageSource messageSource;
 	protected final List<? extends ButtonMarker> buttons;
 	
-	protected BaseKeyboard(ObjectMapper objectMapper, MessageSource messageSource,
+	protected BaseKeyboard(KeyboardEntryMapper keyboardEntryMapper, MessageSource messageSource,
 	                       List<? extends ButtonMarker> buttons) {
-		this.objectMapper = objectMapper;
+		this.keyboardEntryMapper = keyboardEntryMapper;
 		this.messageSource = messageSource;
 		this.buttons = buttons;
 		
@@ -33,10 +30,8 @@ public abstract class BaseKeyboard extends InlineKeyboardMarkup {
 		List<InlineKeyboardButton> row = new LinkedList<>();
 		for (int i = 0; i < buttons().size(); i++) {
 			row.add(InlineKeyboardButton.builder()
-			                            .text(StringUtils.capitalize(buttons().get(i).getValue().toString()))
-			                            .callbackData(objectMapper.writeValueAsString(
-					                            new ButtonCallback(buttons().get(i).getKey(),
-					                                               buttons().get(i).getValue())))
+			                            .text(StringUtils.capitalize(buttons().get(i).name()))
+			                            .callbackData(keyboardEntryMapper.serialize(buttons().get(i)))
 			                            .build());
 			if (i % 3 == 0 && i != 0) {
 				keyboard.add(row);
@@ -53,7 +48,7 @@ public abstract class BaseKeyboard extends InlineKeyboardMarkup {
 		setKeyboard(keyboard);
 	}
 	
-	protected abstract List<Map.Entry<MenuButtonType, Object>> buttons();
+	protected abstract List<KeyboardEntry> buttons();
 	
 	@Nullable
 	protected abstract InlineKeyboardButton backButton();

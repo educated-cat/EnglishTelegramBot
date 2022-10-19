@@ -3,9 +3,8 @@ package com.educatedcat.englishtelegrambot.bot;
 import com.educatedcat.englishtelegrambot.bot.button.*;
 import com.educatedcat.englishtelegrambot.bot.callback.*;
 import com.educatedcat.englishtelegrambot.bot.command.*;
-import com.educatedcat.englishtelegrambot.bot.course.*;
+import com.educatedcat.englishtelegrambot.bot.keyboard.*;
 import com.educatedcat.englishtelegrambot.bot.user.*;
-import com.fasterxml.jackson.databind.*;
 import lombok.*;
 import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,7 +30,7 @@ public class EnglishTelegramBot extends TelegramLongPollingBot {
 	
 	private final CommandHandler commandHandler;
 	private final CallbackHandler callbackHandler;
-	private final ObjectMapper objectMapper;
+	private final KeyboardEntryMapper keyboardEntryMapper;
 	private final UserService userService;
 	
 	@Autowired
@@ -40,13 +39,14 @@ public class EnglishTelegramBot extends TelegramLongPollingBot {
 	                          MessageSource messageSource,
 	                          @Value("${telegram.bot.username}") String botUsername,
 	                          @Value("${telegram.bot.token}") String botToken, CommandHandler commandHandler,
-	                          CallbackHandler callbackHandler, ObjectMapper objectMapper, UserService userService) {
+	                          CallbackHandler callbackHandler, KeyboardEntryMapper keyboardEntryMapper,
+	                          UserService userService) {
 		this.messageSource = messageSource;
 		this.botUsername = botUsername;
 		this.botToken = botToken;
 		this.commandHandler = commandHandler;
 		this.callbackHandler = callbackHandler;
-		this.objectMapper = objectMapper;
+		this.keyboardEntryMapper = keyboardEntryMapper;
 		this.userService = userService;
 		
 		telegramBotsApi.registerBot(this);
@@ -72,15 +72,16 @@ public class EnglishTelegramBot extends TelegramLongPollingBot {
 				
 				result = commandHandler.handle(response);
 			} else if (update.hasCallbackQuery()) {
-				final ButtonCallback callback;
+				final KeyboardEntry entry;
 				try {
-					callback = objectMapper.readValue(update.getCallbackQuery().getData(), ButtonCallback.class);
+					entry = keyboardEntryMapper.deserialize(update.getCallbackQuery().getData(),
+					                                        update.getCallbackQuery().getData());
 				} catch (Exception e) {
 					throw new UnknownCallbackException(e);
 				}
 				
-				var response = new BotResponse(update, callback);
-				userService.saveOrUpdate(response.chatId(), response.getCallback().button(), null);
+				var response = new BotResponse(update, entry);
+				userService.saveOrUpdate(response.chatId(), response.getEntry().buttonType(), response.getEntry().id());
 				result = callbackHandler.handle(response);
 			} else {
 				throw new UnsupportedOperationException(); // TODO: handle this exception
