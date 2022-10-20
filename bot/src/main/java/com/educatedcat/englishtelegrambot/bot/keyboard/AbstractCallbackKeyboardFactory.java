@@ -4,5 +4,5 @@ import lombok.*;
 
 @RequiredArgsConstructor
 public abstract class AbstractCallbackKeyboardFactory {
-	public abstract BaseKeyboard build();
+	public abstract BaseKeyboard build(KeyboardEntry entry);
 }

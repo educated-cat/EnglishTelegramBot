@@ -1,6 +1,7 @@
 package com.educatedcat.englishtelegrambot.bot.button;
 
 import com.educatedcat.englishtelegrambot.bot.bot.*;
+import com.educatedcat.englishtelegrambot.bot.keyboard.*;
 import lombok.*;
 import org.telegram.telegrambots.meta.api.methods.*;
 import org.telegram.telegrambots.meta.api.methods.send.*;
@@ -22,16 +23,16 @@ public abstract class AbstractButtonHandler {
 			return new EditMessageText(getText()) {{
 				setChatId(response.chatId());
 				setMessageId(response.messageId());
-				setReplyMarkup(getKeyboard());
+				setReplyMarkup(getKeyboard(response.getEntry()));
 			}};
 		} else {
 			return new SendMessage(response.chatId().toString(), getText()) {{
-				setReplyMarkup(getKeyboard());
+				setReplyMarkup(getKeyboard(response.getEntry()));
 			}};
 		}
 	}
 	
-	protected abstract InlineKeyboardMarkup getKeyboard();
+	protected abstract InlineKeyboardMarkup getKeyboard(KeyboardEntry entry);
 	
 	protected abstract String getText();
 }

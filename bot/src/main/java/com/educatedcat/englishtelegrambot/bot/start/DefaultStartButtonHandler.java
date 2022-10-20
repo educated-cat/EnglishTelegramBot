@@ -20,8 +20,8 @@ public class DefaultStartButtonHandler extends AbstractButtonHandler {
 	}
 	
 	@Override
-	protected InlineKeyboardMarkup getKeyboard() {
-		return startKeyboardFactory.build();
+	protected InlineKeyboardMarkup getKeyboard(KeyboardEntry entry) {
+		return startKeyboardFactory.build(entry);
 	}
 	
 	@Override

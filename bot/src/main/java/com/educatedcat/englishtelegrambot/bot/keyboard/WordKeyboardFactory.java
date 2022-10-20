@@ -12,13 +12,11 @@ import java.util.*;
 public class WordKeyboardFactory extends AbstractCallbackKeyboardFactory {
 	private final MessageSource messageSource;
 	private final KeyboardEntryMapper keyboardEntryMapper;
+	private final DictionaryClient dictionaryClient;
 	
 	@Override
-	public BaseKeyboard build() {
-		final List<WordDto> buttons = List.of(new WordDto(null, "White - белый"),
-		                                      new WordDto(null, "Black - чёрный"),
-		                                      new WordDto(null, "Brown - коричневый"),
-		                                      new WordDto(null, "Yellow - жёлтый"));
+	public BaseKeyboard build(KeyboardEntry entry) {
+		final List<WordDto> buttons = dictionaryClient.findWordsInLesson(entry.id());
 		return new WordKeyboard(keyboardEntryMapper, messageSource, buttons);
 	}
 }

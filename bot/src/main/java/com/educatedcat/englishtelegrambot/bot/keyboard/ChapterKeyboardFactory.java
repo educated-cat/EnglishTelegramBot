@@ -12,14 +12,11 @@ import java.util.*;
 public class ChapterKeyboardFactory extends AbstractCallbackKeyboardFactory {
 	private final MessageSource messageSource;
 	private final KeyboardEntryMapper keyboardEntryMapper;
+	private final DictionaryClient dictionaryClient;
 	
 	@Override
-	public BaseKeyboard build() {
-		final List<ChapterDto> buttons = List.of(new ChapterDto(null, "Introduction"),
-		                                         new ChapterDto(null, "Chapter 1"),
-		                                         new ChapterDto(null, "Chapter 2"),
-		                                         new ChapterDto(null, "Chapter 3"),
-		                                         new ChapterDto(null, "You've done it!"));
+	public BaseKeyboard build(KeyboardEntry entry) {
+		final List<ChapterDto> buttons = dictionaryClient.findChaptersInCourse(entry.id());
 		return new ChapterKeyboard(keyboardEntryMapper, messageSource, buttons);
 	}
 }

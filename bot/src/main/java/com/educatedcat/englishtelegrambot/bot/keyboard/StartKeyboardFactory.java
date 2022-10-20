@@ -14,8 +14,8 @@ public class StartKeyboardFactory extends AbstractCallbackKeyboardFactory {
 	private final KeyboardEntryMapper keyboardEntryMapper;
 	
 	@Override
-	public BaseKeyboard build() {
-		// TODO: fix buttons
+	public BaseKeyboard build(KeyboardEntry entry) {
+		// TODO: get available actions from another class
 		final List<CourseDto> buttons = List.of(new CourseDto(null, messageSource.getMessage(
 				"button.repeat.by.course", null, Locale.ENGLISH)));
 		return new StartKeyboard(keyboardEntryMapper, messageSource, buttons);

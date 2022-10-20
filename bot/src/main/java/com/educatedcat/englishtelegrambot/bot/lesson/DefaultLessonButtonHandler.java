@@ -15,8 +15,8 @@ public class DefaultLessonButtonHandler extends AbstractButtonHandler {
 	}
 	
 	@Override
-	protected InlineKeyboardMarkup getKeyboard() {
-		return wordKeyboardFactory.build();
+	protected InlineKeyboardMarkup getKeyboard(KeyboardEntry entry) {
+		return wordKeyboardFactory.build(entry);
 	}
 	
 	@Override

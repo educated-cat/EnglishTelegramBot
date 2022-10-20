@@ -12,11 +12,11 @@ import java.util.*;
 public class CourseKeyboardFactory extends AbstractCallbackKeyboardFactory {
 	private final MessageSource messageSource;
 	private final KeyboardEntryMapper keyboardEntryMapper;
+	private final DictionaryClient dictionaryClient;
 	
 	@Override
-	public BaseKeyboard build() {
-		final List<CourseDto> buttons = List.of(new CourseDto(null, "Beginners"),
-		                                        new CourseDto(null, "Intermediate"));
+	public BaseKeyboard build(KeyboardEntry entry) {
+		final List<CourseDto> buttons = dictionaryClient.findCourses();
 		return new CourseKeyboard(keyboardEntryMapper, messageSource, buttons);
 	}
 }

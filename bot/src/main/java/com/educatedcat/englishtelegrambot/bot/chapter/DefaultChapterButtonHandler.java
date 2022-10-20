@@ -20,8 +20,8 @@ public class DefaultChapterButtonHandler extends AbstractButtonHandler {
 	}
 	
 	@Override
-	protected InlineKeyboardMarkup getKeyboard() {
-		return lessonKeyboardFactory.build();
+	protected InlineKeyboardMarkup getKeyboard(KeyboardEntry entry) {
+		return lessonKeyboardFactory.build(entry);
 	}
 	
 	@Override
