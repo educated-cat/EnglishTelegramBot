@@ -1,4 +1,4 @@
-package com.educatedcat.englishtelegrambot.bot;
+package com.educatedcat.englishtelegrambot.bot.bot;
 
 import com.educatedcat.englishtelegrambot.bot.button.*;
 import com.educatedcat.englishtelegrambot.bot.callback.*;

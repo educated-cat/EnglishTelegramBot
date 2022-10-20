@@ -1,5 +1,6 @@
-package com.educatedcat.englishtelegrambot.bot.button;
+package com.educatedcat.englishtelegrambot.bot.lesson;
 
+import com.educatedcat.englishtelegrambot.bot.button.*;
 import com.educatedcat.englishtelegrambot.bot.keyboard.*;
 import org.springframework.context.*;
 import org.springframework.stereotype.*;
@@ -8,12 +9,12 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.*;
 import java.util.*;
 
 @Component
-public class DefaultChapterButtonHandler extends AbstractButtonHandler {
+public class PreviousLessonButtonHandler extends AbstractButtonHandler {
 	private final LessonKeyboardFactory lessonKeyboardFactory;
 	private final MessageSource messageSource;
 	
-	public DefaultChapterButtonHandler(LessonKeyboardFactory lessonKeyboardFactory, MessageSource messageSource) {
-		super(MenuButtonType.CHAPTER, ActionButtonType.NEXT);
+	public PreviousLessonButtonHandler(LessonKeyboardFactory lessonKeyboardFactory, MessageSource messageSource) {
+		super(MenuButtonType.LESSON, ActionButtonType.PREVIOUS);
 		this.lessonKeyboardFactory = lessonKeyboardFactory;
 		this.messageSource = messageSource;
 	}

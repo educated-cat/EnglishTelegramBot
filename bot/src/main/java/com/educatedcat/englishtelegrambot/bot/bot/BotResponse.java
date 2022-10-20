@@ -1,4 +1,4 @@
-package com.educatedcat.englishtelegrambot.bot.callback;
+package com.educatedcat.englishtelegrambot.bot.bot;
 
 import com.educatedcat.englishtelegrambot.bot.keyboard.*;
 import lombok.*;

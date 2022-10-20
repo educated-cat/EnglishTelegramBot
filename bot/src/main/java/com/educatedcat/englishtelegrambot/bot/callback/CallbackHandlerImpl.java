@@ -1,5 +1,6 @@
 package com.educatedcat.englishtelegrambot.bot.callback;
 
+import com.educatedcat.englishtelegrambot.bot.bot.*;
 import com.educatedcat.englishtelegrambot.bot.button.*;
 import lombok.*;
 import org.springframework.stereotype.*;
