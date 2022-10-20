@@ -10,11 +10,13 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class CallbackHandlerImpl implements CallbackHandler {
-	private final EnumMap<MenuButtonType, CallbackButtonHandler> buttonMap;
+	private final Map<ButtonHandlerKey, AbstractButtonHandler> newButtonHandlerMap;
 	
 	@Override
 	@SneakyThrows
 	public BotApiMethod<?> handle(BotResponse response) {
-		return buttonMap.get(response.getEntry().buttonType()).execute(response);
+		return newButtonHandlerMap
+				.get(new ButtonHandlerKey(response.getEntry().buttonType(), response.getEntry().actionType()))
+				.handle(response);
 	}
 }

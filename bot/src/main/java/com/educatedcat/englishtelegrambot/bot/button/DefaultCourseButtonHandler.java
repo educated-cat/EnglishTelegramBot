@@ -1,7 +1,6 @@
 package com.educatedcat.englishtelegrambot.bot.button;
 
 import com.educatedcat.englishtelegrambot.bot.keyboard.*;
-import lombok.*;
 import org.springframework.context.*;
 import org.springframework.stereotype.*;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.*;
@@ -9,18 +8,23 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.*;
 import java.util.*;
 
 @Component
-@RequiredArgsConstructor
-public class CourseCallbackButtonHandler extends AbstractCallbackButtonHandler {
+public class DefaultCourseButtonHandler extends AbstractButtonHandler {
 	private final ChapterKeyboardFactory chapterKeyboardFactory;
 	private final MessageSource messageSource;
 	
-	@Override
-	protected String getText() {
-		return messageSource.getMessage("page.chapter", null, Locale.ENGLISH);
+	public DefaultCourseButtonHandler(ChapterKeyboardFactory chapterKeyboardFactory, MessageSource messageSource) {
+		super(MenuButtonType.COURSE, ActionButtonType.NEXT);
+		this.chapterKeyboardFactory = chapterKeyboardFactory;
+		this.messageSource = messageSource;
 	}
 	
 	@Override
 	protected InlineKeyboardMarkup getKeyboard() {
 		return chapterKeyboardFactory.build();
+	}
+	
+	@Override
+	protected String getText() {
+		return messageSource.getMessage("page.chapter", null, Locale.ENGLISH);
 	}
 }

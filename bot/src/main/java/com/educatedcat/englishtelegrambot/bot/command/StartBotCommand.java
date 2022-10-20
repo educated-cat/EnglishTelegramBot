@@ -9,10 +9,10 @@ import org.telegram.telegrambots.meta.api.methods.*;
 @Component
 @RequiredArgsConstructor
 public class StartBotCommand implements BotCommand {
-	private final StartButtonHandler startButtonHandler;
+	private final DefaultStartButtonHandler startButtonHandler;
 	
 	@Override
 	public BotApiMethod<?> execute(BotResponse response) {
-		return startButtonHandler.execute(response);
+		return startButtonHandler.handle(response);
 	}
 }
