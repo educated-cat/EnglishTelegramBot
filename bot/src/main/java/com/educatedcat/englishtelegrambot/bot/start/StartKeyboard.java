@@ -1,7 +1,8 @@
-package com.educatedcat.englishtelegrambot.bot.keyboard;
+package com.educatedcat.englishtelegrambot.bot.start;
 
 import com.educatedcat.englishtelegrambot.bot.button.*;
 import com.educatedcat.englishtelegrambot.bot.dictionary.*;
+import com.educatedcat.englishtelegrambot.bot.keyboard.*;
 import org.springframework.context.*;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.*;
 

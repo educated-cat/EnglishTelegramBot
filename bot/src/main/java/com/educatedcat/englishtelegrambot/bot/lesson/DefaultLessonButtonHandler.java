@@ -2,6 +2,7 @@ package com.educatedcat.englishtelegrambot.bot.lesson;
 
 import com.educatedcat.englishtelegrambot.bot.button.*;
 import com.educatedcat.englishtelegrambot.bot.keyboard.*;
+import com.educatedcat.englishtelegrambot.bot.word.*;
 import org.springframework.stereotype.*;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.*;
 

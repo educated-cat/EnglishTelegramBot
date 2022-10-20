@@ -1,24 +1,25 @@
-package com.educatedcat.englishtelegrambot.bot.keyboard;
+package com.educatedcat.englishtelegrambot.bot.word;
 
 import com.educatedcat.englishtelegrambot.bot.button.*;
 import com.educatedcat.englishtelegrambot.bot.dictionary.*;
+import com.educatedcat.englishtelegrambot.bot.keyboard.*;
 import lombok.*;
 import org.springframework.context.*;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.*;
 
 import java.util.*;
 
-public class CourseKeyboard extends BaseKeyboard {
-	protected CourseKeyboard(KeyboardEntryMapper keyboardEntryMapper, MessageSource messageSource,
-	                         List<? extends ButtonMarker> buttons) {
+public class WordKeyboard extends BaseKeyboard {
+	protected WordKeyboard(KeyboardEntryMapper keyboardEntryMapper, MessageSource messageSource,
+	                       List<? extends ButtonMarker> buttons) {
 		super(keyboardEntryMapper, messageSource, buttons);
 	}
 	
 	@Override
 	protected List<KeyboardEntry> buttons() {
 		return buttons.stream()
-		              .map(buttonMarker -> (CourseDto) buttonMarker)
-		              .map(button -> new KeyboardEntry(MenuButtonType.COURSE, button.id(), button.name()))
+		              .map(buttonMarker -> (WordDto) buttonMarker)
+		              .map(button -> new KeyboardEntry(MenuButtonType.WORD, button.id(), button.name()))
 		              .toList();
 	}
 	
@@ -28,7 +29,8 @@ public class CourseKeyboard extends BaseKeyboard {
 		return InlineKeyboardButton.builder()
 		                           .text(messageSource.getMessage("button.back.message", null, Locale.ENGLISH))
 		                           .callbackData(keyboardEntryMapper.serialize(
-				                           new KeyboardEntry(MenuButtonType.START, null)))
+				                           new KeyboardEntry(MenuButtonType.CHAPTER,
+				                                             "Introduction"))) // TODO: get from queue
 		                           .build();
 	}
 }

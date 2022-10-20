@@ -1,6 +1,7 @@
 package com.educatedcat.englishtelegrambot.bot.by_course;
 
 import com.educatedcat.englishtelegrambot.bot.button.*;
+import com.educatedcat.englishtelegrambot.bot.course.*;
 import com.educatedcat.englishtelegrambot.bot.keyboard.*;
 import org.springframework.context.*;
 import org.springframework.stereotype.*;
