@@ -1,7 +1,6 @@
 package com.educatedcat.englishtelegrambot.bot.keyboard;
 
 import com.educatedcat.englishtelegrambot.bot.button.*;
-import com.educatedcat.englishtelegrambot.bot.course.*;
 import com.educatedcat.englishtelegrambot.bot.dictionary.*;
 import lombok.*;
 import org.springframework.context.*;
@@ -29,7 +28,7 @@ public class LessonKeyboard extends BaseKeyboard {
 		return InlineKeyboardButton.builder()
 		                           .text(messageSource.getMessage("button.back.message", null, Locale.ENGLISH))
 		                           .callbackData(keyboardEntryMapper.serialize(
-				                           new KeyboardEntry(MenuButtonType.COURSE, Course.BEGINNERS.getName())))
+				                           new KeyboardEntry(MenuButtonType.COURSE, "Beginners")))
 		                           .build();
 	}
 }
