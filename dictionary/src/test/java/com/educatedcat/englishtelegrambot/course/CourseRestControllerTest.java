@@ -16,10 +16,10 @@ class CourseRestControllerTest extends CustomMvcTest {
 	@Test
 	@SneakyThrows
 	void findAll() {
-		List<CourseDto> lessons = performRequest(get("/api/courses"), new TypeReference<List<CourseDto>>() {
+		List<CourseDto> courses = performRequest(get("/api/courses"), new TypeReference<List<CourseDto>>() {
 		}).andExpect(status().isOk())
 		  .andReturnDto();
 		
-		assertEquals(0, lessons.size());
+		assertEquals(0, courses.size());
 	}
 }
