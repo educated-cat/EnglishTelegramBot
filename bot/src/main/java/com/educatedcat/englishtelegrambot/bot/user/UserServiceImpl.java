@@ -25,12 +25,12 @@ public class UserServiceImpl implements UserService {
 		                                                            },
 		                                                            () -> user.addState(new UserState(user, buttonType,
 		                                                                                              buttonTypeId))),
-		                               () -> createUser(id, buttonType));
+		                               () -> createUser(id, buttonType, buttonTypeId));
 	}
 	
-	private void createUser(Long id, MenuButtonType buttonType) {
+	private void createUser(Long id, MenuButtonType buttonType, UUID buttonTypeId) {
 		User user = userRepository.save(new User(id));
-		UserState state = new UserState(user, buttonType, null);
+		UserState state = new UserState(user, buttonType, buttonTypeId);
 		user.addState(state);
 	}
 }
