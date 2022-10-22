@@ -31,9 +31,29 @@ public class DictionaryClient {
 		                          .block();
 	}
 	
+	public List<ChapterDto> findChaptersInCourseById(UUID chapterId) {
+		return dictionaryWebClient.get()
+		                          .uri(builder -> builder.pathSegment("chapters", chapterId.toString())
+		                                                 .build())
+		                          .exchangeToMono(clientResponse -> clientResponse.bodyToMono(
+				                          new ParameterizedTypeReference<List<ChapterDto>>() {
+				                          }))
+		                          .block();
+	}
+	
 	public List<LessonDto> findLessonsInChapter(UUID chapterId) {
 		return dictionaryWebClient.get()
 		                          .uri(builder -> builder.pathSegment("lessons", "by-chapter", chapterId.toString())
+		                                                 .build())
+		                          .exchangeToMono(clientResponse -> clientResponse.bodyToMono(
+				                          new ParameterizedTypeReference<List<LessonDto>>() {
+				                          }))
+		                          .block();
+	}
+	
+	public List<LessonDto> findLessonsInChapterById(UUID id) {
+		return dictionaryWebClient.get()
+		                          .uri(builder -> builder.pathSegment("lessons", id.toString())
 		                                                 .build())
 		                          .exchangeToMono(clientResponse -> clientResponse.bodyToMono(
 				                          new ParameterizedTypeReference<List<LessonDto>>() {

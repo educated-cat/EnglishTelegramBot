@@ -4,14 +4,14 @@ import com.educatedcat.englishtelegrambot.bot.button.*;
 import com.educatedcat.englishtelegrambot.bot.dictionary.*;
 import com.educatedcat.englishtelegrambot.bot.keyboard.*;
 import org.springframework.context.*;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.*;
 
+import javax.annotation.*;
 import java.util.*;
 
 public class StartKeyboard extends BaseKeyboard {
 	protected StartKeyboard(KeyboardEntryMapper keyboardEntryMapper, MessageSource messageSource,
-	                        List<? extends ButtonMarker> buttons) {
-		super(keyboardEntryMapper, messageSource, buttons);
+	                        List<? extends ButtonMarker> buttons, ButtonMarker backButton) {
+		super(keyboardEntryMapper, messageSource, buttons, backButton);
 	}
 	
 	@Override
@@ -22,7 +22,8 @@ public class StartKeyboard extends BaseKeyboard {
 	}
 	
 	@Override
-	protected InlineKeyboardButton backButton() {
+	@Nullable
+	protected KeyboardEntry backButton() {
 		return null;
 	}
 }

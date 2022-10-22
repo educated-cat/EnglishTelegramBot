@@ -1,5 +1,6 @@
 package com.educatedcat.englishtelegrambot.bot.lesson;
 
+import com.educatedcat.englishtelegrambot.bot.button.*;
 import com.educatedcat.englishtelegrambot.bot.dictionary.*;
 import com.educatedcat.englishtelegrambot.bot.keyboard.*;
 import lombok.*;
@@ -17,7 +18,10 @@ public class LessonKeyboardFactory extends AbstractKeyboardFactory {
 	
 	@Override
 	public BaseKeyboard build(KeyboardEntry entry) {
-		final List<LessonDto> buttons = dictionaryClient.findLessonsInChapter(entry.id());
-		return new LessonKeyboard(keyboardEntryMapper, messageSource, buttons);
+		final List<LessonDto> buttons = entry.actionType() == ActionButtonType.NEXT
+		                                ? dictionaryClient.findLessonsInChapter(entry.id())
+		                                : dictionaryClient.findLessonsInChapterById(entry.id());
+		return new LessonKeyboard(keyboardEntryMapper, messageSource, buttons,
+		                          new ChapterDto(entry.id(), "Back"));
 	}
 }

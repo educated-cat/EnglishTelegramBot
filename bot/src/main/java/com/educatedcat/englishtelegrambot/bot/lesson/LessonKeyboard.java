@@ -5,14 +5,14 @@ import com.educatedcat.englishtelegrambot.bot.dictionary.*;
 import com.educatedcat.englishtelegrambot.bot.keyboard.*;
 import lombok.*;
 import org.springframework.context.*;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.*;
 
+import javax.annotation.*;
 import java.util.*;
 
 public class LessonKeyboard extends BaseKeyboard {
 	protected LessonKeyboard(KeyboardEntryMapper keyboardEntryMapper, MessageSource messageSource,
-	                         List<? extends ButtonMarker> buttons) {
-		super(keyboardEntryMapper, messageSource, buttons);
+	                         List<? extends ButtonMarker> buttons, ChapterDto backButton) {
+		super(keyboardEntryMapper, messageSource, buttons, backButton);
 	}
 	
 	@Override
@@ -25,11 +25,9 @@ public class LessonKeyboard extends BaseKeyboard {
 	
 	@Override
 	@SneakyThrows
-	protected InlineKeyboardButton backButton() {
-		return InlineKeyboardButton.builder()
-		                           .text(messageSource.getMessage("button.back.message", null, Locale.ENGLISH))
-		                           .callbackData(keyboardEntryMapper.serialize(
-				                           new KeyboardEntry(MenuButtonType.COURSE, "Beginners")))
-		                           .build();
+	@Nullable
+	protected KeyboardEntry backButton() {
+		ChapterDto backButton = (ChapterDto) this.backButton;
+		return new KeyboardEntry(MenuButtonType.LESSON, ActionButtonType.PREVIOUS, backButton.id(), backButton.name());
 	}
 }

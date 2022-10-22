@@ -18,6 +18,7 @@ public class WordKeyboardFactory extends AbstractKeyboardFactory {
 	@Override
 	public BaseKeyboard build(KeyboardEntry entry) {
 		final List<WordDto> buttons = dictionaryClient.findWordsInLesson(entry.id());
-		return new WordKeyboard(keyboardEntryMapper, messageSource, buttons);
+		return new WordKeyboard(keyboardEntryMapper, messageSource, buttons,
+		                        new LessonDto(entry.id(), "Back"));
 	}
 }

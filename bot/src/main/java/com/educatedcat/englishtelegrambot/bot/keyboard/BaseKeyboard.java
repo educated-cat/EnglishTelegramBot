@@ -14,12 +14,14 @@ public abstract class BaseKeyboard extends InlineKeyboardMarkup {
 	protected final KeyboardEntryMapper keyboardEntryMapper;
 	protected final MessageSource messageSource;
 	protected final List<? extends ButtonMarker> buttons;
+	protected final ButtonMarker backButton;
 	
 	protected BaseKeyboard(KeyboardEntryMapper keyboardEntryMapper, MessageSource messageSource,
-	                       List<? extends ButtonMarker> buttons) {
+	                       List<? extends ButtonMarker> buttons, ButtonMarker backButton) {
 		this.keyboardEntryMapper = keyboardEntryMapper;
 		this.messageSource = messageSource;
 		this.buttons = buttons;
+		this.backButton = backButton;
 		
 		initialize();
 	}
@@ -41,9 +43,12 @@ public abstract class BaseKeyboard extends InlineKeyboardMarkup {
 		if (!keyboard.contains(row)) {
 			keyboard.add(row);
 		}
-		InlineKeyboardButton back = backButton();
+		KeyboardEntry back = backButton();
 		if (back != null) {
-			keyboard.add(List.of(back));
+			keyboard.add(List.of(InlineKeyboardButton.builder()
+			                                         .text(StringUtils.capitalize(back.name()))
+			                                         .callbackData(keyboardEntryMapper.serialize(back))
+			                                         .build()));
 		}
 		setKeyboard(keyboard);
 	}
@@ -51,5 +56,5 @@ public abstract class BaseKeyboard extends InlineKeyboardMarkup {
 	protected abstract List<KeyboardEntry> buttons();
 	
 	@Nullable
-	protected abstract InlineKeyboardButton backButton();
+	protected abstract KeyboardEntry backButton();
 }

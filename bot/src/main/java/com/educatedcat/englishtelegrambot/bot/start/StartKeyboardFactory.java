@@ -19,6 +19,6 @@ public class StartKeyboardFactory extends AbstractKeyboardFactory {
 		// TODO: get available actions from another class
 		final List<CourseDto> buttons = List.of(new CourseDto(null, messageSource.getMessage(
 				"button.repeat.by.course", null, Locale.ENGLISH)));
-		return new StartKeyboard(keyboardEntryMapper, messageSource, buttons);
+		return new StartKeyboard(keyboardEntryMapper, messageSource, buttons, null);
 	}
 }

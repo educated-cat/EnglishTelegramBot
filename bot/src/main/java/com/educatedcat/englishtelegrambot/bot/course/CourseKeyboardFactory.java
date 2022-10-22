@@ -18,6 +18,6 @@ public class CourseKeyboardFactory extends AbstractKeyboardFactory {
 	@Override
 	public BaseKeyboard build(KeyboardEntry entry) {
 		final List<CourseDto> buttons = dictionaryClient.findCourses();
-		return new CourseKeyboard(keyboardEntryMapper, messageSource, buttons);
+		return new CourseKeyboard(keyboardEntryMapper, messageSource, buttons, new CourseDto(entry.id(), "Back"));
 	}
 }
