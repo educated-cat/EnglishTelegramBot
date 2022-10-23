@@ -1,18 +1,18 @@
 package com.educatedcat.englishtelegrambot.bot.command;
 
-import com.educatedcat.englishtelegrambot.bot.button.*;
+import com.educatedcat.englishtelegrambot.bot.bot.*;
+import com.educatedcat.englishtelegrambot.bot.start.*;
 import lombok.*;
 import org.springframework.stereotype.*;
 import org.telegram.telegrambots.meta.api.methods.*;
-import org.telegram.telegrambots.meta.api.objects.*;
 
 @Component
 @RequiredArgsConstructor
 public class StartBotCommand implements BotCommand {
-	private final StartButtonHandler startButtonHandler;
+	private final DefaultStartButtonHandler startButtonHandler;
 	
 	@Override
-	public BotApiMethod<?> execute(Update update) {
-		return startButtonHandler.execute(update);
+	public BotApiMethod<?> execute(BotResponse response) {
+		return startButtonHandler.handle(response);
 	}
 }

@@ -1,8 +1,9 @@
 package com.educatedcat.englishtelegrambot.bot.callback;
 
+import com.educatedcat.englishtelegrambot.bot.bot.*;
 import org.telegram.telegrambots.meta.api.methods.*;
-import org.telegram.telegrambots.meta.api.objects.*;
 
+@FunctionalInterface
 public interface CallbackHandler {
-	BotApiMethod<?> handle(Update update);
+	BotApiMethod<?> handle(BotResponse response);
 }

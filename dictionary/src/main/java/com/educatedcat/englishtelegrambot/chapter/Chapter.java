@@ -1,5 +1,6 @@
 package com.educatedcat.englishtelegrambot.chapter;
 
+import com.educatedcat.englishtelegrambot.course.*;
 import com.educatedcat.englishtelegrambot.lesson.*;
 import lombok.*;
 import org.hibernate.annotations.*;
@@ -16,24 +17,21 @@ import java.util.*;
 @Table(name = "chapters")
 public class Chapter {
 	@Id
+	@Type(type = "uuid-char")
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-	@Column(name = "id")
+	@Column(name = "id", columnDefinition = "VARCHAR(36)")
 	private UUID id;
 	
 	@Column(name = "name", nullable = false)
 	private String name;
 	
-	@ManyToMany
-	@JoinTable(name = "chapters_lessons",
-	           joinColumns = {
-			           @JoinColumn(name = "chapter_id")
-	           },
-	           inverseJoinColumns = {
-			           @JoinColumn(name = "lesson_id")
-	           }
-	)
+	@OneToMany(mappedBy = "chapter")
 	private List<Lesson> lessons;
+	
+	@JoinColumn(nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Course course;
 	
 	ChapterDto toDto() {
 		return new ChapterDto(id, name);

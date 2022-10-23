@@ -1,5 +1,6 @@
 package com.educatedcat.englishtelegrambot.word;
 
+import com.educatedcat.englishtelegrambot.lesson.*;
 import com.educatedcat.englishtelegrambot.translation.*;
 import lombok.*;
 import org.hibernate.annotations.*;
@@ -17,9 +18,10 @@ import java.util.*;
 @Table(name = "words")
 public class Word {
 	@Id
+	@Type(type = "uuid-char")
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-	@Column(name = "id")
+	@Column(name = "id", columnDefinition = "VARCHAR(36)")
 	private UUID id;
 	
 	@Column(name = "name", nullable = false)
@@ -34,13 +36,24 @@ public class Word {
 	     fetch = FetchType.LAZY)
 	@AnyMetaDef(name = "WordMetaDef",
 	            metaType = "string",
-	            idType = "uuid-binary",
+	            idType = "uuid-char",
 	            metaValues = {
 			            @MetaValue(value = "RUS", targetEntity = RusTranslation.class),
 			            @MetaValue(value = "DEU", targetEntity = DeuTranslation.class)
 	            })
 	@JoinColumn(name = "translation_id")
 	private AbstractTranslation translation;
+	
+	@ManyToMany
+	@JoinTable(name = "lessons_words",
+	           joinColumns = {
+			           @JoinColumn(name = "lesson_id")
+	           },
+	           inverseJoinColumns = {
+			           @JoinColumn(name = "word_id")
+	           }
+	)
+	private List<Lesson> lessons;
 	
 	public Word(WordDto dto, AbstractTranslation translation) {
 		this.name = dto.name();

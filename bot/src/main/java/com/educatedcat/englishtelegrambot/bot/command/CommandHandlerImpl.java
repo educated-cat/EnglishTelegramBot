@@ -1,9 +1,9 @@
 package com.educatedcat.englishtelegrambot.bot.command;
 
+import com.educatedcat.englishtelegrambot.bot.bot.*;
 import lombok.*;
 import org.springframework.stereotype.*;
 import org.telegram.telegrambots.meta.api.methods.*;
-import org.telegram.telegrambots.meta.api.objects.*;
 
 import java.util.*;
 
@@ -13,13 +13,13 @@ public class CommandHandlerImpl implements CommandHandler {
 	private final EnumMap<BotCommandType, BotCommand> commandMap;
 	
 	@Override
-	public BotApiMethod<?> handle(Update update) {
+	public BotApiMethod<?> handle(BotResponse response) {
 		final BotCommandType commandType;
 		try {
-			commandType = BotCommandType.valueOf(update.getMessage().getText().substring(1).toUpperCase());
+			commandType = BotCommandType.valueOf(response.getMessage().getText().substring(1).toUpperCase());
 		} catch (NullPointerException | IllegalArgumentException e) {
 			throw new UnknownCommandException(e);
 		}
-		return commandMap.get(commandType).execute(update);
+		return commandMap.get(commandType).execute(response);
 	}
 }

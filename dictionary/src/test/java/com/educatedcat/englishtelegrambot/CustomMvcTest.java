@@ -61,7 +61,7 @@ public class CustomMvcTest {
 	}
 	
 	private <T> CustomResultActions<T> getResultActions(ResultActions ra, T result) {
-		return new CustomResultActions<T>() {
+		return new CustomResultActions<>() {
 			
 			@Override
 			public CustomResultActions<T> andExpect(ResultMatcher resultMatcher) throws Exception {

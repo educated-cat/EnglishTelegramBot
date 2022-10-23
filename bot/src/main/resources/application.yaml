@@ -1,11 +1,27 @@
 server:
-  port: 9090
+  port: 8090
+
 spring:
+  datasource:
+    username: root
+    password: root1234
+    url: jdbc:mysql://localhost:3306/entb_bot
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  liquibase:
+    contexts: non-test
+    change-log: db/changelog-master.xml
   jpa:
+    hibernate:
+      ddl-auto: validate
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
+
 telegram:
   bot:
-    username: udemy_english_bot
-    token: 1784447636:AAGnAq2R408rk-hNUvsTg3CO76UahWMoGaE
+    username: entb_bot
+    token: 5455060518:AAGHcfaL9bx5NFyAaxbUcKYkp6lJ8T0Rd4E
+
+dictionary:
+  url:
+    api: http://localhost:8091/api
