@@ -13,7 +13,7 @@ public class WordKeyboard extends BaseKeyboard {
 	protected WordKeyboard(KeyboardEntryMapper keyboardEntryMapper, MessageSource messageSource,
 	                       List<? extends ButtonMarker> buttons, LessonDto backButton,
 	                       MenuButtonType backButtonIdType) {
-		super(keyboardEntryMapper, messageSource, buttons, backButton, backButtonIdType);
+		super(keyboardEntryMapper, buttons, backButton, backButtonIdType);
 	}
 	
 	@Override

@@ -29,6 +29,8 @@ public class ChapterKeyboardFactory extends AbstractKeyboardFactory {
 			}
 		}
 		return new ChapterKeyboard(keyboardEntryMapper, messageSource, buttons,
-		                           new CourseDto(entry.id(), "Back"), entry.idType());
+		                           new CourseDto(entry.id(),
+		                                         messageSource.getMessage("button.back.message", null, Locale.ENGLISH)),
+		                           entry.idType());
 	}
 }

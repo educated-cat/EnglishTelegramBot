@@ -13,7 +13,7 @@ public class ChapterKeyboard extends BaseKeyboard {
 	protected ChapterKeyboard(KeyboardEntryMapper keyboardEntryMapper, MessageSource messageSource,
 	                          List<? extends ButtonMarker> buttons, CourseDto backButton,
 	                          MenuButtonType backButtonIdType) {
-		super(keyboardEntryMapper, messageSource, buttons, backButton, backButtonIdType);
+		super(keyboardEntryMapper, buttons, backButton, backButtonIdType);
 	}
 	
 	@Override

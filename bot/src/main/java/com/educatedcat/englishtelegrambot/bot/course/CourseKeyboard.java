@@ -13,7 +13,7 @@ public class CourseKeyboard extends BaseKeyboard {
 	protected CourseKeyboard(KeyboardEntryMapper keyboardEntryMapper, MessageSource messageSource,
 	                         List<? extends ButtonMarker> buttons, ButtonMarker backButton,
 	                         MenuButtonType backButtonIdType) {
-		super(keyboardEntryMapper, messageSource, buttons, backButton, backButtonIdType);
+		super(keyboardEntryMapper, buttons, backButton, backButtonIdType);
 	}
 	
 	@Override
