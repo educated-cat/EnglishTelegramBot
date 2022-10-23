@@ -19,4 +19,9 @@ public class ChapterServiceImpl implements ChapterService {
 	public List<Chapter> findAllByCourseId(UUID courseId) {
 		return chapterRepository.findAllByCourse_Id(courseId);
 	}
+	
+	@Override
+	public List<Chapter> findAllByLessonId(UUID lessonId) {
+		return chapterRepository.findAllByLessonId(lessonId);
+	}
 }

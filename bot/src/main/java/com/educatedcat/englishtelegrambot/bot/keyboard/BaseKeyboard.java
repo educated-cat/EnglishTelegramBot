@@ -1,5 +1,6 @@
 package com.educatedcat.englishtelegrambot.bot.keyboard;
 
+import com.educatedcat.englishtelegrambot.bot.button.*;
 import com.educatedcat.englishtelegrambot.bot.dictionary.*;
 import lombok.*;
 import org.springframework.context.*;
@@ -15,13 +16,16 @@ public abstract class BaseKeyboard extends InlineKeyboardMarkup {
 	protected final MessageSource messageSource;
 	protected final List<? extends ButtonMarker> buttons;
 	protected final ButtonMarker backButton;
+	protected final MenuButtonType backButtonIdType;
 	
 	protected BaseKeyboard(KeyboardEntryMapper keyboardEntryMapper, MessageSource messageSource,
-	                       List<? extends ButtonMarker> buttons, ButtonMarker backButton) {
+	                       List<? extends ButtonMarker> buttons, ButtonMarker backButton,
+	                       MenuButtonType backButtonIdType) {
 		this.keyboardEntryMapper = keyboardEntryMapper;
 		this.messageSource = messageSource;
 		this.buttons = buttons;
 		this.backButton = backButton;
+		this.backButtonIdType = backButtonIdType;
 		
 		initialize();
 	}

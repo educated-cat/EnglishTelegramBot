@@ -10,8 +10,9 @@ import java.util.*;
 
 public class StartKeyboard extends BaseKeyboard {
 	protected StartKeyboard(KeyboardEntryMapper keyboardEntryMapper, MessageSource messageSource,
-	                        List<? extends ButtonMarker> buttons, ButtonMarker backButton) {
-		super(keyboardEntryMapper, messageSource, buttons, backButton);
+	                        List<? extends ButtonMarker> buttons, ButtonMarker backButton,
+	                        MenuButtonType backButtonIdType) {
+		super(keyboardEntryMapper, messageSource, buttons, backButton, backButtonIdType);
 	}
 	
 	@Override

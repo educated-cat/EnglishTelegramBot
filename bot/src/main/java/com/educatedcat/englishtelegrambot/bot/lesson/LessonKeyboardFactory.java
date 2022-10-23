@@ -18,10 +18,13 @@ public class LessonKeyboardFactory extends AbstractKeyboardFactory {
 	
 	@Override
 	public BaseKeyboard build(KeyboardEntry entry) {
-		final List<LessonDto> buttons = entry.actionType() == ActionButtonType.NEXT
-		                                ? dictionaryClient.findLessonsInChapter(entry.id())
-		                                : dictionaryClient.findLessonsInChapterById(entry.id());
+		final List<LessonDto> buttons;
+		if (entry.actionType() == ActionButtonType.NEXT) {
+			buttons = dictionaryClient.findLessonsInChapter(entry.id());
+		} else {
+			buttons = dictionaryClient.findLessonsInChapterById(entry.id());
+		}
 		return new LessonKeyboard(keyboardEntryMapper, messageSource, buttons,
-		                          new ChapterDto(entry.id(), "Back"));
+		                          new ChapterDto(entry.id(), "Back"), entry.idType());
 	}
 }

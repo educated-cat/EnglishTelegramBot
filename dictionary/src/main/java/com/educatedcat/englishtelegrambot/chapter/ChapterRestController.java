@@ -26,4 +26,12 @@ public class ChapterRestController {
 		                     .map(Chapter::toDto)
 		                     .toList();
 	}
+	
+	@GetMapping("/by-lesson/{lessonId}")
+	public List<ChapterDto> findAllChaptersByLessonId(@PathVariable UUID lessonId) {
+		return chapterService.findAllByLessonId(lessonId)
+		                     .stream()
+		                     .map(Chapter::toDto)
+		                     .toList();
+	}
 }

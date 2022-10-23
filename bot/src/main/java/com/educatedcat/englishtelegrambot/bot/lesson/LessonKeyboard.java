@@ -11,8 +11,9 @@ import java.util.*;
 
 public class LessonKeyboard extends BaseKeyboard {
 	protected LessonKeyboard(KeyboardEntryMapper keyboardEntryMapper, MessageSource messageSource,
-	                         List<? extends ButtonMarker> buttons, ChapterDto backButton) {
-		super(keyboardEntryMapper, messageSource, buttons, backButton);
+	                         List<? extends ButtonMarker> buttons, ChapterDto backButton,
+	                         MenuButtonType backButtonIdType) {
+		super(keyboardEntryMapper, messageSource, buttons, backButton, backButtonIdType);
 	}
 	
 	@Override
@@ -28,6 +29,7 @@ public class LessonKeyboard extends BaseKeyboard {
 	@Nullable
 	protected KeyboardEntry backButton() {
 		ChapterDto backButton = (ChapterDto) this.backButton;
-		return new KeyboardEntry(MenuButtonType.LESSON, ActionButtonType.PREVIOUS, backButton.id(), backButton.name());
+		return new KeyboardEntry(MenuButtonType.LESSON, ActionButtonType.PREVIOUS, backButton.id(), backButton.name(),
+		                         backButtonIdType);
 	}
 }

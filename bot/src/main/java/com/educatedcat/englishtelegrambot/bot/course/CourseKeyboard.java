@@ -11,8 +11,9 @@ import java.util.*;
 
 public class CourseKeyboard extends BaseKeyboard {
 	protected CourseKeyboard(KeyboardEntryMapper keyboardEntryMapper, MessageSource messageSource,
-	                         List<? extends ButtonMarker> buttons, ButtonMarker backButton) {
-		super(keyboardEntryMapper, messageSource, buttons, backButton);
+	                         List<? extends ButtonMarker> buttons, ButtonMarker backButton,
+	                         MenuButtonType backButtonIdType) {
+		super(keyboardEntryMapper, messageSource, buttons, backButton, backButtonIdType);
 	}
 	
 	@Override
@@ -29,6 +30,6 @@ public class CourseKeyboard extends BaseKeyboard {
 	protected KeyboardEntry backButton() {
 		CourseDto backButton = (CourseDto) this.backButton;
 		return new KeyboardEntry(MenuButtonType.COURSE, ActionButtonType.PREVIOUS, backButton.id(),
-		                         backButton.name());
+		                         backButton.name(), backButtonIdType);
 	}
 }
