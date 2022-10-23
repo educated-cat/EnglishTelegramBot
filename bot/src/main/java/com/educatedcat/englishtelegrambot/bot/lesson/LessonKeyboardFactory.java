@@ -24,7 +24,7 @@ public class LessonKeyboardFactory extends AbstractKeyboardFactory {
 		} else {
 			buttons = dictionaryClient.findLessonsInChapterById(entry.id());
 		}
-		return new LessonKeyboard(keyboardEntryMapper, messageSource, buttons,
+		return new LessonKeyboard(keyboardEntryMapper, buttons,
 		                          new ChapterDto(entry.id(),
 		                                         messageSource.getMessage("button.back.message", null, Locale.ENGLISH)),
 		                          entry.idType());
