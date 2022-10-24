@@ -24,7 +24,7 @@ public class WordServiceImpl implements WordService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<Word> findAllByLessonId(UUID lessonId) {
-		return wordRepository.findAllByLessonsContaining(lessonId);
+		return wordRepository.findAllByLessons_Id(lessonId);
 	}
 	
 	@Override

@@ -26,7 +26,7 @@ public class PreviousChapterButtonHandler extends AbstractButtonHandler {
 	}
 	
 	@Override
-	protected String getText() {
+	protected String getText(KeyboardEntry entry) {
 		return messageSource.getMessage("page.course", null, Locale.ENGLISH);
 	}
 }

@@ -9,10 +9,12 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.*;
 @Component
 public class DefaultLessonButtonHandler extends AbstractButtonHandler {
 	private final WordKeyboardFactory wordKeyboardFactory;
+	private final WordTextFactory wordTextFactory;
 	
-	public DefaultLessonButtonHandler(WordKeyboardFactory wordKeyboardFactory) {
+	public DefaultLessonButtonHandler(WordKeyboardFactory wordKeyboardFactory, WordTextFactory wordTextFactory) {
 		super(MenuButtonType.LESSON, ActionButtonType.NEXT);
 		this.wordKeyboardFactory = wordKeyboardFactory;
+		this.wordTextFactory = wordTextFactory;
 	}
 	
 	@Override
@@ -21,7 +23,7 @@ public class DefaultLessonButtonHandler extends AbstractButtonHandler {
 	}
 	
 	@Override
-	protected String getText() {
-		return "null";
+	protected String getText(KeyboardEntry entry) {
+		return wordTextFactory.buildText(entry);
 	}
 }

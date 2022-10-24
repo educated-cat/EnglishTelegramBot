@@ -26,7 +26,7 @@ public class DefaultCourseButtonHandler extends AbstractButtonHandler {
 	}
 	
 	@Override
-	protected String getText() {
+	protected String getText(KeyboardEntry entry) {
 		return messageSource.getMessage("page.chapter", null, Locale.ENGLISH);
 	}
 }
