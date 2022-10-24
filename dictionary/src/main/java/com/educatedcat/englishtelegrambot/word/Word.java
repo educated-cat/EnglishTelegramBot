@@ -47,10 +47,10 @@ public class Word {
 	@ManyToMany
 	@JoinTable(name = "lessons_words",
 	           joinColumns = {
-			           @JoinColumn(name = "lesson_id")
+			           @JoinColumn(name = "word_id")
 	           },
 	           inverseJoinColumns = {
-			           @JoinColumn(name = "word_id")
+			           @JoinColumn(name = "lesson_id")
 	           }
 	)
 	private List<Lesson> lessons;

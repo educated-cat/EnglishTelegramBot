@@ -20,13 +20,14 @@ public abstract class AbstractButtonHandler {
 	
 	public BotApiMethod<?> handle(BotResponse response) {
 		if (response.editable()) {
-			return new EditMessageText(getText()) {{
+			return new EditMessageText(getText(response.getEntry())) {{
 				setChatId(response.chatId());
 				setMessageId(response.messageId());
 				setReplyMarkup(getKeyboard(response.getEntry()));
 			}};
 		} else {
-			return new SendMessage(response.chatId().toString(), getText()) {{
+			return new SendMessage(response.chatId()
+			                               .toString(), getText(response.getEntry())) {{
 				setReplyMarkup(getKeyboard(response.getEntry()));
 			}};
 		}
@@ -34,5 +35,5 @@ public abstract class AbstractButtonHandler {
 	
 	protected abstract InlineKeyboardMarkup getKeyboard(KeyboardEntry entry);
 	
-	protected abstract String getText();
+	protected abstract String getText(KeyboardEntry entry);
 }

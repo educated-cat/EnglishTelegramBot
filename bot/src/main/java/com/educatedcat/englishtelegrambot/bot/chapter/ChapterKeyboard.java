@@ -4,15 +4,13 @@ import com.educatedcat.englishtelegrambot.bot.button.*;
 import com.educatedcat.englishtelegrambot.bot.dictionary.*;
 import com.educatedcat.englishtelegrambot.bot.keyboard.*;
 import lombok.*;
-import org.springframework.context.*;
 
 import javax.annotation.*;
 import java.util.*;
 
 public class ChapterKeyboard extends BaseKeyboard {
-	protected ChapterKeyboard(KeyboardEntryMapper keyboardEntryMapper, MessageSource messageSource,
-	                          List<? extends ButtonMarker> buttons, CourseDto backButton,
-	                          MenuButtonType backButtonIdType) {
+	protected ChapterKeyboard(KeyboardEntryMapper keyboardEntryMapper, List<? extends ButtonMarker> buttons,
+	                          CourseDto backButton, MenuButtonType backButtonIdType) {
 		super(keyboardEntryMapper, buttons, backButton, backButtonIdType);
 	}
 	
