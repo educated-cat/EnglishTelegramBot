@@ -1,6 +1,6 @@
 package com.educatedcat.englishtelegrambot.bot.start;
 
-import com.educatedcat.englishtelegrambot.bot.dictionary.*;
+import com.educatedcat.englishtelegrambot.bot.course.*;
 import com.educatedcat.englishtelegrambot.bot.keyboard.*;
 import lombok.*;
 import org.springframework.context.*;

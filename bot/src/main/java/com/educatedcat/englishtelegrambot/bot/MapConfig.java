@@ -2,6 +2,7 @@ package com.educatedcat.englishtelegrambot.bot;
 
 import com.educatedcat.englishtelegrambot.bot.button.*;
 import com.educatedcat.englishtelegrambot.bot.command.*;
+import com.educatedcat.englishtelegrambot.bot.word.*;
 import org.springframework.context.annotation.*;
 
 import java.util.*;
@@ -18,10 +19,19 @@ public class MapConfig {
 	}
 	
 	@Bean
-	public Map<ButtonHandlerKey, AbstractButtonHandler> newButtonHandlerMap(List<AbstractButtonHandler> handlers) {
+	public Map<ButtonHandlerKey, AbstractButtonHandler> buttonHandlerMap(List<AbstractButtonHandler> handlers) {
 		return handlers.stream()
+		               .filter(handler -> !(handler instanceof AbstractWordActionButtonHandler))
 		               .collect(Collectors.toMap(
 				               handler -> new ButtonHandlerKey(handler.getButtonType(), handler.getActionButtonType()),
 				               Function.identity()));
+	}
+	
+	@Bean
+	public Map<WordActionType, AbstractWordActionButtonHandler> wordActionsButtonHandlerMap(
+			List<AbstractWordActionButtonHandler> handlers) {
+		return handlers.stream()
+		               .collect(Collectors.toMap(AbstractWordActionButtonHandler::getWordActionType,
+		                                         Function.identity()));
 	}
 }

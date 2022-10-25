@@ -1,6 +1,7 @@
 package com.educatedcat.englishtelegrambot.bot.lesson;
 
 import com.educatedcat.englishtelegrambot.bot.button.*;
+import com.educatedcat.englishtelegrambot.bot.chapter.*;
 import com.educatedcat.englishtelegrambot.bot.dictionary.*;
 import com.educatedcat.englishtelegrambot.bot.keyboard.*;
 import lombok.*;

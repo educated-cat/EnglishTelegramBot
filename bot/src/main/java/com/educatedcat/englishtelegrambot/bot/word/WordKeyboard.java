@@ -1,15 +1,16 @@
 package com.educatedcat.englishtelegrambot.bot.word;
 
 import com.educatedcat.englishtelegrambot.bot.button.*;
-import com.educatedcat.englishtelegrambot.bot.dictionary.*;
 import com.educatedcat.englishtelegrambot.bot.keyboard.*;
+import com.educatedcat.englishtelegrambot.bot.lesson.*;
 import lombok.*;
+import org.springframework.util.*;
 
 import javax.annotation.*;
 import java.util.*;
 
 public class WordKeyboard extends BaseKeyboard {
-	protected WordKeyboard(KeyboardEntryMapper keyboardEntryMapper, List<? extends ButtonMarker> buttons,
+	protected WordKeyboard(KeyboardEntryMapper keyboardEntryMapper, List<WordAction> buttons,
 	                       LessonDto backButton, MenuButtonType backButtonIdType) {
 		super(keyboardEntryMapper, buttons, backButton, backButtonIdType);
 	}
@@ -17,8 +18,10 @@ public class WordKeyboard extends BaseKeyboard {
 	@Override
 	protected List<KeyboardEntry> buttons() {
 		return buttons.stream()
-		              .map(buttonMarker -> (WordDto) buttonMarker)
-		              .map(button -> new KeyboardEntry(MenuButtonType.WORD, button.id(), button.name()))
+		              .map(buttonMarker -> (WordAction) buttonMarker)
+		              .map(button -> new KeyboardEntry(MenuButtonType.WORD, button.id(),
+		                                               StringUtils.capitalize(button.actionType().name().toLowerCase()),
+		                                               button.actionType()))
 		              .toList();
 	}
 	

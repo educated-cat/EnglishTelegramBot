@@ -1,6 +1,5 @@
 package com.educatedcat.englishtelegrambot.bot.word;
 
-import com.educatedcat.englishtelegrambot.bot.dictionary.*;
 import org.springframework.stereotype.*;
 
 @Component

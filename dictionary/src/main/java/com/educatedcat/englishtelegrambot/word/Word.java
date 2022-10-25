@@ -3,6 +3,7 @@ package com.educatedcat.englishtelegrambot.word;
 import com.educatedcat.englishtelegrambot.lesson.*;
 import com.educatedcat.englishtelegrambot.translation.*;
 import lombok.*;
+import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.*;
 
 import javax.persistence.Entity;
@@ -29,6 +30,10 @@ public class Word {
 	
 	@Column(name = "transcription", nullable = false)
 	private String transcription;
+	
+	@Generated(GenerationTime.INSERT)
+	@Column(nullable = false, unique = true, updatable = false)
+	private Long index;
 	
 	@SuppressWarnings({"deprecation", "JpaAttributeTypeInspection"})
 	@Any(metaDef = "WordMetaDef",
@@ -62,7 +67,7 @@ public class Word {
 	}
 	
 	WordDto toDto() {
-		return new WordDto(id, name, transcription, translation.getTranslation(), Language.RUS);
+		return new WordDto(id, index, name, transcription, translation.getTranslation(), Language.RUS);
 	}
 	
 	void merge(WordDto dto) {

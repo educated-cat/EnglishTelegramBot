@@ -1,5 +1,9 @@
 package com.educatedcat.englishtelegrambot.bot.dictionary;
 
+import com.educatedcat.englishtelegrambot.bot.chapter.*;
+import com.educatedcat.englishtelegrambot.bot.course.*;
+import com.educatedcat.englishtelegrambot.bot.lesson.*;
+import com.educatedcat.englishtelegrambot.bot.word.*;
 import lombok.*;
 import org.springframework.core.*;
 import org.springframework.stereotype.*;
@@ -71,13 +75,19 @@ public class DictionaryClient {
 		                          .block();
 	}
 	
-	public List<WordDto> findWordsInLesson(UUID lessonId) {
+	public WordDto findFirstWordInLesson(UUID lessonId) {
 		return dictionaryWebClient.get()
-		                          .uri(builder -> builder.pathSegment("words", "by-lesson", lessonId.toString())
+		                          .uri(builder -> builder.pathSegment("words", "first", lessonId.toString())
 		                                                 .build())
-		                          .exchangeToMono(clientResponse -> clientResponse.bodyToMono(
-				                          new ParameterizedTypeReference<List<WordDto>>() {
-				                          }))
+		                          .exchangeToMono(clientResponse -> clientResponse.bodyToMono(WordDto.class))
+		                          .block();
+	}
+	
+	public WordDto findNextWord(UUID previousWordId) {
+		return dictionaryWebClient.get()
+		                          .uri(builder -> builder.pathSegment("words", "next", previousWordId.toString())
+		                                                 .build())
+		                          .exchangeToMono(clientResponse -> clientResponse.bodyToMono(WordDto.class))
 		                          .block();
 	}
 }

@@ -3,7 +3,6 @@ package com.educatedcat.englishtelegrambot.bot.keyboard;
 import com.educatedcat.englishtelegrambot.bot.button.*;
 import com.educatedcat.englishtelegrambot.bot.dictionary.*;
 import lombok.*;
-import org.springframework.util.*;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.*;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.*;
 
@@ -33,7 +32,7 @@ public abstract class BaseKeyboard extends InlineKeyboardMarkup {
 		List<InlineKeyboardButton> row = new LinkedList<>();
 		for (int i = 0; i < buttons().size(); i++) {
 			row.add(InlineKeyboardButton.builder()
-			                            .text(StringUtils.capitalize(buttons().get(i).name()))
+			                            .text(buttons().get(i).name())
 			                            .callbackData(keyboardEntryMapper.serialize(buttons().get(i)))
 			                            .build());
 			if (i % 3 == 0 && i != 0) {
@@ -47,7 +46,7 @@ public abstract class BaseKeyboard extends InlineKeyboardMarkup {
 		KeyboardEntry back = backButton();
 		if (back != null) {
 			keyboard.add(List.of(InlineKeyboardButton.builder()
-			                                         .text(StringUtils.capitalize(back.name()))
+			                                         .text(back.name())
 			                                         .callbackData(keyboardEntryMapper.serialize(back))
 			                                         .build()));
 		}

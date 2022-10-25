@@ -9,5 +9,9 @@ public interface WordService {
 	
 	Word save(WordDto dto);
 	
+	Optional<Word> findFirstInLessonByLessonId(UUID lessonId);
+	
+	Optional<Word> findNext(UUID previousWordId);
+	
 	void update(UUID uuid, WordDto dto);
 }
