@@ -31,7 +31,7 @@ class WordTextFactoryTest {
 				.findFirstWordInLesson(any(UUID.class));
 		
 		String text = wordTextFactory.buildText(
-				new KeyboardEntry(MenuButtonType.WORD, UUID.randomUUID(), "Name", WordActionType.KNOW));
+				new KeyboardEntry(MenuButtonType.LESSON, UUID.randomUUID(), "Name", WordActionType.KNOW));
 		
 		assertEquals("""
 		             Hello - Здравствуй
