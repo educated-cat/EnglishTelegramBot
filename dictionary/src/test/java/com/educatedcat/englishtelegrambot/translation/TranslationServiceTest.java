@@ -19,7 +19,7 @@ class TranslationServiceTest extends CustomMvcTest {
 	@EnumSource(value = Language.class, names = {"RUS", "DEU"})
 	void save(Language language) {
 		AbstractTranslation translation = translationService.save(
-				new WordDto(null, null, null, "translation...", language));
+				new WordDto(null, null, null, null, "translation...", language));
 		
 		assertNotNull(translation.getId());
 		assertEquals("translation...", translation.getTranslation());
@@ -30,7 +30,7 @@ class TranslationServiceTest extends CustomMvcTest {
 	@SneakyThrows
 	void saveIncorrectLanguage() {
 		assertThrows(IllegalArgumentException.class, () -> translationService.save(
-				new WordDto(null, null, null, "translation...", Language.ENG)));
+				new WordDto(null, null, null, null, "translation...", Language.ENG)));
 	}
 	
 	private void checkTranslation(Language language, AbstractTranslation translation) {

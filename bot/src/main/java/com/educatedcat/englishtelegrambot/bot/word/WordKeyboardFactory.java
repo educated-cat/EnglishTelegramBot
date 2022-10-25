@@ -1,7 +1,9 @@
 package com.educatedcat.englishtelegrambot.bot.word;
 
+import com.educatedcat.englishtelegrambot.bot.button.*;
 import com.educatedcat.englishtelegrambot.bot.dictionary.*;
 import com.educatedcat.englishtelegrambot.bot.keyboard.*;
+import com.educatedcat.englishtelegrambot.bot.lesson.*;
 import lombok.*;
 import org.springframework.context.*;
 import org.springframework.stereotype.*;
@@ -17,8 +19,17 @@ public class WordKeyboardFactory extends AbstractKeyboardFactory {
 	
 	@Override
 	public BaseKeyboard build(KeyboardEntry entry) {
-		final List<WordDto> words = dictionaryClient.findWordsInLesson(entry.id());
-		return new WordKeyboard(keyboardEntryMapper, Collections.emptyList(),
+		// TODO: fix double searching words
+		final WordDto word;
+		if (entry.idType() == MenuButtonType.LESSON) {
+			word = dictionaryClient.findFirstWordInLesson(entry.id());
+		} else {
+			word = dictionaryClient.findNextWord(entry.id());
+		}
+		final List<WordAction> actions = Arrays.stream(WordActionType.values())
+		                                       .map(actionType -> new WordAction(word.id(), actionType))
+		                                       .toList();
+		return new WordKeyboard(keyboardEntryMapper, actions,
 		                        new LessonDto(entry.id(),
 		                                      messageSource.getMessage("button.back.message", null, Locale.ENGLISH)),
 		                        entry.idType());

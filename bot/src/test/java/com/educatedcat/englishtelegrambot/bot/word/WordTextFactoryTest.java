@@ -26,11 +26,12 @@ class WordTextFactoryTest {
 	
 	@Test
 	void buildText() {
-		doReturn(List.of(new WordDto(UUID.randomUUID(), "Hello", "hɛˈləʊ", "Здравствуй", Language.RUS)))
+		doReturn(new WordDto(UUID.randomUUID(), "Hello", "hɛˈləʊ", "Здравствуй", Language.RUS))
 				.when(dictionaryClient)
-				.findWordsInLesson(any(UUID.class));
+				.findFirstWordInLesson(any(UUID.class));
 		
-		String text = wordTextFactory.buildText(new KeyboardEntry(MenuButtonType.WORD, UUID.randomUUID(), "Name"));
+		String text = wordTextFactory.buildText(
+				new KeyboardEntry(MenuButtonType.WORD, UUID.randomUUID(), "Name", WordActionType.KNOW));
 		
 		assertEquals("""
 		             Hello - Здравствуй

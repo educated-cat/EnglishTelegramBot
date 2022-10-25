@@ -14,7 +14,7 @@ class WordRestControllerTest extends CustomMvcTest {
 	@Test
 	@SneakyThrows
 	void findById() {
-		WordDto dto = new WordDto(null, "cat", "caat", "", Language.RUS);
+		WordDto dto = new WordDto(null, null, "cat", "caat", "", Language.RUS);
 		
 		WordDto created = performRequest(post("/api/words"), dto, WordDto.class)
 				.andExpect(status().isCreated())
@@ -32,7 +32,7 @@ class WordRestControllerTest extends CustomMvcTest {
 	@Test
 	@SneakyThrows
 	void create() {
-		WordDto dto = new WordDto(null, "cat", "caat", "", Language.RUS);
+		WordDto dto = new WordDto(null, null, "cat", "caat", "", Language.RUS);
 		
 		WordDto created = performRequest(post("/api/words"), dto, WordDto.class)
 				.andExpect(status().isCreated())
@@ -46,13 +46,13 @@ class WordRestControllerTest extends CustomMvcTest {
 	@Test
 	@SneakyThrows
 	void update() {
-		WordDto dto = new WordDto(null, "cat", "caat", "", Language.RUS);
+		WordDto dto = new WordDto(null, null, "cat", "caat", "", Language.RUS);
 		
 		WordDto created = performRequest(post("/api/words"), dto, WordDto.class)
 				.andExpect(status().isCreated())
 				.andReturnDto();
 		
-		dto = new WordDto(null, "dog", "dag", "", Language.RUS);
+		dto = new WordDto(null, null, "dog", "dag", "", Language.RUS);
 		
 		performRequest(put("/api/words/{uuid}", created.id()), dto)
 				.andExpect(status().isOk());

@@ -12,6 +12,6 @@ class WordServiceTest extends CustomMvcTest {
 	
 	@Test
 	void updateUnknownWord() {
-		wordService.update(UUID.randomUUID(), new WordDto(UUID.randomUUID(), null, null, null, null));
+		wordService.update(UUID.randomUUID(), new WordDto(UUID.randomUUID(), null, null, null, null, null));
 	}
 }

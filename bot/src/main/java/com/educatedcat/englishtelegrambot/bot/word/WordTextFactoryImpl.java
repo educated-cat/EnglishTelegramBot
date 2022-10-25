@@ -1,5 +1,6 @@
 package com.educatedcat.englishtelegrambot.bot.word;
 
+import com.educatedcat.englishtelegrambot.bot.button.*;
 import com.educatedcat.englishtelegrambot.bot.dictionary.*;
 import com.educatedcat.englishtelegrambot.bot.keyboard.*;
 import lombok.*;
@@ -13,8 +14,12 @@ public class WordTextFactoryImpl implements WordTextFactory {
 	
 	@Override
 	public String buildText(KeyboardEntry entry) {
-		WordDto word = dictionaryClient.findWordsInLesson(entry.id())
-		                               .get(0);
+		final WordDto word;
+		if (entry.idType() == MenuButtonType.LESSON) {
+			word = dictionaryClient.findFirstWordInLesson(entry.id());
+		} else {
+			word = dictionaryClient.findNextWord(entry.id());
+		}
 		return wordTextHandler.formatWord(word);
 	}
 }

@@ -19,6 +19,20 @@ public class WordRestController {
 		                  .orElseThrow();
 	}
 	
+	@GetMapping("/first/{lessonId}")
+	public WordDto findFirstInLessonByLessonId(@PathVariable UUID lessonId) {
+		return wordService.findFirstInLessonByLessonId(lessonId)
+		                  .map(Word::toDto)
+		                  .orElseThrow();
+	}
+	
+	@GetMapping("/next/{previousWordId}")
+	public WordDto findNext(@PathVariable UUID previousWordId) {
+		return wordService.findNext(previousWordId)
+		                  .map(Word::toDto)
+		                  .orElseThrow();
+	}
+	
 	@GetMapping("/by-lesson/{lessonId}")
 	public List<WordDto> findAllByLessonId(@PathVariable UUID lessonId) {
 		return wordService.findAllByLessonId(lessonId)
