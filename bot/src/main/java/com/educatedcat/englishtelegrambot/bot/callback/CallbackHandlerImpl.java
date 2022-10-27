@@ -18,12 +18,17 @@ public class CallbackHandlerImpl implements CallbackHandler {
 	@Override
 	@SneakyThrows
 	public BotApiMethod<?> handle(BotResponse response) {
-		if (response.getEntry().wordActionType() == null) {
-			return buttonHandlerMap.get(new ButtonHandlerKey(response.getEntry().buttonType(),
-			                                                 response.getEntry().actionType()))
+		try {
+			if (response.getEntry().wordActionType() == null) {
+				return buttonHandlerMap.get(new ButtonHandlerKey(response.getEntry().buttonType(),
+				                                                 response.getEntry().actionType()))
+				                       .handle(response);
+			} else {
+				return wordActionsButtonHandlerMap.get(response.getEntry().wordActionType()).handle(response);
+			}
+		} catch (NoMoreWordsException e) {
+			return buttonHandlerMap.get(new ButtonHandlerKey(MenuButtonType.END_WORD, ActionButtonType.NEXT))
 			                       .handle(response);
-		} else {
-			return wordActionsButtonHandlerMap.get(response.getEntry().wordActionType()).handle(response);
 		}
 	}
 }

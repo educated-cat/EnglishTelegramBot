@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+	<changeSet id="2022-10-26-15-40" author="Ilya Malyshev">
+		<createTable tableName="user_productivity">
+			<column name="id" type="BIGINT" autoIncrement="true">
+				<constraints primaryKey="true"/>
+			</column>
+			<column name="user_id" type="BIGINT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="word_id" type="VARCHAR(36)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="progress" type="TINYINT UNSIGNED" defaultValue="0">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+</databaseChangeLog>

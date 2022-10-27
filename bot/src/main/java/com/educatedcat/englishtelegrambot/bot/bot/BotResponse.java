@@ -26,6 +26,9 @@ public class BotResponse {
 		this.entry = entry;
 	}
 	
+	/**
+	 * @return Telegram user ID
+	 */
 	public Long chatId() {
 		return message.getChatId();
 	}
