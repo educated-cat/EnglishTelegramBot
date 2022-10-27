@@ -8,6 +8,7 @@ import lombok.*;
 import org.springframework.core.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.reactive.function.client.*;
+import reactor.core.publisher.*;
 
 import java.util.*;
 
@@ -84,10 +85,15 @@ public class DictionaryClient {
 	}
 	
 	public WordDto findNextWord(UUID previousWordId) {
-		return dictionaryWebClient.get()
-		                          .uri(builder -> builder.pathSegment("words", "next", previousWordId.toString())
-		                                                 .build())
-		                          .exchangeToMono(clientResponse -> clientResponse.bodyToMono(WordDto.class))
-		                          .block();
+		Mono<WordDto> wordDtoMono = dictionaryWebClient.get()
+		                                               .uri(builder -> builder.pathSegment("words", "next",
+		                                                                                   previousWordId.toString())
+		                                                                      .build())
+		                                               .exchangeToMono(clientResponse -> clientResponse.bodyToMono(
+				                                               WordDto.class));
+		if (Boolean.FALSE.equals(wordDtoMono.hasElement().block())) {
+			throw new NoMoreWordsException();
+		}
+		return wordDtoMono.block();
 	}
 }
