@@ -46,8 +46,4 @@ public class UserState {
 		this.user = user;
 	}
 	
-	void update(MenuButtonType buttonType, UUID buttonTypeId) {
-		this.buttonType = buttonType;
-		this.buttonTypeId = buttonTypeId;
-	}
 }

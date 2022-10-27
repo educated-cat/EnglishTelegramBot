@@ -21,10 +21,10 @@ public class UserServiceImpl implements UserService {
 		                                           .stream()
 		                                           .findFirst()
 		                                           .filter(userState -> userState.getButtonType() == buttonType)
-		                                           .ifPresentOrElse(userState -> {
-		                                                            },
-		                                                            () -> user.addState(new UserState(user, buttonType,
-		                                                                                              buttonTypeId))),
+		                                           .orElseGet(() -> {
+			                                           user.addState(new UserState(user, buttonType, buttonTypeId));
+			                                           return null;
+		                                           }),
 		                               () -> createUser(id, buttonType, buttonTypeId));
 	}
 	
