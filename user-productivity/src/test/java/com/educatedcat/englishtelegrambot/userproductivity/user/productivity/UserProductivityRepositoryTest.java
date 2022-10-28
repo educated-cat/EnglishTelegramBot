@@ -1,4 +1,4 @@
-package com.educatedcat.englishtelegrambot.bot.user.productivity;
+package com.educatedcat.englishtelegrambot.userproductivity.user.productivity;
 
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.*;

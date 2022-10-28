@@ -9,7 +9,7 @@ public class DontKnowWordActionButtonHandler extends AbstractWordActionButtonHan
 	@Autowired
 	public DontKnowWordActionButtonHandler(WordKeyboardFactory wordKeyboardFactory,
 	                                       WordTextFactory wordTextFactory,
-	                                       UserProductivityFacade userProductivityFacade) {
-		super(WordActionType.DONT_KNOW, wordKeyboardFactory, wordTextFactory, userProductivityFacade);
+	                                       UserProductivityService userProductivityService) {
+		super(WordActionType.DONT_KNOW, wordKeyboardFactory, wordTextFactory, userProductivityService);
 	}
 }

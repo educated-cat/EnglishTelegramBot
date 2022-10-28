@@ -9,7 +9,7 @@ public class KnowWordActionButtonHandler extends AbstractWordActionButtonHandler
 	@Autowired
 	public KnowWordActionButtonHandler(WordKeyboardFactory wordKeyboardFactory,
 	                                   WordTextFactory wordTextFactory,
-	                                   UserProductivityFacade userProductivityFacade) {
-		super(WordActionType.KNOW, wordKeyboardFactory, wordTextFactory, userProductivityFacade);
+	                                   UserProductivityService userProductivityService) {
+		super(WordActionType.KNOW, wordKeyboardFactory, wordTextFactory, userProductivityService);
 	}
 }

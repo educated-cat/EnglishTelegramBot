@@ -10,14 +10,7 @@ spring:
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect
         show_sql: true
-
-telegram:
-  bot:
-    username: english_bot
-    token: 12345:qwerty
-
 kafka:
   topic:
     name: user-productivity-test-topic

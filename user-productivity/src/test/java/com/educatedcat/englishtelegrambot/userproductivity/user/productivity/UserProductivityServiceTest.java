@@ -1,22 +1,15 @@
-package com.educatedcat.englishtelegrambot.bot.user.productivity;
+package com.educatedcat.englishtelegrambot.userproductivity.user.productivity;
 
-import com.educatedcat.englishtelegrambot.bot.dictionary.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;
 import org.springframework.boot.test.mock.mockito.*;
-import org.springframework.web.reactive.function.client.*;
-import org.telegram.telegrambots.meta.*;
 
 import java.util.*;
 
 import static org.mockito.BDDMockito.*;
 
 @MockBeans({
-		@MockBean(DictionaryProperties.class),
-		@MockBean(DictionaryConfig.class),
-		@MockBean(WebClient.class),
-		@MockBean(TelegramBotsApi.class),
 		@MockBean(UserProductivityRepository.class)
 })
 @SpringBootTest(properties = {"spring.main.lazy-initialization=true"})

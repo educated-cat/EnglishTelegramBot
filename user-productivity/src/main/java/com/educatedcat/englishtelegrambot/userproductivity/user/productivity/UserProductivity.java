@@ -1,4 +1,4 @@
-package com.educatedcat.englishtelegrambot.bot.user.productivity;
+package com.educatedcat.englishtelegrambot.userproductivity.user.productivity;
 
 import lombok.*;
 import org.hibernate.annotations.*;
@@ -15,10 +15,11 @@ import java.util.*;
 @DynamicInsert
 @DynamicUpdate
 @NoArgsConstructor
+@BatchSize(size = 50)
 public class UserProductivity implements Serializable {
-	// TODO: use another DB and use sequence
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "user_productivity_id_generator", sequenceName = "user_productivity_id_sequence")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_productivity_id_generator")
 	private Long id;
 	
 	@Column(nullable = false, updatable = false)

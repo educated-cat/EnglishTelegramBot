@@ -2,3 +2,4 @@ rootProject.name = "EnglishTelegramBot"
 
 include "dictionary"
 include "bot"
+include "user-productivity"
