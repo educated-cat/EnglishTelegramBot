@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;
 import org.springframework.boot.test.mock.mockito.*;
 import org.springframework.kafka.core.*;
+import org.springframework.test.context.*;
 import org.testcontainers.containers.*;
 import org.testcontainers.utility.*;
 
@@ -22,12 +23,12 @@ import static org.mockito.BDDMockito.*;
 })
 @SpringBootTest
 class UserProductivityListenerTest {
-	private static final KafkaContainer container = new KafkaContainer(
+	private static final KafkaContainer kafkaContainer = new KafkaContainer(
 			DockerImageName.parse("confluentinc/cp-kafka:latest"));
 	
 	@BeforeAll
 	public static void beforeAll() {
-		container.start();
+		kafkaContainer.start();
 	}
 	
 	@Autowired
@@ -53,4 +54,10 @@ class UserProductivityListenerTest {
 			return true;
 		});
 	}
+	
+	@DynamicPropertySource
+	private static void updateKafkaBootstrapServer(DynamicPropertyRegistry registry) {
+		registry.add("spring.kafka.bootstrap-servers", kafkaContainer::getBootstrapServers);
+	}
+	
 }

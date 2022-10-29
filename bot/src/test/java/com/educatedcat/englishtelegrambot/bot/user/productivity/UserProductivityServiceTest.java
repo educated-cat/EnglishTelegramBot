@@ -7,6 +7,7 @@ import org.apache.kafka.clients.consumer.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;
+import org.springframework.test.context.*;
 import org.testcontainers.containers.*;
 import org.testcontainers.utility.*;
 
@@ -18,12 +19,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(properties = "spring.main.lazy-initialization=true")
 class UserProductivityServiceTest {
-	private static final KafkaContainer container = new KafkaContainer(
+	private static final KafkaContainer kafkaContainer = new KafkaContainer(
 			DockerImageName.parse("confluentinc/cp-kafka:latest"));
 	
 	@BeforeAll
 	public static void beforeAll() {
-		container.start();
+		kafkaContainer.start();
 	}
 	
 	@Autowired
@@ -58,6 +59,11 @@ class UserProductivityServiceTest {
 			});
 			return true;
 		});
+	}
+	
+	@DynamicPropertySource
+	private static void updateKafkaBootstrapServer(DynamicPropertyRegistry registry) {
+		registry.add("spring.kafka.bootstrap-servers", kafkaContainer::getBootstrapServers);
 	}
 	
 }
