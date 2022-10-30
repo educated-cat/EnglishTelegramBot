@@ -17,6 +17,7 @@ public class CacheConfig {
 			registerCustomCache("courses", Caffeine.newBuilder().expireAfterAccess(Duration.ofMinutes(5)).build());
 			registerCustomCache("chapters", Caffeine.newBuilder().expireAfterAccess(Duration.ofMinutes(5)).build());
 			registerCustomCache("lessons", Caffeine.newBuilder().expireAfterAccess(Duration.ofMinutes(5)).build());
+			registerCustomCache("words", Caffeine.newBuilder().expireAfterAccess(Duration.ofMinutes(5)).build());
 		}};
 	}
 }
