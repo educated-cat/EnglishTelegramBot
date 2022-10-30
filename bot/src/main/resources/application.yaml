@@ -16,7 +16,13 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
-        show_sql: true
+  kafka:
+    bootstrap-servers:
+      - localhost:9092
+    producer:
+      acks: all
+      key-serializer: org.apache.kafka.common.serialization.LongSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
 telegram:
   bot:
@@ -26,3 +32,7 @@ telegram:
 dictionary:
   url:
     api: http://localhost:8091/api
+
+kafka:
+  topic:
+    name: user-productivity-topic

@@ -1,33 +1,18 @@
 package com.educatedcat.englishtelegrambot.bot.user.productivity;
 
+import com.educatedcat.englishtelegrambot.bot.kafka.*;
 import lombok.*;
+import org.springframework.kafka.core.*;
 import org.springframework.stereotype.*;
-import org.springframework.transaction.annotation.*;
-
-import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class UserProductivityServiceImpl implements UserProductivityService {
-	private final UserProductivityRepository userProductivityRepository;
+	private final KafkaTemplate<Long, UserProductivityDto> kafkaTemplate;
+	private final KafkaProperties kafkaProperties;
 	
 	@Override
-	@Transactional
-	public void increaseUserProductivity(long userId, UUID wordId) {
-		UserProductivity productivity = findByUserIdAndWordId(userId, wordId);
-		productivity.increaseProgress();
-	}
-	
-	@Override
-	@Transactional
-	public void decreaseUserProductivity(long userId, UUID wordId) {
-		UserProductivity productivity = findByUserIdAndWordId(userId, wordId);
-		productivity.decreaseProgress();
-	}
-	
-	private UserProductivity findByUserIdAndWordId(long userId, UUID wordId) {
-		return userProductivityRepository.findByUserIdAndWordId(userId, wordId)
-		                                 .orElseGet(() -> userProductivityRepository.save(
-				                                 new UserProductivity(userId, wordId)));
+	public void updateUserProductivity(UserProductivityDto dto) {
+		kafkaTemplate.send(kafkaProperties.getTopic().getName(), dto.userId(), dto);
 	}
 }

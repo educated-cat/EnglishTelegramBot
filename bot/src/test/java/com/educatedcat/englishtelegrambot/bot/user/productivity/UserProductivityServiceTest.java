@@ -1,81 +1,69 @@
 package com.educatedcat.englishtelegrambot.bot.user.productivity;
 
-import com.educatedcat.englishtelegrambot.bot.dictionary.*;
+import com.educatedcat.englishtelegrambot.bot.kafka.*;
+import com.educatedcat.englishtelegrambot.bot.word.*;
+import lombok.*;
+import org.apache.kafka.clients.consumer.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;
-import org.springframework.boot.test.mock.mockito.*;
-import org.springframework.web.reactive.function.client.*;
-import org.telegram.telegrambots.meta.*;
+import org.springframework.test.context.*;
+import org.testcontainers.containers.*;
+import org.testcontainers.utility.*;
 
+import java.time.*;
 import java.util.*;
 
-import static org.mockito.BDDMockito.*;
+import static org.awaitility.Awaitility.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-@MockBeans({
-		@MockBean(DictionaryProperties.class),
-		@MockBean(DictionaryConfig.class),
-		@MockBean(WebClient.class),
-		@MockBean(TelegramBotsApi.class),
-		@MockBean(UserProductivityRepository.class)
-})
-@SpringBootTest(properties = {"spring.main.lazy-initialization=true"})
+@SpringBootTest(properties = "spring.main.lazy-initialization=true")
 class UserProductivityServiceTest {
+	private static final KafkaContainer kafkaContainer = new KafkaContainer(
+			DockerImageName.parse("confluentinc/cp-kafka:latest"));
+	
+	@BeforeAll
+	public static void beforeAll() {
+		kafkaContainer.start();
+	}
+	
 	@Autowired
 	private UserProductivityService userProductivityService;
 	
 	@Autowired
-	private UserProductivityRepository userProductivityRepository;
+	private KafkaProperties kafkaProperties;
+	
+	@Autowired
+	private KafkaConsumer<Long, UserProductivityDto> consumer;
 	
 	@Test
-	void increaseUserProductivity() {
-		long userId = 123L;
-		UUID wordId = UUID.randomUUID();
-		given(userProductivityRepository.findByUserIdAndWordId(userId, wordId)).willReturn(
-				Optional.of(new UserProductivity(userId, wordId)));
+	@SneakyThrows
+	void updateUserProductivity() {
+		consumer.subscribe(List.of(kafkaProperties.getTopic().getName()));
+		UserProductivityDto productivity = new UserProductivityDto(1L, UUID.randomUUID(), WordActionType.KNOW);
 		
-		userProductivityService.increaseUserProductivity(userId, wordId);
+		userProductivityService.updateUserProductivity(productivity);
 		
-		then(userProductivityRepository).should().findByUserIdAndWordId(userId, wordId);
-		then(userProductivityRepository).should(never()).save(any(UserProductivity.class));
+		await().atMost(Duration.ofSeconds(10)).until(() -> {
+			var records = consumer.poll(Duration.ofMillis(100));
+			if (records.isEmpty()) {
+				return false;
+			}
+			consumer.close();
+			
+			assertEquals(1, records.count());
+			records.forEach(r -> {
+				assertEquals(kafkaProperties.getTopic().getName(), r.topic());
+				assertEquals(productivity, r.value());
+				assertEquals(productivity.userId(), r.key());
+			});
+			return true;
+		});
 	}
 	
-	@Test
-	void decreaseUserProductivity() {
-		long userId = 123L;
-		UUID wordId = UUID.randomUUID();
-		given(userProductivityRepository.findByUserIdAndWordId(userId, wordId)).willReturn(
-				Optional.of(new UserProductivity(userId, wordId)));
-		
-		userProductivityService.decreaseUserProductivity(userId, wordId);
-		
-		then(userProductivityRepository).should().findByUserIdAndWordId(userId, wordId);
-		then(userProductivityRepository).should(never()).save(any(UserProductivity.class));
+	@DynamicPropertySource
+	private static void updateKafkaBootstrapServer(DynamicPropertyRegistry registry) {
+		registry.add("spring.kafka.bootstrap-servers", kafkaContainer::getBootstrapServers);
 	}
 	
-	@Test
-	void increaseUserProductivityForUnknownUserIdAndWordId() {
-		long userId = 123L;
-		UUID wordId = UUID.randomUUID();
-		given(userProductivityRepository.save(any(UserProductivity.class))).willReturn(
-				new UserProductivity(userId, wordId));
-		
-		userProductivityService.increaseUserProductivity(userId, wordId);
-		
-		then(userProductivityRepository).should().findByUserIdAndWordId(userId, wordId);
-		then(userProductivityRepository).should().save(any(UserProductivity.class));
-	}
-	
-	@Test
-	void decreaseUserProductivityForUnknownUserIdAndWordId() {
-		long userId = 123L;
-		UUID wordId = UUID.randomUUID();
-		given(userProductivityRepository.save(any(UserProductivity.class))).willReturn(
-				new UserProductivity(userId, wordId));
-		
-		userProductivityService.decreaseUserProductivity(userId, wordId);
-		
-		then(userProductivityRepository).should().findByUserIdAndWordId(userId, wordId);
-		then(userProductivityRepository).should().save(any(UserProductivity.class));
-	}
 }

@@ -1,0 +1,24 @@
+server:
+  port: 8092
+
+spring:
+  datasource:
+    username: entb
+    password: entb
+    url: jdbc:postgresql://localhost:5432/entb_user_productivity
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    contexts: non-test
+    change-log: db/changelog-master.xml
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: user-productivity-group
+      key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+kafka:
+  topic:
+    name: user-productivity-topic

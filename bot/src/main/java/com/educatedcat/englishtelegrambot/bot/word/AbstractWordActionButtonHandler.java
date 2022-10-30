@@ -13,22 +13,23 @@ public abstract class AbstractWordActionButtonHandler extends AbstractButtonHand
 	private final WordActionType wordActionType;
 	private final WordKeyboardFactory wordKeyboardFactory;
 	private final WordTextFactory wordTextFactory;
-	private final UserProductivityFacade userProductivityFacade;
+	private final UserProductivityService userProductivityService;
 	
 	public AbstractWordActionButtonHandler(WordActionType wordActionType, WordKeyboardFactory wordKeyboardFactory,
 	                                       WordTextFactory wordTextFactory,
-	                                       UserProductivityFacade userProductivityFacade) {
+	                                       UserProductivityService userProductivityService) {
 		super(MenuButtonType.WORD, ActionButtonType.NEXT);
 		this.wordActionType = wordActionType;
 		this.wordKeyboardFactory = wordKeyboardFactory;
 		this.wordTextFactory = wordTextFactory;
-		this.userProductivityFacade = userProductivityFacade;
+		this.userProductivityService = userProductivityService;
 	}
 	
 	@Override
 	public BotApiMethod<?> handle(BotResponse response) {
-		userProductivityFacade.updateUserProductivity(response.chatId(), response.getEntry().id(),
-		                                              response.getEntry().wordActionType());
+		userProductivityService.updateUserProductivity(
+				new UserProductivityDto(response.chatId(), response.getEntry().id(),
+				                        response.getEntry().wordActionType()));
 		return super.handle(response);
 	}
 	
