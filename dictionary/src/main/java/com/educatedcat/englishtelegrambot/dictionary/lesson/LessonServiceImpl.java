@@ -1,12 +1,14 @@
 package com.educatedcat.englishtelegrambot.dictionary.lesson;
 
 import lombok.*;
+import org.springframework.cache.annotation.*;
 import org.springframework.stereotype.*;
 
 import java.util.*;
 
 @Service
 @RequiredArgsConstructor
+@CacheConfig(cacheNames = {"lessons"})
 public class LessonServiceImpl implements LessonService {
 	private final LessonRepository lessonRepository;
 	
