@@ -1,4 +1,4 @@
-package com.educatedcat.englishtelegrambot;
+package com.educatedcat.englishtelegrambot.dictionary;
 
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.core.type.*;

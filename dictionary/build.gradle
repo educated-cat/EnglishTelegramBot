@@ -2,10 +2,14 @@ dependencies {
 	/* Spring Boot */
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-cache")
 	
 	/* Datasource */
 	implementation("org.liquibase:liquibase-core")
 	implementation("mysql:mysql-connector-java")
+	
+	/* Cache */
+	implementation("com.github.ben-manes.caffeine:caffeine")
 	
 	/* Test */
 	testImplementation("org.springframework.boot:spring-boot-starter-test")

@@ -1,6 +1,6 @@
 package com.educatedcat.englishtelegrambot.dictionary.translation;
 
-import com.educatedcat.englishtelegrambot.*;
+import com.educatedcat.englishtelegrambot.dictionary.*;
 import com.educatedcat.englishtelegrambot.dictionary.word.*;
 import lombok.*;
 import org.junit.jupiter.api.*;

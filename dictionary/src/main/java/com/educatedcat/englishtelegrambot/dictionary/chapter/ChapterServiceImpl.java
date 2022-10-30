@@ -1,12 +1,14 @@
 package com.educatedcat.englishtelegrambot.dictionary.chapter;
 
 import lombok.*;
+import org.springframework.cache.annotation.*;
 import org.springframework.stereotype.*;
 
 import java.util.*;
 
 @Service
 @RequiredArgsConstructor
+@CacheConfig(cacheNames = {"chapters"})
 public class ChapterServiceImpl implements ChapterService {
 	private final ChapterRepository chapterRepository;
 	

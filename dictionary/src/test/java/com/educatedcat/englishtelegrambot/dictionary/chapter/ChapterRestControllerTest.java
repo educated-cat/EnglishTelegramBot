@@ -1,6 +1,6 @@
 package com.educatedcat.englishtelegrambot.dictionary.chapter;
 
-import com.educatedcat.englishtelegrambot.*;
+import com.educatedcat.englishtelegrambot.dictionary.*;
 import com.fasterxml.jackson.core.type.*;
 import lombok.*;
 import org.junit.jupiter.api.*;
