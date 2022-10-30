@@ -12,7 +12,7 @@ public class CourseServiceImpl implements CourseService {
 	private final CourseRepository courseRepository;
 	
 	@Override
-	@Cacheable(cacheNames = {"courses"}, cacheManager = "courseCacheManager")
+	@Cacheable(cacheNames = {"courses"})
 	public List<Course> findAll() {
 		return courseRepository.findAll();
 	}
