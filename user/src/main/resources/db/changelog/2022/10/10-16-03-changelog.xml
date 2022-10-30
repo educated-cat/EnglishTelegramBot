@@ -20,5 +20,7 @@
 				<constraints nullable="false"/>
 			</column>
 		</createTable>
+		
+		<createSequence sequenceName="user_id_sequence" dataType="BIGINT" incrementBy="50"/>
 	</changeSet>
 </databaseChangeLog>

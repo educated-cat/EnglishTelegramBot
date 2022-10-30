@@ -18,10 +18,11 @@ import java.util.*;
 @DynamicInsert
 @DynamicUpdate
 @NoArgsConstructor
+@BatchSize(size = 50)
 public class UserState {
-	// TODO: use SEQUENCE
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "user_id_generator", sequenceName = "user_id_sequence")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_generator")
 	private Long id;
 	
 	@Enumerated
