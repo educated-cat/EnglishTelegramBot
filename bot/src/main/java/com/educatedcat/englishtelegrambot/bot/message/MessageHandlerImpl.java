@@ -35,7 +35,7 @@ public class MessageHandlerImpl implements MessageHandler {
 		final BotApiMethod<?> result;
 		if (update.hasMessage()) {
 			var response = new BotResponse(update);
-			userService.saveOrUpdate(response.chatId(), MenuButtonType.START, null);
+			userService.saveOrUpdate(new UserDto(response.chatId(), MenuButtonType.START, null));
 			
 			result = commandHandler.handle(response);
 		} else if (update.hasCallbackQuery()) {
@@ -48,7 +48,8 @@ public class MessageHandlerImpl implements MessageHandler {
 			}
 			
 			var response = new BotResponse(update, entry);
-			userService.saveOrUpdate(response.chatId(), response.getEntry().buttonType(), response.getEntry().id());
+			userService.saveOrUpdate(
+					new UserDto(response.chatId(), response.getEntry().buttonType(), response.getEntry().id()));
 			result = callbackHandler.handle(response);
 		} else {
 			throw new UnsupportedOperationException();

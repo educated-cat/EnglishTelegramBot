@@ -1,7 +1,7 @@
-package com.educatedcat.englishtelegrambot.bot.user.state;
+package com.educatedcat.englishtelegrambot.user.user.state;
 
-import com.educatedcat.englishtelegrambot.bot.button.*;
-import com.educatedcat.englishtelegrambot.bot.user.*;
+import com.educatedcat.englishtelegrambot.user.button.*;
+import com.educatedcat.englishtelegrambot.user.user.*;
 import lombok.*;
 import org.hibernate.annotations.*;
 
