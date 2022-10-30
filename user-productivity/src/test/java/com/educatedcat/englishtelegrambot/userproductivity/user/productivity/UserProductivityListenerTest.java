@@ -45,7 +45,7 @@ class UserProductivityListenerTest {
 		UserProductivityDto productivity = new UserProductivityDto(1L, UUID.randomUUID(), WordActionType.KNOW);
 		kafkaTemplate.send(kafkaProperties.getTopic().getName(), productivity.userId(), productivity);
 		
-		await().atMost(Duration.ofSeconds(10)).until(() -> {
+		await().atMost(Duration.ofSeconds(10)).with().pollInterval(Duration.ofMillis(100)).until(() -> {
 			try {
 				then(userProductivityFacade).should().updateUserProductivity(productivity);
 			} catch (WantedButNotInvoked e) {
