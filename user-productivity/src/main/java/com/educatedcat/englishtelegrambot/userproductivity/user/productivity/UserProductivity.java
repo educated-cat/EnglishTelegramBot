@@ -25,8 +25,7 @@ public class UserProductivity implements Serializable {
 	@Column(nullable = false, updatable = false)
 	private long userId;
 	
-	@Type(type = "uuid-char")
-	@Column(nullable = false, columnDefinition = "VARCHAR(36)")
+	@Column(nullable = false)
 	private UUID wordId;
 	
 	/**
