@@ -1,6 +1,6 @@
 package com.educatedcat.englishtelegrambot.dictionary.word;
 
-import com.educatedcat.englishtelegrambot.*;
+import com.educatedcat.englishtelegrambot.dictionary.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.*;
 
