@@ -1,7 +1,7 @@
-package com.educatedcat.englishtelegrambot.bot.user.state;
+package com.educatedcat.englishtelegrambot.user.user.state;
 
-import com.educatedcat.englishtelegrambot.bot.button.*;
-import com.educatedcat.englishtelegrambot.bot.user.*;
+import com.educatedcat.englishtelegrambot.user.button.*;
+import com.educatedcat.englishtelegrambot.user.user.*;
 import lombok.*;
 import org.hibernate.annotations.*;
 
@@ -18,18 +18,16 @@ import java.util.*;
 @DynamicInsert
 @DynamicUpdate
 @NoArgsConstructor
+@BatchSize(size = 50)
 public class UserState {
-	// TODO: use SEQUENCE
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "user_id_generator", sequenceName = "user_id_sequence")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_generator")
 	private Long id;
 	
 	@Enumerated
-	@Column(nullable = false, columnDefinition = "TINYINT")
+	@Column(nullable = false, columnDefinition = "INT2")
 	private MenuButtonType buttonType;
-	
-	@Type(type = "uuid-char")
-	@Column(columnDefinition = "VARCHAR(36)")
 	private UUID buttonTypeId;
 	
 	@CreationTimestamp

@@ -1,4 +1,4 @@
-package com.educatedcat.englishtelegrambot.bot.user;
+package com.educatedcat.englishtelegrambot.user.user;
 
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.*;

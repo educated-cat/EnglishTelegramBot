@@ -1,63 +1,68 @@
 package com.educatedcat.englishtelegrambot.bot.user;
 
 import com.educatedcat.englishtelegrambot.bot.button.*;
-import com.educatedcat.englishtelegrambot.bot.dictionary.*;
+import com.educatedcat.englishtelegrambot.bot.kafka.*;
+import lombok.*;
+import org.apache.kafka.clients.consumer.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.boot.test.autoconfigure.jdbc.*;
 import org.springframework.boot.test.context.*;
-import org.springframework.boot.test.mock.mockito.*;
-import org.springframework.web.reactive.function.client.*;
-import org.telegram.telegrambots.meta.*;
+import org.springframework.test.context.*;
+import org.testcontainers.containers.*;
+import org.testcontainers.utility.*;
 
+import java.time.*;
 import java.util.*;
 
+import static org.awaitility.Awaitility.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-@MockBeans({
-		@MockBean(DictionaryProperties.class),
-		@MockBean(DictionaryConfig.class),
-		@MockBean(WebClient.class),
-		@MockBean(TelegramBotsApi.class)
-})
-@AutoConfigureTestDatabase
-@SuppressWarnings("OptionalGetWithoutIsPresent")
-@SpringBootTest(properties = {"spring.main.lazy-initialization=true"})
+@SpringBootTest(properties = "spring.main.lazy-initialization=true")
 class UserServiceTest {
-	@Autowired
-	private UserRepository userRepository;
+	private static final KafkaContainer kafkaContainer = new KafkaContainer(
+			DockerImageName.parse("confluentinc/cp-kafka:latest"));
+	
+	@BeforeAll
+	public static void beforeAll() {
+		kafkaContainer.start();
+	}
 	
 	@Autowired
 	private UserService userService;
 	
-	@Test
-	void save() {
-		var id = 123L;
-		var buttonType = MenuButtonType.START;
-		var buttonId = UUID.randomUUID();
-		
-		userService.saveOrUpdate(id, buttonType, buttonId);
-		
-		User saved = userRepository.findById(id).get();
-		assertEquals(id, saved.getId());
-		assertEquals(1, saved.getStates().size());
-		assertEquals(buttonType, saved.getStates().get(0).getButtonType());
-		assertEquals(buttonId, saved.getStates().get(0).getButtonTypeId());
-	}
+	@Autowired
+	private KafkaProperties kafkaProperties;
+	
+	@Autowired
+	private KafkaConsumer<Long, UserDto> consumer;
 	
 	@Test
-	void update() {
-		var id = 1234L;
-		var buttonType = MenuButtonType.LESSON;
-		var buttonId = UUID.randomUUID();
-		userService.saveOrUpdate(id, MenuButtonType.START, UUID.randomUUID());
+	@SneakyThrows
+	void saveOrUpdate() {
+		consumer.subscribe(List.of(kafkaProperties.getUser().getTopic().getName()));
+		UserDto user = new UserDto(1L, MenuButtonType.START, UUID.randomUUID());
 		
-		userService.saveOrUpdate(id, buttonType, buttonId);
+		userService.saveOrUpdate(user);
 		
-		User saved = userRepository.findById(id).get();
-		assertEquals(id, saved.getId());
-		assertEquals(2, saved.getStates().size());
-		assertEquals(buttonType, saved.getStates().get(0).getButtonType());
-		assertEquals(buttonId, saved.getStates().get(0).getButtonTypeId());
+		await().atMost(Duration.ofSeconds(10)).until(() -> {
+			var records = consumer.poll(Duration.ofMillis(100));
+			if (records.isEmpty()) {
+				return false;
+			}
+			consumer.close();
+			
+			assertEquals(1, records.count());
+			records.forEach(r -> {
+				assertEquals(kafkaProperties.getUser().getTopic().getName(), r.topic());
+				assertEquals(user, r.value());
+				assertEquals(user.id(), r.key());
+			});
+			return true;
+		});
+	}
+	
+	@DynamicPropertySource
+	private static void updateKafkaBootstrapServer(DynamicPropertyRegistry registry) {
+		registry.add("spring.kafka.bootstrap-servers", kafkaContainer::getBootstrapServers);
 	}
 }

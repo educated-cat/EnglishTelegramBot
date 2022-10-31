@@ -1,4 +1,4 @@
-package com.educatedcat.englishtelegrambot.bot.user;
+package com.educatedcat.englishtelegrambot.user.user;
 
 import org.springframework.data.jpa.repository.*;
 import org.springframework.lang.*;

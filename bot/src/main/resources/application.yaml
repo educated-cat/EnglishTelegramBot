@@ -2,20 +2,6 @@ server:
   port: 8090
 
 spring:
-  datasource:
-    username: root
-    password: root1234
-    url: jdbc:mysql://localhost:3306/entb_bot
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  liquibase:
-    contexts: non-test
-    change-log: db/changelog-master.xml
-  jpa:
-    hibernate:
-      ddl-auto: validate
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect
   kafka:
     bootstrap-servers:
       - localhost:9092
@@ -34,5 +20,9 @@ dictionary:
     api: http://localhost:8091/api
 
 kafka:
-  topic:
-    name: user-productivity-topic
+  user:
+    topic:
+      name: user-topic
+  productivity:
+    topic:
+      name: user-productivity-topic

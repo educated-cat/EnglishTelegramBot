@@ -1,4 +1,4 @@
-package com.educatedcat.englishtelegrambot.bot.kafka;
+package com.educatedcat.englishtelegrambot.user.kafka;
 
 import lombok.*;
 import org.springframework.boot.context.properties.*;
@@ -13,36 +13,7 @@ import javax.validation.constraints.*;
 @ConfigurationProperties("kafka")
 public class KafkaProperties {
 	@NotNull
-	private User user;
-	
-	@NotNull
-	private Productivity productivity;
-	
-	/**
-	 * User properties
-	 */
-	@Data
-	@Validated
-	public static final class User {
-		/**
-		 * Topic name
-		 */
-		@NotNull
-		private Topic topic;
-	}
-	
-	/**
-	 * Productivity properties
-	 */
-	@Data
-	@Validated
-	public static final class Productivity {
-		/**
-		 * Topic name
-		 */
-		@NotNull
-		private Topic topic;
-	}
+	private Topic topic;
 	
 	/**
 	 * Kafka topic properties

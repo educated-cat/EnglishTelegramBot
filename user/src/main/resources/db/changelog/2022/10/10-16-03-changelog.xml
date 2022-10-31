@@ -12,10 +12,15 @@
 			<column name="user_id" type="BIGINT">
 				<constraints nullable="false"/>
 			</column>
-			<column name="button_type" type="TINYINT">
+			<column name="button_type" type="SMALLINT">
 				<constraints nullable="false"/>
 			</column>
-			<column name="button_type_id" type="VARCHAR(36)"/>
+			<column name="button_type_id" type="UUID"/>
+			<column name="create_date" type="TIMESTAMP" defaultValueComputed="NOW()">
+				<constraints nullable="false"/>
+			</column>
 		</createTable>
+		
+		<createSequence sequenceName="user_id_sequence" dataType="BIGINT" incrementBy="50"/>
 	</changeSet>
 </databaseChangeLog>

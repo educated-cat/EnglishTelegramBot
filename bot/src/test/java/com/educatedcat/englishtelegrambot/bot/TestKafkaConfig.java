@@ -1,5 +1,6 @@
 package com.educatedcat.englishtelegrambot.bot;
 
+import com.educatedcat.englishtelegrambot.bot.user.*;
 import com.educatedcat.englishtelegrambot.bot.user.productivity.*;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.serialization.*;
@@ -15,5 +16,13 @@ public class TestKafkaConfig {
 			ConsumerFactory<?, ?> consumerFactory) {
 		return new KafkaConsumer<>(consumerFactory.getConfigurationProperties(), new LongDeserializer(),
 		                           new JsonDeserializer<>(UserProductivityDto.class, false));
+	}
+	
+	@Bean(destroyMethod = "close")
+	@Primary
+	public KafkaConsumer<Long, UserDto> userDtoKafkaConsumer(
+			ConsumerFactory<?, ?> consumerFactory) {
+		return new KafkaConsumer<>(consumerFactory.getConfigurationProperties(), new LongDeserializer(),
+		                           new JsonDeserializer<>(UserDto.class, false));
 	}
 }

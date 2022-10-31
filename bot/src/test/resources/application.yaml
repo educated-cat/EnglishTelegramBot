@@ -1,17 +1,4 @@
 spring:
-  datasource:
-    username: sa
-    password: sa
-    url: jdbc:h2:mem:myDb
-    driver-class-name: org.h2.Driver
-  liquibase:
-    contexts: test
-    change-log: db/changelog-master.xml
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect
-        show_sql: true
   kafka:
     bootstrap-servers:
       - localhost:9092
@@ -32,5 +19,9 @@ telegram:
     token: 12345:qwerty
 
 kafka:
-  topic:
-    name: user-productivity-test-topic
+  user:
+    topic:
+      name: user-test-topic
+  productivity:
+    topic:
+      name: user-productivity-test-topic
