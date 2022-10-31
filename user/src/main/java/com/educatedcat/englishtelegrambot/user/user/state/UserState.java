@@ -26,11 +26,8 @@ public class UserState {
 	private Long id;
 	
 	@Enumerated
-	@Column(nullable = false, columnDefinition = "TINYINT")
+	@Column(nullable = false, columnDefinition = "INT2")
 	private MenuButtonType buttonType;
-	
-	@Type(type = "uuid-char")
-	@Column(columnDefinition = "VARCHAR(36)")
 	private UUID buttonTypeId;
 	
 	@CreationTimestamp

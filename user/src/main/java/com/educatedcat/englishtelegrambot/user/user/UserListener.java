@@ -9,7 +9,7 @@ import org.springframework.stereotype.*;
 public class UserListener {
 	private final UserService userService;
 	
-	@KafkaListener(topics = {"${spring,kafka.name}"})
+	@KafkaListener(topics = {"${kafka.topic.name}"})
 	public void saveUserState(UserDto userDto) {
 		userService.saveOrUpdate(userDto);
 	}
