@@ -13,6 +13,6 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public void saveOrUpdate(UserDto userDto) {
-		kafkaTemplate.send(kafkaProperties.getTopic().getName(), userDto.id(), userDto);
+		kafkaTemplate.send(kafkaProperties.getUser().getTopic().getName(), userDto.id(), userDto);
 	}
 }

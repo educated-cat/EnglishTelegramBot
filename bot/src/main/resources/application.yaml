@@ -20,5 +20,9 @@ dictionary:
     api: http://localhost:8091/api
 
 kafka:
-  topic:
-    name: user-productivity-topic
+  user:
+    topic:
+      name: user-topic
+  productivity:
+    topic:
+      name: user-productivity-topic

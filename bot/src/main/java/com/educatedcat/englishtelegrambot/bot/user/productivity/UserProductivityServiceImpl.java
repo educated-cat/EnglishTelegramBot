@@ -13,6 +13,6 @@ public class UserProductivityServiceImpl implements UserProductivityService {
 	
 	@Override
 	public void updateUserProductivity(UserProductivityDto dto) {
-		kafkaTemplate.send(kafkaProperties.getTopic().getName(), dto.userId(), dto);
+		kafkaTemplate.send(kafkaProperties.getProductivity().getTopic().getName(), dto.userId(), dto);
 	}
 }

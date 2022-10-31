@@ -1,7 +1,7 @@
-package com.educatedcat.englishtelegrambot.bot.user.productivity;
+package com.educatedcat.englishtelegrambot.bot.user;
 
+import com.educatedcat.englishtelegrambot.bot.button.*;
 import com.educatedcat.englishtelegrambot.bot.kafka.*;
-import com.educatedcat.englishtelegrambot.bot.word.*;
 import lombok.*;
 import org.apache.kafka.clients.consumer.*;
 import org.junit.jupiter.api.*;
@@ -18,7 +18,7 @@ import static org.awaitility.Awaitility.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(properties = "spring.main.lazy-initialization=true")
-class UserProductivityServiceTest {
+class UserServiceTest {
 	private static final KafkaContainer kafkaContainer = new KafkaContainer(
 			DockerImageName.parse("confluentinc/cp-kafka:latest"));
 	
@@ -28,21 +28,21 @@ class UserProductivityServiceTest {
 	}
 	
 	@Autowired
-	private UserProductivityService userProductivityService;
+	private UserService userService;
 	
 	@Autowired
 	private KafkaProperties kafkaProperties;
 	
 	@Autowired
-	private KafkaConsumer<Long, UserProductivityDto> consumer;
+	private KafkaConsumer<Long, UserDto> consumer;
 	
 	@Test
 	@SneakyThrows
-	void updateUserProductivity() {
-		consumer.subscribe(List.of(kafkaProperties.getProductivity().getTopic().getName()));
-		UserProductivityDto productivity = new UserProductivityDto(1L, UUID.randomUUID(), WordActionType.KNOW);
+	void saveOrUpdate() {
+		consumer.subscribe(List.of(kafkaProperties.getUser().getTopic().getName()));
+		UserDto user = new UserDto(1L, MenuButtonType.START, UUID.randomUUID());
 		
-		userProductivityService.updateUserProductivity(productivity);
+		userService.saveOrUpdate(user);
 		
 		await().atMost(Duration.ofSeconds(10)).until(() -> {
 			var records = consumer.poll(Duration.ofMillis(100));
@@ -53,9 +53,9 @@ class UserProductivityServiceTest {
 			
 			assertEquals(1, records.count());
 			records.forEach(r -> {
-				assertEquals(kafkaProperties.getProductivity().getTopic().getName(), r.topic());
-				assertEquals(productivity, r.value());
-				assertEquals(productivity.userId(), r.key());
+				assertEquals(kafkaProperties.getUser().getTopic().getName(), r.topic());
+				assertEquals(user, r.value());
+				assertEquals(user.id(), r.key());
 			});
 			return true;
 		});
@@ -65,5 +65,4 @@ class UserProductivityServiceTest {
 	private static void updateKafkaBootstrapServer(DynamicPropertyRegistry registry) {
 		registry.add("spring.kafka.bootstrap-servers", kafkaContainer::getBootstrapServers);
 	}
-	
 }

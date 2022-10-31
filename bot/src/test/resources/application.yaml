@@ -19,5 +19,9 @@ telegram:
     token: 12345:qwerty
 
 kafka:
-  topic:
-    name: user-productivity-test-topic
+  user:
+    topic:
+      name: user-test-topic
+  productivity:
+    topic:
+      name: user-productivity-test-topic

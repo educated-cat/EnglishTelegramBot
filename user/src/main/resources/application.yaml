@@ -19,7 +19,8 @@ spring:
       group-id: user-productivity-group
       key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      auto-offset-reset: earliest
 
 kafka:
   topic:
-    name: user-productivity-topic
+    name: user-topic

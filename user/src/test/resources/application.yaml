@@ -25,4 +25,4 @@ spring:
 
 kafka:
   topic:
-    name: user-productivity-test-topic
+    name: user-test-topic
