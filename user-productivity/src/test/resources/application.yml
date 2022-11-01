@@ -1,10 +1,20 @@
 spring:
+  datasource:
+    username: sa
+    password: sa
+    url: jdbc:h2:mem:myDb
+    driver-class-name: org.h2.Driver
+  liquibase:
+    contexts: test
+    change-log: db/changelog-master.xml
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
   kafka:
-    bootstrap-servers:
-      - localhost:9092
+    bootstrap-servers: localhost:9092
     producer:
       acks: all
-      retries: 0
       key-serializer: org.apache.kafka.common.serialization.LongSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
     consumer:
@@ -12,16 +22,9 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       auto-offset-reset: earliest
-
-telegram:
-  bot:
-    username: english_bot
-    token: 12345:qwerty
+  sleuth:
+    enabled: false
 
 kafka:
-  user:
-    topic:
-      name: user-test-topic
-  productivity:
-    topic:
-      name: user-productivity-test-topic
+  topic:
+    name: user-productivity-test-topic
