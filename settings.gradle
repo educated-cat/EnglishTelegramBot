@@ -2,5 +2,6 @@ rootProject.name = "EnglishTelegramBot"
 
 include "dictionary"
 include "bot-receiver"
+include "bot-sender"
 include "user-productivity"
 include "user"
