@@ -1,6 +1,7 @@
 package com.educatedcat.englishtelegrambot.dictionary.word;
 
 import lombok.*;
+import org.springframework.cloud.sleuth.annotation.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import java.util.*;
 public class WordRestController {
 	private final WordService wordService;
 	
+	@ContinueSpan(log = "Find word by ID")
 	@GetMapping("/{uuid}")
 	public WordDto findById(@PathVariable UUID uuid) {
 		return wordService.find(uuid)
@@ -19,6 +21,7 @@ public class WordRestController {
 		                  .orElseThrow();
 	}
 	
+	@ContinueSpan(log = "Find first word in lesson")
 	@GetMapping("/first/{lessonId}")
 	public WordDto findFirstInLessonByLessonId(@PathVariable UUID lessonId) {
 		return wordService.findFirstInLessonByLessonId(lessonId)
@@ -26,6 +29,7 @@ public class WordRestController {
 		                  .orElseThrow();
 	}
 	
+	@ContinueSpan(log = "Find next word in lesson")
 	@GetMapping("/next/{previousWordId}")
 	public WordDto findNext(@PathVariable UUID previousWordId) {
 		return wordService.findNext(previousWordId)
@@ -33,6 +37,7 @@ public class WordRestController {
 		                  .orElseThrow();
 	}
 	
+	@ContinueSpan(log = "Find all words in lesson by lesson ID")
 	@GetMapping("/by-lesson/{lessonId}")
 	public List<WordDto> findAllByLessonId(@PathVariable UUID lessonId) {
 		return wordService.findAllByLessonId(lessonId)
@@ -41,12 +46,14 @@ public class WordRestController {
 		                  .toList();
 	}
 	
+	@ContinueSpan(log = "Create word")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public WordDto create(@RequestBody WordDto dto) {
 		return wordService.save(dto).toDto();
 	}
 	
+	@ContinueSpan(log = "Update word by ID")
 	@PutMapping("/{uuid}")
 	public void update(@PathVariable UUID uuid, @RequestBody WordDto dto) {
 		wordService.update(uuid, dto);

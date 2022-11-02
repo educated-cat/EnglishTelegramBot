@@ -1,6 +1,7 @@
 package com.educatedcat.englishtelegrambot.dictionary.lesson;
 
 import lombok.*;
+import org.springframework.cloud.sleuth.annotation.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -11,6 +12,7 @@ import java.util.*;
 public class LessonRestController {
 	private final LessonService lessonService;
 	
+	@ContinueSpan(log = "Find lessons in chapter by ID")
 	@GetMapping("/{id}")
 	public List<LessonDto> findAllInChapterByLessonId(@PathVariable UUID id) {
 		return lessonService.findLessonsById(id)
@@ -19,6 +21,7 @@ public class LessonRestController {
 		                    .toList();
 	}
 	
+	@ContinueSpan(log = "Find lessons in chapter by chapter ID")
 	@GetMapping("/by-chapter/{chapterId}")
 	public List<LessonDto> findAllInChapter(@PathVariable UUID chapterId) {
 		return lessonService.findAllByChapterId(chapterId)

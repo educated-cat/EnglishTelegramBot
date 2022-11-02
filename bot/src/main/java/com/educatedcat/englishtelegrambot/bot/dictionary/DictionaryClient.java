@@ -5,6 +5,7 @@ import com.educatedcat.englishtelegrambot.bot.course.*;
 import com.educatedcat.englishtelegrambot.bot.lesson.*;
 import com.educatedcat.englishtelegrambot.bot.word.*;
 import lombok.*;
+import org.springframework.cloud.sleuth.annotation.*;
 import org.springframework.core.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.reactive.function.client.*;
@@ -17,6 +18,7 @@ import java.util.*;
 public class DictionaryClient {
 	private final WebClient dictionaryWebClient;
 	
+	@NewSpan("Find courses")
 	public List<CourseDto> findCourses() {
 		return dictionaryWebClient.get()
 		                          .uri(builder -> builder.pathSegment("courses").build())
@@ -26,6 +28,7 @@ public class DictionaryClient {
 		                          .block();
 	}
 	
+	@NewSpan("Find chapters in course by ID")
 	public List<ChapterDto> findChaptersInCourse(UUID courseId) {
 		return dictionaryWebClient.get()
 		                          .uri(builder -> builder.pathSegment("chapters", "by-course", courseId.toString())
@@ -36,6 +39,7 @@ public class DictionaryClient {
 		                          .block();
 	}
 	
+	@NewSpan("Find chapters in course by chapter ID")
 	public List<ChapterDto> findChaptersInCourseById(UUID chapterId) {
 		return dictionaryWebClient.get()
 		                          .uri(builder -> builder.pathSegment("chapters", chapterId.toString())
@@ -46,6 +50,7 @@ public class DictionaryClient {
 		                          .block();
 	}
 	
+	@NewSpan("Find chapters in course by lesson ID")
 	public List<ChapterDto> findChaptersInCourseByLessonId(UUID lessonId) {
 		return dictionaryWebClient.get()
 		                          .uri(builder -> builder.pathSegment("chapters", "by-lesson", lessonId.toString())
@@ -56,6 +61,7 @@ public class DictionaryClient {
 		                          .block();
 	}
 	
+	@NewSpan("Find lessons in chapter by chapter ID")
 	public List<LessonDto> findLessonsInChapter(UUID chapterId) {
 		return dictionaryWebClient.get()
 		                          .uri(builder -> builder.pathSegment("lessons", "by-chapter", chapterId.toString())
@@ -66,6 +72,7 @@ public class DictionaryClient {
 		                          .block();
 	}
 	
+	@NewSpan("Find lessons in chapter by ID")
 	public List<LessonDto> findLessonsInChapterById(UUID id) {
 		return dictionaryWebClient.get()
 		                          .uri(builder -> builder.pathSegment("lessons", id.toString())
@@ -76,6 +83,7 @@ public class DictionaryClient {
 		                          .block();
 	}
 	
+	@NewSpan("Find first word in lesson")
 	public WordDto findFirstWordInLesson(UUID lessonId) {
 		return dictionaryWebClient.get()
 		                          .uri(builder -> builder.pathSegment("words", "first", lessonId.toString())
@@ -84,6 +92,7 @@ public class DictionaryClient {
 		                          .block();
 	}
 	
+	@NewSpan("Find next word in lesson")
 	public WordDto findNextWord(UUID previousWordId) {
 		Mono<WordDto> wordDtoMono = dictionaryWebClient.get()
 		                                               .uri(builder -> builder.pathSegment("words", "next",
