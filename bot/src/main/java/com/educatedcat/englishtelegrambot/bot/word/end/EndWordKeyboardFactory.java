@@ -1,8 +1,7 @@
 package com.educatedcat.englishtelegrambot.bot.word.end;
 
-import com.educatedcat.englishtelegrambot.bot.button.*;
 import com.educatedcat.englishtelegrambot.bot.keyboard.*;
-import com.educatedcat.englishtelegrambot.bot.lesson.*;
+import com.educatedcat.englishtelegrambot.bot.start.*;
 import lombok.*;
 import org.springframework.context.*;
 import org.springframework.stereotype.*;
@@ -18,8 +17,7 @@ public class EndWordKeyboardFactory extends AbstractKeyboardFactory {
 	@Override
 	public BaseKeyboard build(KeyboardEntry entry) {
 		return new EndWordKeyboard(keyboardEntryMapper,
-		                           new LessonDto(entry.id(), messageSource.getMessage("button.back.message",
-		                                                                              null, Locale.ENGLISH)),
-		                           MenuButtonType.LESSON);
+		                           new StartButton(messageSource.getMessage("button.menu.start",
+		                                                                    null, Locale.ENGLISH)));
 	}
 }
