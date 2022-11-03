@@ -18,6 +18,9 @@ public class KafkaProperties {
 	@NotNull
 	private Productivity productivity;
 	
+	@NotNull
+	private MessageSender messageSender;
+	
 	/**
 	 * User properties
 	 */
@@ -37,6 +40,19 @@ public class KafkaProperties {
 	@Data
 	@Validated
 	public static final class Productivity {
+		/**
+		 * Topic name
+		 */
+		@NotNull
+		private Topic topic;
+	}
+	
+	/**
+	 * Bot message sender properties
+	 */
+	@Data
+	@Validated
+	public static final class MessageSender {
 		/**
 		 * Topic name
 		 */

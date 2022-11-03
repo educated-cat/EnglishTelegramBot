@@ -1,6 +1,5 @@
 dependencies {
 	/* Spring Boot */
-	implementation("org.telegram:telegrambots-spring-boot-starter")
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("org.springframework.cloud:spring-cloud-starter-sleuth")
@@ -9,6 +8,9 @@ dependencies {
 	
 	/* Server */
 	implementation("io.netty:netty-resolver-dns-native-macos:4.1.79.Final:osx-aarch_64")
+	
+	/* Telegram */
+	implementation("org.telegram:telegrambots-meta")
 	
 	/* Test */
 	testImplementation("org.springframework.boot:spring-boot-starter-test")

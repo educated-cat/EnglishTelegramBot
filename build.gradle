@@ -29,7 +29,7 @@ subprojects {
 	
 	dependencies {
 		constraints {
-			implementation("org.telegram:telegrambots-spring-boot-starter:6.1.0")
+			implementation("org.telegram:telegrambots-meta:6.1.0")
 		}
 		annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 		
