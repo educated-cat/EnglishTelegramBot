@@ -1,8 +1,8 @@
 package com.educatedcat.englishtelegrambot.bot.user.productivity;
 
-import com.educatedcat.englishtelegrambot.botsender.kafka.*;
-import com.educatedcat.englishtelegrambot.botsender.user.productivity.*;
-import com.educatedcat.englishtelegrambot.botsender.word.*;
+import com.educatedcat.englishtelegrambot.botreceiver.kafka.*;
+import com.educatedcat.englishtelegrambot.botreceiver.user.productivity.*;
+import com.educatedcat.englishtelegrambot.botreceiver.word.*;
 import lombok.*;
 import org.apache.kafka.clients.consumer.*;
 import org.junit.jupiter.api.*;

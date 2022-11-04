@@ -1,7 +1,7 @@
 package com.educatedcat.englishtelegrambot.bot;
 
-import com.educatedcat.englishtelegrambot.botsender.user.*;
-import com.educatedcat.englishtelegrambot.botsender.user.productivity.*;
+import com.educatedcat.englishtelegrambot.botreceiver.user.*;
+import com.educatedcat.englishtelegrambot.botreceiver.user.productivity.*;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.serialization.*;
 import org.springframework.context.annotation.*;
