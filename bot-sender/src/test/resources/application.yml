@@ -1,0 +1,26 @@
+spring:
+  kafka:
+    bootstrap-servers:
+      - localhost:9092
+    consumer:
+      group-id: bot-message-group
+      key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      auto-offset-reset: earliest
+      properties:
+        spring.json.trusted.packages: org.telegram.telegrambots.meta.api.methods.*
+    producer:
+      acks: all
+      key-serializer: org.apache.kafka.common.serialization.LongSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  sleuth:
+    enabled: false
+
+telegram:
+  bot:
+    token: 12345:qwerty
+
+kafka:
+  message-sender:
+    topic:
+      name: bot-message-test-topic
