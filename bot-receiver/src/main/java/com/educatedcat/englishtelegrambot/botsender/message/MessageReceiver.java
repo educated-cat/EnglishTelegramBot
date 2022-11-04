@@ -1,5 +1,6 @@
 package com.educatedcat.englishtelegrambot.botsender.message;
 
+import com.educatedcat.englishtelegrambot.botsender.offset.*;
 import lombok.*;
 import lombok.extern.slf4j.*;
 import org.springframework.scheduling.annotation.*;
@@ -17,6 +18,7 @@ import java.util.*;
 public class MessageReceiver {
 	private final WebClient botWebClient;
 	private final MessageHandler messageHandler;
+	private final BotOffsetService botOffsetService;
 	
 	@Scheduled(fixedDelayString = "${telegram.receiver.delay}")
 	void getUpdatesScheduled() {
@@ -24,17 +26,36 @@ public class MessageReceiver {
 	}
 	
 	private List<Update> getUpdates() {
-		var getUpdatesRequest = GetUpdates.builder().limit(1000)
-		                                  .allowedUpdates(List.of("message", "callback_query"))
-		                                  .build();
-		var response = botWebClient.get().uri("/getUpdates")
+		final int currentOffset = botOffsetService.getCurrentOffset()
+		                                          .orElseThrow()
+		                                          .getOffset()
+		                                          .intValue();
+		var response = botWebClient.get()
+		                           .uri(uriBuilder -> uriBuilder.pathSegment("getUpdates")
+		                                                        .queryParam("offset", currentOffset + 1)
+		                                                        .queryParam("allowed_updates",
+		                                                                    List.of("message", "callback_query")
+		                                                                        .toString())
+		                                                        .build())
 		                           .exchangeToMono(clientResponse -> clientResponse.bodyToMono(String.class))
 		                           .block();
 		try {
-			return getUpdatesRequest.deserializeResponse(response);
+			var updatesDeserializer = GetUpdates.builder().build();
+			final List<Update> updates = updatesDeserializer.deserializeResponse(response);
+			final Integer lastUpdateId = getLastUpdateId(currentOffset, updates);
+			botOffsetService.updateCurrentOffset(lastUpdateId);
+			return updates;
 		} catch (TelegramApiRequestException e) {
 			log.error("", e);
 			return Collections.emptyList();
 		}
+	}
+	
+	private Integer getLastUpdateId(Integer currentOffset, List<Update> updates) {
+		int lastUpdateId = currentOffset;
+		for (Update update : updates) {
+			lastUpdateId = Math.max(lastUpdateId, update.getUpdateId());
+		}
+		return lastUpdateId;
 	}
 }

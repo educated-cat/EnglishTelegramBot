@@ -4,6 +4,14 @@ server:
 spring:
   application:
     name: bot-receiver
+  datasource:
+    url: jdbc:postgresql://localhost:5432/entb_bot_receiver
+    username: entb
+    password: entb
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    contexts: non-test
+    change-log: db/changelog-master.xml
   kafka:
     bootstrap-servers:
       - localhost:9092
