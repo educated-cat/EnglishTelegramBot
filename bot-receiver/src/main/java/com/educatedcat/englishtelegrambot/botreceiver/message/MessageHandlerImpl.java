@@ -8,12 +8,9 @@ import com.educatedcat.englishtelegrambot.botreceiver.keyboard.*;
 import com.educatedcat.englishtelegrambot.botreceiver.user.*;
 import lombok.*;
 import lombok.extern.slf4j.*;
-import org.springframework.context.*;
 import org.springframework.stereotype.*;
 import org.telegram.telegrambots.meta.api.methods.*;
 import org.telegram.telegrambots.meta.api.objects.*;
-
-import java.util.*;
 
 @Slf4j
 @Component
@@ -24,7 +21,6 @@ public class MessageHandlerImpl implements MessageHandler {
 	private final CallbackHandler callbackHandler;
 	private final KeyboardEntryMapper keyboardEntryMapper;
 	private final UserService userService;
-	private final MessageSource messageSource;
 	
 	@Override
 	public void handle(Update update) {
@@ -59,16 +55,6 @@ public class MessageHandlerImpl implements MessageHandler {
 			log.error("User ID=" + chatId, e);
 		} catch (UnsupportedOperationException e) {
 			log.error("Unsupported operation, update=" + update, e);
-		}
-	}
-	
-	private String getErrorMessage(Exception e) {
-		if (e instanceof UnknownCommandException) {
-			return messageSource.getMessage("bot.command.unknown", null, Locale.ENGLISH);
-		} else if (e instanceof NotCommandException) {
-			return messageSource.getMessage("bot.command.not", null, Locale.ENGLISH);
-		} else {
-			return messageSource.getMessage("bot.error.unexpected", null, Locale.ENGLISH);
 		}
 	}
 }
