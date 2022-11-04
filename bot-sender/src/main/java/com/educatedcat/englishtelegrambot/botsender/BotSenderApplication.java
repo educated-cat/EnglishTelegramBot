@@ -1,4 +1,4 @@
-package com.educatedcat.englishtelegrambot.botreceiver;
+package com.educatedcat.englishtelegrambot.botsender;
 
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
