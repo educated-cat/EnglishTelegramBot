@@ -23,7 +23,6 @@ spring:
 
 telegram:
   bot:
-    username: entb_bot
     token: 5455060518:AAGHcfaL9bx5NFyAaxbUcKYkp6lJ8T0Rd4E
     url:
       api: https://api.telegram.org/bot

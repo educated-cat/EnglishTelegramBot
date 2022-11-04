@@ -17,12 +17,6 @@ public class TelegramBotProperties {
 	private Url url;
 	
 	/**
-	 * Telegram bot username
-	 */
-	@NotBlank
-	private String username;
-	
-	/**
 	 * Telegram bot token
 	 */
 	@NotBlank
