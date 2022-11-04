@@ -20,16 +20,16 @@ public abstract class AbstractButtonHandler {
 	
 	public BotApiMethod<?> handle(BotResponse response) {
 		if (response.editable()) {
-			final EditMessageText editMessageText = new EditMessageText(getText(response.getEntry()));
-			editMessageText.setChatId(response.chatId());
-			editMessageText.setMessageId(response.messageId());
-			editMessageText.setReplyMarkup(getKeyboard(response.getEntry()));
-			return editMessageText;
+			return EditMessageText.builder().chatId(response.chatId())
+			                                .messageId(response.messageId())
+			                                .text(getText(response.getEntry()))
+			                                .replyMarkup(getKeyboard(response.getEntry()))
+			                                .build();
 		} else {
-			return new SendMessage(response.chatId()
-			                               .toString(), getText(response.getEntry())) {{
-				setReplyMarkup(getKeyboard(response.getEntry()));
-			}};
+			return SendMessage.builder().chatId(response.chatId())
+			                            .text(getText(response.getEntry()))
+			                            .replyMarkup(getKeyboard(response.getEntry()))
+			                            .build();
 		}
 	}
 	
