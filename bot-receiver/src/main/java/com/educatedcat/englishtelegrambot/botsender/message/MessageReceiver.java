@@ -24,7 +24,9 @@ public class MessageReceiver {
 	}
 	
 	private List<Update> getUpdates() {
-		var getUpdatesRequest = GetUpdates.builder().limit(1000).build();
+		var getUpdatesRequest = GetUpdates.builder().limit(1000)
+		                                  .allowedUpdates(List.of("message", "callback_query"))
+		                                  .build();
 		var response = botWebClient.get().uri("/getUpdates")
 		                           .exchangeToMono(clientResponse -> clientResponse.bodyToMono(String.class))
 		                           .block();

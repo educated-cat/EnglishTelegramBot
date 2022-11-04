@@ -51,7 +51,7 @@ public class MessageHandlerImpl implements MessageHandler {
 			} else {
 				throw new UnsupportedOperationException();
 			}
-			messageSender.sendMessage(result);
+			messageSender.send(result);
 		} catch (UnknownCommandException | UnknownCallbackException | NotCommandException e) {
 			final String chatId = update.hasMessage() ? update.getMessage().getChatId().toString()
 			                                          : update.getCallbackQuery().getMessage().getChatId().toString();

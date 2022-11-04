@@ -18,7 +18,7 @@ public class MessageSenderImpl implements MessageSender {
 	// TODO: simplify
 	@Override
 	@NewSpan("Send message to bot-sender")
-	public void sendMessage(BotApiMethod<?> message) {
+	public void send(BotApiMethod<?> message) {
 		if (message instanceof SendMessage sendMessage) {
 			messageKafkaTemplate.send(kafkaProperties.getMessageSender().getTopic().getName(),
 			                          Long.valueOf(sendMessage.getChatId()), message);
