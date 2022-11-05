@@ -1,7 +1,6 @@
-package com.educatedcat.englishtelegrambot.bot.word;
+package com.educatedcat.englishtelegrambot.botreceiver.word;
 
 import com.educatedcat.englishtelegrambot.botreceiver.dictionary.*;
-import com.educatedcat.englishtelegrambot.botreceiver.word.*;
 import org.junit.jupiter.api.*;
 
 import java.util.*;

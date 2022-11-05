@@ -1,4 +1,4 @@
-package com.educatedcat.englishtelegrambot.bot;
+package com.educatedcat.englishtelegrambot.botreceiver;
 
 import com.educatedcat.englishtelegrambot.botreceiver.user.*;
 import com.educatedcat.englishtelegrambot.botreceiver.user.productivity.*;

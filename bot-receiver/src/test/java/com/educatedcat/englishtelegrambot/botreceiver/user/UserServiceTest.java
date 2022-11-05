@@ -1,8 +1,7 @@
-package com.educatedcat.englishtelegrambot.bot.user;
+package com.educatedcat.englishtelegrambot.botreceiver.user;
 
 import com.educatedcat.englishtelegrambot.botreceiver.button.*;
 import com.educatedcat.englishtelegrambot.botreceiver.kafka.*;
-import com.educatedcat.englishtelegrambot.botreceiver.user.*;
 import lombok.*;
 import org.apache.kafka.clients.consumer.*;
 import org.junit.jupiter.api.*;

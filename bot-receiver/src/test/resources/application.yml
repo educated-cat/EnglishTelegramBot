@@ -1,4 +1,14 @@
 spring:
+  profiles:
+    active: test
+  datasource:
+    url: jdbc:postgresql://
+    username: entb
+    password: entb
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    contexts: test
+    change-log: db/changelog-master.xml
   kafka:
     bootstrap-servers:
       - localhost:9092
@@ -17,8 +27,15 @@ spring:
 
 telegram:
   bot:
-    username: english_bot
     token: 12345:qwerty
+    url:
+      api: https://api.telegram.org/bot
+  receiver:
+    delay: 1000
+
+dictionary:
+  url:
+    api: http://localhost:8091/api
 
 kafka:
   user:
@@ -27,3 +44,6 @@ kafka:
   productivity:
     topic:
       name: user-productivity-test-topic
+  message-sender:
+    topic:
+      name: bot-message-test-topic
