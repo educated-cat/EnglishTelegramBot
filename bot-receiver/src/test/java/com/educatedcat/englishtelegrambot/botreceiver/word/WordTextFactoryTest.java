@@ -16,7 +16,10 @@ import static org.mockito.Mockito.*;
 @MockBeans({
 		@MockBean(DictionaryClient.class)
 })
-@SpringBootTest(properties = "spring.main.lazy-initialization=true")
+@SpringBootTest(properties = {
+		"spring.main.lazy-initialization=true",
+		"spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration"
+})
 class WordTextFactoryTest {
 	@Autowired
 	private WordTextFactory wordTextFactory;

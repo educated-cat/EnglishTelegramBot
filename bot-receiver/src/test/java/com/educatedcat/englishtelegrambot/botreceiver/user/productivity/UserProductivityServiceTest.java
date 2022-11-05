@@ -2,13 +2,11 @@ package com.educatedcat.englishtelegrambot.botreceiver.user.productivity;
 
 import com.educatedcat.englishtelegrambot.botreceiver.kafka.*;
 import com.educatedcat.englishtelegrambot.botreceiver.word.*;
-import liquibase.*;
 import lombok.*;
 import org.apache.kafka.clients.consumer.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;
-import org.springframework.boot.test.mock.mockito.*;
 import org.springframework.test.context.*;
 import org.testcontainers.containers.*;
 import org.testcontainers.utility.*;
@@ -19,10 +17,10 @@ import java.util.*;
 import static org.awaitility.Awaitility.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-@MockBeans({
-		@MockBean(Liquibase.class)
+@SpringBootTest(properties = {
+		"spring.main.lazy-initialization=true",
+		"spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration"
 })
-@SpringBootTest(properties = "spring.main.lazy-initialization=true")
 class UserProductivityServiceTest {
 	private static final KafkaContainer kafkaContainer = new KafkaContainer(
 			DockerImageName.parse("confluentinc/cp-kafka:latest"));
