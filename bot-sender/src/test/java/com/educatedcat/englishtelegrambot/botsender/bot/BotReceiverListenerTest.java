@@ -1,6 +1,7 @@
 package com.educatedcat.englishtelegrambot.botsender.bot;
 
 import com.educatedcat.englishtelegrambot.botsender.kafka.*;
+import com.educatedcat.englishtelegrambot.botsender.message.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;
@@ -18,7 +19,9 @@ import java.time.*;
 import static org.awaitility.Awaitility.*;
 import static org.mockito.BDDMockito.*;
 
-@MockBeans({@MockBean(WebClient.class)})
+@MockBeans({
+		@MockBean(WebClient.class)
+})
 @SpringBootTest
 class BotReceiverListenerTest {
 	private static final KafkaContainer kafkaContainer = new KafkaContainer(
@@ -35,17 +38,19 @@ class BotReceiverListenerTest {
 	@Autowired
 	private KafkaProperties kafkaProperties;
 	
-	@Autowired
-	private WebClient webClient;
+	@SpyBean(SendMessageMessageSender.class)
+	private SendMessageMessageSender sendMessageMessageSender;
 	
 	@Test
 	void getSendMessageUpdates() {
 		Long chatId = 111L;
 		SendMessage sendMessage = SendMessage.builder().chatId(chatId).text("Text").build();
+		willDoNothing().given(sendMessageMessageSender).send(sendMessage);
+		
 		kafkaTemplate.send(kafkaProperties.getMessageSender().getTopic().getName(), chatId, sendMessage);
 		
 		await().atMost(Duration.ofSeconds(5)).with().pollInterval(Duration.ofMillis(100))
-		       .untilAsserted(() -> then(webClient).should().post());
+		       .untilAsserted(() -> then(sendMessageMessageSender).should().send(sendMessage));
 	}
 	
 	@DynamicPropertySource
