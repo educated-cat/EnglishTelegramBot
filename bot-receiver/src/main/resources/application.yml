@@ -1,0 +1,50 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: bot-receiver
+  datasource:
+    url: jdbc:postgresql://localhost:5432/entb_bot_receiver
+    username: entb
+    password: entb
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    contexts: non-test
+    change-log: db/changelog-master.xml
+  kafka:
+    bootstrap-servers:
+      - localhost:9092
+    producer:
+      acks: all
+      key-serializer: org.apache.kafka.common.serialization.LongSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  zipkin:
+    sender:
+      type: WEB
+  sleuth:
+    sampler:
+      probability: 1.0
+
+telegram:
+  bot:
+    token: 5455060518:AAGHcfaL9bx5NFyAaxbUcKYkp6lJ8T0Rd4E
+    url:
+      api: https://api.telegram.org/bot
+  receiver:
+    delay: 1000
+
+dictionary:
+  url:
+    api: http://localhost:8091/api
+
+kafka:
+  user:
+    topic:
+      name: user-topic
+  productivity:
+    topic:
+      name: user-productivity-topic
+  message-sender:
+    topic:
+      name: bot-message-topic

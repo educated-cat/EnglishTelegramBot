@@ -1,9 +1,8 @@
-package com.educatedcat.englishtelegrambot.userproductivity.user.productivity;
+package com.educatedcat.englishtelegrambot.user.user;
 
-import com.educatedcat.englishtelegrambot.userproductivity.kafka.*;
-import com.educatedcat.englishtelegrambot.userproductivity.word.*;
+import com.educatedcat.englishtelegrambot.user.button.*;
+import com.educatedcat.englishtelegrambot.user.kafka.*;
 import org.junit.jupiter.api.*;
-import org.mockito.exceptions.verification.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;
 import org.springframework.boot.test.mock.mockito.*;
@@ -19,10 +18,10 @@ import static org.awaitility.Awaitility.*;
 import static org.mockito.BDDMockito.*;
 
 @MockBeans({
-		@MockBean(UserProductivityFacade.class)
+		@MockBean(UserService.class)
 })
 @SpringBootTest
-class UserProductivityListenerTest {
+class UserListenerTest {
 	private static final KafkaContainer kafkaContainer = new KafkaContainer(
 			DockerImageName.parse("confluentinc/cp-kafka:latest"));
 	
@@ -37,27 +36,22 @@ class UserProductivityListenerTest {
 	}
 	
 	@Autowired
-	private KafkaTemplate<Long, UserProductivityDto> kafkaTemplate;
+	private KafkaTemplate<Long, UserDto> kafkaTemplate;
 	
 	@Autowired
 	private KafkaProperties kafkaProperties;
 	
 	@Autowired
-	private UserProductivityFacade userProductivityFacade;
+	private UserService userService;
 	
 	@Test
-	void updateUserProductivity() {
-		UserProductivityDto productivity = new UserProductivityDto(1L, UUID.randomUUID(), WordActionType.KNOW);
-		kafkaTemplate.send(kafkaProperties.getTopic().getName(), productivity.userId(), productivity);
+	void saveUserState() {
+		UserDto user = new UserDto(1L, MenuButtonType.START, UUID.randomUUID());
 		
-		await().atMost(Duration.ofSeconds(10)).with().pollInterval(Duration.ofMillis(100)).until(() -> {
-			try {
-				then(userProductivityFacade).should().updateUserProductivity(productivity);
-			} catch (WantedButNotInvoked e) {
-				return false;
-			}
-			return true;
-		});
+		kafkaTemplate.send(kafkaProperties.getTopic().getName(), user.id(), user);
+		
+		await().atMost(Duration.ofSeconds(10)).with().pollInterval(Duration.ofMillis(100))
+		       .untilAsserted(() -> then(userService).should().saveOrUpdate(user));
 	}
 	
 	@DynamicPropertySource

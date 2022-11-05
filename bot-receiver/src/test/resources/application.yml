@@ -1,0 +1,49 @@
+spring:
+  profiles:
+    active: test
+  datasource:
+    url: jdbc:postgresql://
+    username: entb
+    password: entb
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    contexts: test
+    change-log: db/changelog-master.xml
+  kafka:
+    bootstrap-servers:
+      - localhost:9092
+    producer:
+      acks: all
+      retries: 0
+      key-serializer: org.apache.kafka.common.serialization.LongSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: user-productivity-group
+      key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      auto-offset-reset: earliest
+  sleuth:
+    enabled: false
+
+telegram:
+  bot:
+    token: 12345:qwerty
+    url:
+      api: https://api.telegram.org/bot
+  receiver:
+    delay: 1000
+
+dictionary:
+  url:
+    api: http://localhost:8091/api
+
+kafka:
+  user:
+    topic:
+      name: user-test-topic
+  productivity:
+    topic:
+      name: user-productivity-test-topic
+  message-sender:
+    topic:
+      name: bot-message-test-topic

@@ -28,6 +28,9 @@ subprojects {
 	}
 	
 	dependencies {
+		constraints {
+			implementation("org.telegram:telegrambots-meta:6.1.0")
+		}
 		annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 		
 		compileOnly("org.projectlombok:lombok")
