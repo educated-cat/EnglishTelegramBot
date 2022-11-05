@@ -30,6 +30,11 @@ class UserListenerTest {
 		kafkaContainer.start();
 	}
 	
+	@AfterAll
+	public static void afterAll() {
+		kafkaContainer.stop();
+	}
+	
 	@Autowired
 	private KafkaTemplate<Long, UserDto> kafkaTemplate;
 	
@@ -45,9 +50,8 @@ class UserListenerTest {
 		
 		kafkaTemplate.send(kafkaProperties.getTopic().getName(), user.id(), user);
 		
-		await().atMost(Duration.ofSeconds(10)).with().pollInterval(Duration.ofMillis(100)).untilAsserted(() -> {
-			then(userService).should().saveOrUpdate(user);
-		});
+		await().atMost(Duration.ofSeconds(10)).with().pollInterval(Duration.ofMillis(100))
+		       .untilAsserted(() -> then(userService).should().saveOrUpdate(user));
 	}
 	
 	@DynamicPropertySource

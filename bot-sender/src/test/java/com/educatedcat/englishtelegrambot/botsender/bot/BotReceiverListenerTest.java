@@ -32,6 +32,11 @@ class BotReceiverListenerTest {
 		kafkaContainer.start();
 	}
 	
+	@AfterAll
+	public static void afterAll() {
+		kafkaContainer.stop();
+	}
+	
 	@Autowired
 	private KafkaTemplate<Long, BotApiMethod<?>> kafkaTemplate;
 	

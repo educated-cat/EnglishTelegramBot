@@ -30,6 +30,11 @@ class UserProductivityServiceTest {
 		kafkaContainer.start();
 	}
 	
+	@AfterAll
+	public static void afterAll() {
+		kafkaContainer.stop();
+	}
+	
 	@Autowired
 	private UserProductivityService userProductivityService;
 	

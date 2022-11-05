@@ -31,6 +31,11 @@ class UserProductivityListenerTest {
 		kafkaContainer.start();
 	}
 	
+	@AfterAll
+	public static void afterAll() {
+		kafkaContainer.stop();
+	}
+	
 	@Autowired
 	private KafkaTemplate<Long, UserProductivityDto> kafkaTemplate;
 	

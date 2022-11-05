@@ -25,6 +25,11 @@ class BotOffsetServiceTest {
 		postgresContainer.start();
 	}
 	
+	@AfterAll
+	public static void afterAll() {
+		postgresContainer.stop();
+	}
+	
 	@Test
 	void getCurrentOffset() {
 		BotOffset offset = botOffsetService.getCurrentOffset().orElseThrow();
