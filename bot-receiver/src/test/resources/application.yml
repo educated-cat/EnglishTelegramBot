@@ -35,7 +35,7 @@ telegram:
 
 dictionary:
   url:
-    api: http://localhost:8091/api
+    api: http://localhost:8765/dictionary/api
 
 kafka:
   user:
