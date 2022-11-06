@@ -1,5 +1,5 @@
 server:
-  port: 8090
+  port: 0
 
 spring:
   application:
@@ -36,7 +36,7 @@ telegram:
 
 dictionary:
   url:
-    api: http://localhost:8091/api
+    api: http://localhost:18090/dictionary/api
 
 kafka:
   user:
