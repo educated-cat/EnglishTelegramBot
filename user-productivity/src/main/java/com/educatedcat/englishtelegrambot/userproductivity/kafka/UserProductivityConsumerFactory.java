@@ -1,6 +1,6 @@
 package com.educatedcat.englishtelegrambot.userproductivity.kafka;
 
-import com.educatedcat.englishtelegrambot.userproductivity.user.productivity.*;
+import com.educatedcat.englishtelegrambot.userproductivity.word.*;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.serialization.*;
 import org.springframework.kafka.core.*;
@@ -9,16 +9,16 @@ import org.springframework.lang.*;
 
 import java.util.*;
 
-public class UserProductivityConsumerFactory extends DefaultKafkaConsumerFactory<Long, UserProductivityDto> {
+public class UserProductivityConsumerFactory extends DefaultKafkaConsumerFactory<Long, WordProductivityDto> {
 	public UserProductivityConsumerFactory(Map<String, Object> configs) {
 		super(configs);
 		setKeyDeserializer(new LongDeserializer());
-		setValueDeserializer(new JsonDeserializer<>(UserProductivityDto.class, false));
+		setValueDeserializer(new JsonDeserializer<>(WordProductivityDto.class, false));
 	}
 	
 	@NonNull
 	@Override
-	public Consumer<Long, UserProductivityDto> createConsumer() {
+	public Consumer<Long, WordProductivityDto> createConsumer() {
 		return super.createConsumer();
 	}
 }

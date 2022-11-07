@@ -1,4 +1,4 @@
-package com.educatedcat.englishtelegrambot.userproductivity.user.productivity;
+package com.educatedcat.englishtelegrambot.userproductivity.word;
 
 import lombok.*;
 import org.hibernate.annotations.*;
@@ -11,15 +11,15 @@ import java.util.*;
 
 @Getter
 @Entity
-@Table(name = "user_productivity")
+@Table(name = "word_productivity")
 @DynamicInsert
 @DynamicUpdate
 @NoArgsConstructor
 @BatchSize(size = 50)
-public class UserProductivity implements Serializable {
+public class WordProductivity implements Serializable {
 	@Id
-	@SequenceGenerator(name = "user_productivity_id_generator", sequenceName = "user_productivity_id_sequence")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_productivity_id_generator")
+	@SequenceGenerator(name = "word_productivity_id_generator", sequenceName = "word_productivity_id_sequence")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "word_productivity_id_generator")
 	private Long id;
 	
 	@Column(nullable = false, updatable = false)
@@ -34,7 +34,7 @@ public class UserProductivity implements Serializable {
 	@Column(nullable = false)
 	private byte progress;
 	
-	public UserProductivity(Long userId, UUID wordId) {
+	public WordProductivity(Long userId, UUID wordId) {
 		this.userId = userId;
 		this.wordId = wordId;
 		progress = 0;

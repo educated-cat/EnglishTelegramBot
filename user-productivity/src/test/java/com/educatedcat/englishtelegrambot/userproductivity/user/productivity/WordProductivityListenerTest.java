@@ -22,7 +22,7 @@ import static org.mockito.BDDMockito.*;
 		@MockBean(UserProductivityFacade.class)
 })
 @SpringBootTest
-class UserProductivityListenerTest {
+class WordProductivityListenerTest {
 	private static final KafkaContainer kafkaContainer = new KafkaContainer(
 			DockerImageName.parse("confluentinc/cp-kafka:latest"));
 	
@@ -37,7 +37,7 @@ class UserProductivityListenerTest {
 	}
 	
 	@Autowired
-	private KafkaTemplate<Long, UserProductivityDto> kafkaTemplate;
+	private KafkaTemplate<Long, WordProductivityDto> kafkaTemplate;
 	
 	@Autowired
 	private KafkaProperties kafkaProperties;
@@ -47,7 +47,7 @@ class UserProductivityListenerTest {
 	
 	@Test
 	void updateUserProductivity() {
-		UserProductivityDto productivity = new UserProductivityDto(1L, UUID.randomUUID(), WordActionType.KNOW);
+		WordProductivityDto productivity = new WordProductivityDto(1L, UUID.randomUUID(), WordActionType.KNOW);
 		kafkaTemplate.send(kafkaProperties.getTopic().getName(), productivity.userId(), productivity);
 		
 		await().atMost(Duration.ofSeconds(10)).with().pollInterval(Duration.ofMillis(100)).until(() -> {

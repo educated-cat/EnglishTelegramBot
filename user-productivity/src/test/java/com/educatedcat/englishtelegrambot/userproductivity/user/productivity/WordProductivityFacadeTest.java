@@ -11,24 +11,24 @@ import java.util.*;
 import static org.mockito.Mockito.*;
 
 @MockBeans({
-		@MockBean(UserProductivityService.class)
+		@MockBean(WordProductivityService.class)
 })
 @SpringBootTest(properties = {"spring.main.lazy-initialization=true"})
-class UserProductivityFacadeTest {
+class WordProductivityFacadeTest {
 	@Autowired
 	private UserProductivityFacade userProductivityFacade;
 	
 	@Autowired
-	private UserProductivityService userProductivityService;
+	private WordProductivityService wordProductivityService;
 	
 	@Test
 	void increaseUserProductivity() {
 		long userId = 123L;
 		UUID wordId = UUID.randomUUID();
 		
-		userProductivityFacade.updateUserProductivity(new UserProductivityDto(userId, wordId, WordActionType.KNOW));
+		userProductivityFacade.updateUserProductivity(new WordProductivityDto(userId, wordId, WordActionType.KNOW));
 		
-		verify(userProductivityService).increaseUserProductivity(userId, wordId);
+		verify(wordProductivityService).increaseWordProductivity(userId, wordId);
 	}
 	
 	@Test
@@ -37,8 +37,8 @@ class UserProductivityFacadeTest {
 		UUID wordId = UUID.randomUUID();
 		
 		userProductivityFacade.updateUserProductivity(
-				new UserProductivityDto(userId, wordId, WordActionType.DONT_KNOW));
+				new WordProductivityDto(userId, wordId, WordActionType.DONT_KNOW));
 		
-		verify(userProductivityService).decreaseUserProductivity(userId, wordId);
+		verify(wordProductivityService).decreaseWordProductivity(userId, wordId);
 	}
 }

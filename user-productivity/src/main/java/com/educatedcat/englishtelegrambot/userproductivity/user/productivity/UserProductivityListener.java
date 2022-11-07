@@ -1,5 +1,6 @@
 package com.educatedcat.englishtelegrambot.userproductivity.user.productivity;
 
+import com.educatedcat.englishtelegrambot.userproductivity.word.*;
 import lombok.*;
 import org.springframework.cloud.sleuth.annotation.*;
 import org.springframework.kafka.annotation.*;
@@ -12,7 +13,7 @@ public class UserProductivityListener {
 	
 	@NewSpan("Update user productivity")
 	@KafkaListener(topics = "${kafka.topic.name}")
-	public void updateUserProductivity(UserProductivityDto dto) {
+	public void updateUserProductivity(WordProductivityDto dto) {
 		userProductivityFacade.updateUserProductivity(dto);
 	}
 }

@@ -1,15 +1,16 @@
 package com.educatedcat.englishtelegrambot.userproductivity.user.productivity;
 
+import com.educatedcat.englishtelegrambot.userproductivity.word.*;
 import org.junit.jupiter.api.*;
 import org.springframework.test.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UserProductivityTest {
+class WordProductivityTest {
 	
 	@Test
 	void increaseProgress() {
-		UserProductivity productivity = new UserProductivity();
+		WordProductivity productivity = new WordProductivity();
 		
 		productivity.increaseProgress();
 		
@@ -18,7 +19,7 @@ class UserProductivityTest {
 	
 	@Test
 	void increaseProgressMultipleTimes() {
-		UserProductivity productivity = new UserProductivity();
+		WordProductivity productivity = new WordProductivity();
 		
 		for (int i = 0; i < 100; i++) {
 			productivity.increaseProgress();
@@ -30,7 +31,7 @@ class UserProductivityTest {
 	
 	@Test
 	void decreaseProgressUnlearnedWordProductivity() {
-		UserProductivity productivity = new UserProductivity();
+		WordProductivity productivity = new WordProductivity();
 		
 		productivity.decreaseProgress();
 		
@@ -39,7 +40,7 @@ class UserProductivityTest {
 	
 	@Test
 	void decreaseProgressFullyLearnedWordProductivity() {
-		UserProductivity productivity = new UserProductivity();
+		WordProductivity productivity = new WordProductivity();
 		ReflectionTestUtils.setField(productivity, "progress", (byte) 100);
 		
 		productivity.decreaseProgress();
@@ -50,7 +51,7 @@ class UserProductivityTest {
 	
 	@Test
 	void decreaseProgressFullyLearnedWordProductivityToZero() {
-		UserProductivity productivity = new UserProductivity();
+		WordProductivity productivity = new WordProductivity();
 		ReflectionTestUtils.setField(productivity, "progress", (byte) 100);
 		
 		for (int i = 0; i < 100; i++) {
