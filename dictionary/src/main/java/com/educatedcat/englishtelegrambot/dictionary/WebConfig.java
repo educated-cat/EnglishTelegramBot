@@ -2,15 +2,16 @@ package com.educatedcat.englishtelegrambot.dictionary;
 
 import org.springframework.context.annotation.*;
 import org.springframework.http.*;
-import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.reactive.accept.*;
+import org.springframework.web.reactive.config.*;
 
 import java.nio.charset.*;
 
 @Configuration
-public class WebConfig implements WebMvcConfigurer {
+public class WebConfig implements WebFluxConfigurer {
 	@Override
-	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-		WebMvcConfigurer.super.configureContentNegotiation(configurer);
-		configurer.defaultContentType(new MediaType(MediaType.APPLICATION_JSON, StandardCharsets.UTF_8));
+	public void configureContentTypeResolver(RequestedContentTypeResolverBuilder builder) {
+		WebFluxConfigurer.super.configureContentTypeResolver(builder);
+		builder.fixedResolver(new MediaType(MediaType.APPLICATION_JSON, StandardCharsets.UTF_8));
 	}
 }
