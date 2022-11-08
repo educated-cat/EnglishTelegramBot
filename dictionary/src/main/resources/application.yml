@@ -5,19 +5,16 @@ spring:
   application:
     name: dictionary
   datasource:
-    username: root
-    password: root1234
-    url: jdbc:mysql://localhost:3306/entb_dictionary
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: entb
+    password: entb
+    url: jdbc:postgresql://localhost:5432/entb_dictionary
+    driver-class-name: org.postgresql.Driver
   liquibase:
     contexts: non-test
     change-log: db/changelog-master.xml
   jpa:
     hibernate:
       ddl-auto: validate
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect
   zipkin:
     sender:
       type: WEB

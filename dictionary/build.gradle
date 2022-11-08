@@ -9,12 +9,12 @@ dependencies {
 	
 	/* Datasource */
 	implementation("org.liquibase:liquibase-core")
-	implementation("mysql:mysql-connector-java")
+	implementation("org.postgresql:postgresql")
 	
 	/* Cache */
 	implementation("com.github.ben-manes.caffeine:caffeine")
 	
 	/* Test */
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("com.h2database:h2:1.4.200")
+	testImplementation("org.testcontainers:postgresql")
 }
