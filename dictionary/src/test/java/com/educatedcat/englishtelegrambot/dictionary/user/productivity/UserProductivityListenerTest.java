@@ -1,7 +1,7 @@
-package com.educatedcat.englishtelegrambot.userproductivity.user.productivity;
+package com.educatedcat.englishtelegrambot.dictionary.user.productivity;
 
-import com.educatedcat.englishtelegrambot.userproductivity.kafka.*;
-import com.educatedcat.englishtelegrambot.userproductivity.word.*;
+import com.educatedcat.englishtelegrambot.dictionary.kafka.*;
+import com.educatedcat.englishtelegrambot.dictionary.word.*;
 import org.junit.jupiter.api.*;
 import org.mockito.exceptions.verification.*;
 import org.springframework.beans.factory.annotation.*;
@@ -22,7 +22,7 @@ import static org.mockito.BDDMockito.*;
 		@MockBean(UserProductivityFacade.class)
 })
 @SpringBootTest
-class WordProductivityListenerTest {
+class UserProductivityListenerTest {
 	private static final KafkaContainer kafkaContainer = new KafkaContainer(
 			DockerImageName.parse("confluentinc/cp-kafka:latest"));
 	

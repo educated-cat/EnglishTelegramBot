@@ -1,9 +1,9 @@
-package com.educatedcat.englishtelegrambot.userproductivity.word;
+package com.educatedcat.englishtelegrambot.dictionary.word;
 
 import org.springframework.data.jpa.repository.*;
 
 import java.util.*;
 
-interface UserProductivityRepository extends JpaRepository<WordProductivity, Long> {
+interface WordProductivityRepository extends JpaRepository<WordProductivity, Long> {
 	Optional<WordProductivity> findByUserIdAndWordId(long userId, UUID wordId);
 }

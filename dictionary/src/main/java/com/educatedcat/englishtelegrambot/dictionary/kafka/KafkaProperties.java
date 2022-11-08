@@ -1,4 +1,4 @@
-package com.educatedcat.englishtelegrambot.userproductivity.kafka;
+package com.educatedcat.englishtelegrambot.dictionary.kafka;
 
 import lombok.*;
 import org.springframework.boot.context.properties.*;

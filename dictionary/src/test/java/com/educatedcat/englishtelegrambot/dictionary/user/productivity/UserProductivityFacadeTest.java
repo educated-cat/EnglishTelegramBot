@@ -1,6 +1,6 @@
-package com.educatedcat.englishtelegrambot.userproductivity.user.productivity;
+package com.educatedcat.englishtelegrambot.dictionary.user.productivity;
 
-import com.educatedcat.englishtelegrambot.userproductivity.word.*;
+import com.educatedcat.englishtelegrambot.dictionary.word.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;
@@ -14,7 +14,7 @@ import static org.mockito.Mockito.*;
 		@MockBean(WordProductivityService.class)
 })
 @SpringBootTest(properties = {"spring.main.lazy-initialization=true"})
-class WordProductivityFacadeTest {
+class UserProductivityFacadeTest {
 	@Autowired
 	private UserProductivityFacade userProductivityFacade;
 	

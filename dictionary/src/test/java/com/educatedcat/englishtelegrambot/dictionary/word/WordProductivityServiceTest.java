@@ -1,6 +1,5 @@
-package com.educatedcat.englishtelegrambot.userproductivity.user.productivity;
+package com.educatedcat.englishtelegrambot.dictionary.word;
 
-import com.educatedcat.englishtelegrambot.userproductivity.word.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;
@@ -11,7 +10,7 @@ import java.util.*;
 import static org.mockito.BDDMockito.*;
 
 @MockBeans({
-		@MockBean(UserProductivityRepository.class)
+		@MockBean(WordProductivityRepository.class)
 })
 @SpringBootTest(properties = {"spring.main.lazy-initialization=true"})
 class WordProductivityServiceTest {
@@ -19,57 +18,57 @@ class WordProductivityServiceTest {
 	private WordProductivityService wordProductivityService;
 	
 	@Autowired
-	private UserProductivityRepository userProductivityRepository;
+	private WordProductivityRepository wordProductivityRepository;
 	
 	@Test
 	void increaseUserProductivity() {
 		long userId = 123L;
 		UUID wordId = UUID.randomUUID();
-		given(userProductivityRepository.findByUserIdAndWordId(userId, wordId)).willReturn(
+		given(wordProductivityRepository.findByUserIdAndWordId(userId, wordId)).willReturn(
 				Optional.of(new WordProductivity(userId, wordId)));
 		
 		wordProductivityService.increaseWordProductivity(userId, wordId);
 		
-		then(userProductivityRepository).should().findByUserIdAndWordId(userId, wordId);
-		then(userProductivityRepository).should(never()).save(any(WordProductivity.class));
+		then(wordProductivityRepository).should().findByUserIdAndWordId(userId, wordId);
+		then(wordProductivityRepository).should(never()).save(any(WordProductivity.class));
 	}
 	
 	@Test
 	void decreaseUserProductivity() {
 		long userId = 123L;
 		UUID wordId = UUID.randomUUID();
-		given(userProductivityRepository.findByUserIdAndWordId(userId, wordId)).willReturn(
+		given(wordProductivityRepository.findByUserIdAndWordId(userId, wordId)).willReturn(
 				Optional.of(new WordProductivity(userId, wordId)));
 		
 		wordProductivityService.decreaseWordProductivity(userId, wordId);
 		
-		then(userProductivityRepository).should().findByUserIdAndWordId(userId, wordId);
-		then(userProductivityRepository).should(never()).save(any(WordProductivity.class));
+		then(wordProductivityRepository).should().findByUserIdAndWordId(userId, wordId);
+		then(wordProductivityRepository).should(never()).save(any(WordProductivity.class));
 	}
 	
 	@Test
 	void increaseUserProductivityForUnknownUserIdAndWordId() {
 		long userId = 123L;
 		UUID wordId = UUID.randomUUID();
-		given(userProductivityRepository.save(any(WordProductivity.class))).willReturn(
+		given(wordProductivityRepository.save(any(WordProductivity.class))).willReturn(
 				new WordProductivity(userId, wordId));
 		
 		wordProductivityService.increaseWordProductivity(userId, wordId);
 		
-		then(userProductivityRepository).should().findByUserIdAndWordId(userId, wordId);
-		then(userProductivityRepository).should().save(any(WordProductivity.class));
+		then(wordProductivityRepository).should().findByUserIdAndWordId(userId, wordId);
+		then(wordProductivityRepository).should().save(any(WordProductivity.class));
 	}
 	
 	@Test
 	void decreaseUserProductivityForUnknownUserIdAndWordId() {
 		long userId = 123L;
 		UUID wordId = UUID.randomUUID();
-		given(userProductivityRepository.save(any(WordProductivity.class))).willReturn(
+		given(wordProductivityRepository.save(any(WordProductivity.class))).willReturn(
 				new WordProductivity(userId, wordId));
 		
 		wordProductivityService.decreaseWordProductivity(userId, wordId);
 		
-		then(userProductivityRepository).should().findByUserIdAndWordId(userId, wordId);
-		then(userProductivityRepository).should().save(any(WordProductivity.class));
+		then(wordProductivityRepository).should().findByUserIdAndWordId(userId, wordId);
+		then(wordProductivityRepository).should().save(any(WordProductivity.class));
 	}
 }

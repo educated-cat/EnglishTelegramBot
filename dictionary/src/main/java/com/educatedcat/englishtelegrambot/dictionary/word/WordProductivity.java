@@ -1,4 +1,4 @@
-package com.educatedcat.englishtelegrambot.userproductivity.word;
+package com.educatedcat.englishtelegrambot.dictionary.word;
 
 import lombok.*;
 import org.hibernate.annotations.*;

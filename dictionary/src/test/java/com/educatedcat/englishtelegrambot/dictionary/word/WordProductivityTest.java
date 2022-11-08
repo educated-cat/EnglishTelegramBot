@@ -1,6 +1,5 @@
-package com.educatedcat.englishtelegrambot.userproductivity.user.productivity;
+package com.educatedcat.englishtelegrambot.dictionary.word;
 
-import com.educatedcat.englishtelegrambot.userproductivity.word.*;
 import org.junit.jupiter.api.*;
 import org.springframework.test.util.*;
 

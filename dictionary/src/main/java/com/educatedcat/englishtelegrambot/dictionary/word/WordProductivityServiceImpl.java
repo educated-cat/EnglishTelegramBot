@@ -1,4 +1,4 @@
-package com.educatedcat.englishtelegrambot.userproductivity.word;
+package com.educatedcat.englishtelegrambot.dictionary.word;
 
 import lombok.*;
 import org.springframework.stereotype.*;
@@ -9,7 +9,7 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class WordProductivityServiceImpl implements WordProductivityService {
-	private final UserProductivityRepository userProductivityRepository;
+	private final WordProductivityRepository wordProductivityRepository;
 	
 	@Override
 	@Transactional
@@ -26,8 +26,8 @@ public class WordProductivityServiceImpl implements WordProductivityService {
 	}
 	
 	private WordProductivity findByUserIdAndWordId(long userId, UUID wordId) {
-		return userProductivityRepository.findByUserIdAndWordId(userId, wordId)
-		                                 .orElseGet(() -> userProductivityRepository.save(
+		return wordProductivityRepository.findByUserIdAndWordId(userId, wordId)
+		                                 .orElseGet(() -> wordProductivityRepository.save(
 				                                 new WordProductivity(userId, wordId)));
 	}
 }

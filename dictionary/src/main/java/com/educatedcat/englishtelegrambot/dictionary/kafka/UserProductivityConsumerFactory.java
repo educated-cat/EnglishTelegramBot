@@ -1,6 +1,6 @@
-package com.educatedcat.englishtelegrambot.userproductivity.kafka;
+package com.educatedcat.englishtelegrambot.dictionary.kafka;
 
-import com.educatedcat.englishtelegrambot.userproductivity.word.*;
+import com.educatedcat.englishtelegrambot.dictionary.word.*;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.serialization.*;
 import org.springframework.kafka.core.*;

@@ -1,6 +1,6 @@
-package com.educatedcat.englishtelegrambot.userproductivity.user.productivity;
+package com.educatedcat.englishtelegrambot.dictionary.user.productivity;
 
-import com.educatedcat.englishtelegrambot.userproductivity.word.*;
+import com.educatedcat.englishtelegrambot.dictionary.word.*;
 import lombok.*;
 import org.springframework.stereotype.*;
 
