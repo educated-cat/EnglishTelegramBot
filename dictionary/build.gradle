@@ -9,7 +9,7 @@ dependencies {
 	
 	/* Datasource */
 	implementation("org.liquibase:liquibase-core")
-	implementation("mysql:mysql-connector-java")
+	implementation("org.postgresql:postgresql")
 	
 	/* Cache */
 	implementation("com.github.ben-manes.caffeine:caffeine")

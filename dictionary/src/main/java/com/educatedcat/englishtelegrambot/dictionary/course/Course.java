@@ -16,10 +16,9 @@ import java.util.*;
 @Table(name = "courses")
 public class Course {
 	@Id
-	@Type(type = "uuid-char")
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-	@Column(name = "id", columnDefinition = "VARCHAR(36)")
+	@Column(name = "id")
 	private UUID id;
 	
 	@Column(name = "name", nullable = false)
