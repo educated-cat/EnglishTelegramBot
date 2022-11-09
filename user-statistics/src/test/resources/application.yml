@@ -1,18 +1,4 @@
 spring:
-  datasource:
-    url: jdbc:postgresql://
-    username: entb
-    password: entb
-    driver-class-name: org.postgresql.Driver
-  liquibase:
-    contexts: test
-    change-log: db/changelog-master.xml
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        show_sql: true
-        ddl-auto: validate
   kafka:
     bootstrap-servers: localhost:9092
     producer:
@@ -33,4 +19,9 @@ eureka:
 
 kafka:
   topic:
-    name: user-productivity-test-topic
+    request-name: user-statistics-request-test-topic
+    reply-name: user-statistics-reply-test-topic
+
+dictionary:
+  url:
+    api: http://localhost:8765/dictionary/api

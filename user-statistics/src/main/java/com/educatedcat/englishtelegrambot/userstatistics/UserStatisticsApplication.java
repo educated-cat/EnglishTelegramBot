@@ -1,4 +1,4 @@
-package com.educatedcat.englishtelegrambot.userproductivity;
+package com.educatedcat.englishtelegrambot.userstatistics;
 
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
@@ -6,10 +6,10 @@ import org.springframework.cloud.netflix.eureka.*;
 
 @EnableEurekaClient
 @SpringBootApplication
-public class UserProductivityApplication {
+public class UserStatisticsApplication {
 	
 	public static void main(String[] args) {
-		SpringApplication.run(UserProductivityApplication.class, args);
+		SpringApplication.run(UserStatisticsApplication.class, args);
 	}
 	
 }
