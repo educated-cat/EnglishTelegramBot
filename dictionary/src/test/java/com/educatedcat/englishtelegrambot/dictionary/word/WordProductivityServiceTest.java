@@ -12,7 +12,10 @@ import static org.mockito.BDDMockito.*;
 @MockBeans({
 		@MockBean(WordProductivityRepository.class)
 })
-@SpringBootTest(properties = {"spring.main.lazy-initialization=true"})
+@SpringBootTest(properties = {
+		"spring.main.lazy-initialization=true",
+		"spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration"
+})
 class WordProductivityServiceTest {
 	@Autowired
 	private WordProductivityService wordProductivityService;

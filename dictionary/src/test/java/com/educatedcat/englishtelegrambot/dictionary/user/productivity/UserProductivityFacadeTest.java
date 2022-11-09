@@ -13,7 +13,10 @@ import static org.mockito.Mockito.*;
 @MockBeans({
 		@MockBean(WordProductivityService.class)
 })
-@SpringBootTest(properties = {"spring.main.lazy-initialization=true"})
+@SpringBootTest(properties = {
+		"spring.main.lazy-initialization=true",
+		"spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration"
+})
 class UserProductivityFacadeTest {
 	@Autowired
 	private UserProductivityFacade userProductivityFacade;

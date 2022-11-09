@@ -21,7 +21,10 @@ import static org.mockito.BDDMockito.*;
 @MockBeans({
 		@MockBean(UserProductivityFacade.class)
 })
-@SpringBootTest
+@SpringBootTest(properties = {
+		"spring.main.lazy-initialization=true",
+		"spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration"
+})
 class UserProductivityListenerTest {
 	private static final KafkaContainer kafkaContainer = new KafkaContainer(
 			DockerImageName.parse("confluentinc/cp-kafka:latest"));
@@ -44,6 +47,10 @@ class UserProductivityListenerTest {
 	
 	@Autowired
 	private UserProductivityFacade userProductivityFacade;
+	
+	@Autowired
+	@SuppressWarnings("unused")
+	private UserProductivityListener userProductivityListener;
 	
 	@Test
 	void updateUserProductivity() {
