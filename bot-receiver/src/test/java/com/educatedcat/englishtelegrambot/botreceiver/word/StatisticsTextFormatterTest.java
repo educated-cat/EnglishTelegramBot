@@ -7,7 +7,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class WordTextHandlerTest {
+class StatisticsTextFormatterTest {
 	private final WordTextHandler wordTextHandler = new WordTextHandlerImpl();
 	
 	@Test

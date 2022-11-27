@@ -5,7 +5,6 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;
 import org.springframework.boot.test.mock.mockito.*;
-import reactor.core.publisher.*;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
@@ -22,7 +21,7 @@ class UserProductivityFacadeTest {
 	void prepareUserProductivity() {
 		long userId = 1011;
 		WordProductivityDto productivityDto = new WordProductivityDto(10, 11, 12);
-		given(wordProductivityService.getByUserId(userId)).willReturn(Mono.just(productivityDto));
+		given(wordProductivityService.getByUserId(userId)).willReturn(productivityDto);
 		
 		var userProductivity = userProductivityFacade.prepareUserProductivity(userId);
 		

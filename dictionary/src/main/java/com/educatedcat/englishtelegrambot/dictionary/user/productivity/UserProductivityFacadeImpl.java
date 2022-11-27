@@ -10,7 +10,7 @@ public class UserProductivityFacadeImpl implements UserProductivityFacade {
 	private final WordProductivityService wordProductivityService;
 	
 	@Override
-	public void updateUserProductivity(WordProductivityDto dto) {
+	public void updateUserProductivity(UpdateWordProductivityDto dto) {
 		switch (dto.wordActionType()) {
 			case KNOW -> wordProductivityService.increaseWordProductivity(dto.userId(), dto.wordId());
 			case DONT_KNOW -> wordProductivityService.decreaseWordProductivity(dto.userId(), dto.wordId());

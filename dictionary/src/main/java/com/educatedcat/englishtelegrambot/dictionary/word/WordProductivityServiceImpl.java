@@ -1,5 +1,6 @@
 package com.educatedcat.englishtelegrambot.dictionary.word;
 
+import com.educatedcat.englishtelegrambot.dictionary.user.productivity.*;
 import lombok.*;
 import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.*;
@@ -23,6 +24,15 @@ public class WordProductivityServiceImpl implements WordProductivityService {
 	public void decreaseWordProductivity(long userId, UUID wordId) {
 		WordProductivity productivity = findByUserIdAndWordId(userId, wordId);
 		productivity.decreaseProgress();
+	}
+	
+	@Override
+	public WordProductivityDto getByUserId(long userId) {
+		int fullyLearnedWords = wordProductivityRepository.countByUserIdAndProgress(userId, (byte) 100);
+		int partlyLearnedWords = wordProductivityRepository.countByUserIdAndProgressBetween(userId, (byte) 1,
+		                                                                                    (byte) 99);
+		int notLearnedWords = wordProductivityRepository.countByUserIdAndProgress(userId, (byte) 0);
+		return new WordProductivityDto(fullyLearnedWords, partlyLearnedWords, notLearnedWords);
 	}
 	
 	private WordProductivity findByUserIdAndWordId(long userId, UUID wordId) {

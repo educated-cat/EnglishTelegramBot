@@ -11,7 +11,7 @@ import javax.validation.constraints.*;
 @Validated
 @Component
 @ConfigurationProperties("kafka")
-public class KafkaProperties {
+public class CustomKafkaProperties {
 	@NotNull
 	private User user;
 	

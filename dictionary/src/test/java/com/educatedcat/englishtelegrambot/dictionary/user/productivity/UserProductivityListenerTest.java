@@ -40,7 +40,7 @@ class UserProductivityListenerTest {
 	}
 	
 	@Autowired
-	private KafkaTemplate<Long, WordProductivityDto> kafkaTemplate;
+	private KafkaTemplate<Long, UpdateWordProductivityDto> kafkaTemplate;
 	
 	@Autowired
 	private KafkaProperties kafkaProperties;
@@ -54,7 +54,8 @@ class UserProductivityListenerTest {
 	
 	@Test
 	void updateUserProductivity() {
-		WordProductivityDto productivity = new WordProductivityDto(1L, UUID.randomUUID(), WordActionType.KNOW);
+		UpdateWordProductivityDto productivity = new UpdateWordProductivityDto(
+				1L, UUID.randomUUID(), WordActionType.KNOW);
 		kafkaTemplate.send(kafkaProperties.getTopic().getName(), productivity.userId(), productivity);
 		
 		await().atMost(Duration.ofSeconds(10)).with().pollInterval(Duration.ofMillis(100)).until(() -> {

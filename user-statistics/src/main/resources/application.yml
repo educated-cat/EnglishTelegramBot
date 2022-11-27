@@ -4,28 +4,12 @@ server:
 spring:
   application:
     name: user-statistics
-  kafka:
-    bootstrap-servers: localhost:9092
-    producer:
-      acks: all
-      key-serializer: org.apache.kafka.common.serialization.LongSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-    consumer:
-      group-id: user-productivity-group
-      key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      auto-offset-reset: earliest
   zipkin:
     sender:
       type: WEB
   sleuth:
     sampler:
       probability: 1.0
-
-kafka:
-  topic:
-    request-name: user-statistics-request-topic
-    reply-name: user-statistics-reply-topic
 
 dictionary:
   url:

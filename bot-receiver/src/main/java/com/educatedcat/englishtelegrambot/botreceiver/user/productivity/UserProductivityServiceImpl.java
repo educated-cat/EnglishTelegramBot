@@ -10,11 +10,11 @@ import org.springframework.stereotype.*;
 @RequiredArgsConstructor
 public class UserProductivityServiceImpl implements UserProductivityService {
 	private final KafkaTemplate<Long, UserProductivityDto> kafkaTemplate;
-	private final KafkaProperties kafkaProperties;
+	private final CustomKafkaProperties customKafkaProperties;
 	
 	@NewSpan("Update user productivity")
 	@Override
 	public void updateUserProductivity(UserProductivityDto dto) {
-		kafkaTemplate.send(kafkaProperties.getProductivity().getTopic().getName(), dto.userId(), dto);
+		kafkaTemplate.send(customKafkaProperties.getProductivity().getTopic().getName(), dto.userId(), dto);
 	}
 }

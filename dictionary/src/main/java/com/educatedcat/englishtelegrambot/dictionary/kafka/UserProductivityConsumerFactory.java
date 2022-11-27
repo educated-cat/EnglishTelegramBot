@@ -9,16 +9,16 @@ import org.springframework.lang.*;
 
 import java.util.*;
 
-public class UserProductivityConsumerFactory extends DefaultKafkaConsumerFactory<Long, WordProductivityDto> {
+public class UserProductivityConsumerFactory extends DefaultKafkaConsumerFactory<Long, UpdateWordProductivityDto> {
 	public UserProductivityConsumerFactory(Map<String, Object> configs) {
 		super(configs);
 		setKeyDeserializer(new LongDeserializer());
-		setValueDeserializer(new JsonDeserializer<>(WordProductivityDto.class, false));
+		setValueDeserializer(new JsonDeserializer<>(UpdateWordProductivityDto.class, false));
 	}
 	
 	@NonNull
 	@Override
-	public Consumer<Long, WordProductivityDto> createConsumer() {
+	public Consumer<Long, UpdateWordProductivityDto> createConsumer() {
 		return super.createConsumer();
 	}
 }

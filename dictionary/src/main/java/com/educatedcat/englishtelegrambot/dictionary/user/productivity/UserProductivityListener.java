@@ -13,7 +13,7 @@ public class UserProductivityListener {
 	
 	@NewSpan("Update user productivity")
 	@KafkaListener(topics = "${kafka.topic.name}")
-	public void updateUserProductivity(WordProductivityDto dto) {
+	public void updateUserProductivity(UpdateWordProductivityDto dto) {
 		userProductivityFacade.updateUserProductivity(dto);
 	}
 }

@@ -12,6 +12,6 @@ public class UserProductivityFacadeImpl implements UserProductivityFacade {
 	@Override
 	public UserProductivityDto prepareUserProductivity(long userId) {
 		var wordProductivity = wordProductivityService.getByUserId(userId);
-		return new UserProductivityDto(wordProductivity.block());
+		return new UserProductivityDto(wordProductivity);
 	}
 }

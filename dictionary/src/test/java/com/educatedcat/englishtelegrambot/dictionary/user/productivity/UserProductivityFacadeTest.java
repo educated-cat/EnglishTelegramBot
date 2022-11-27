@@ -29,7 +29,9 @@ class UserProductivityFacadeTest {
 		long userId = 123L;
 		UUID wordId = UUID.randomUUID();
 		
-		userProductivityFacade.updateUserProductivity(new WordProductivityDto(userId, wordId, WordActionType.KNOW));
+		userProductivityFacade.updateUserProductivity(
+				new UpdateWordProductivityDto(userId, wordId,
+				                              WordActionType.KNOW));
 		
 		verify(wordProductivityService).increaseWordProductivity(userId, wordId);
 	}
@@ -40,7 +42,8 @@ class UserProductivityFacadeTest {
 		UUID wordId = UUID.randomUUID();
 		
 		userProductivityFacade.updateUserProductivity(
-				new WordProductivityDto(userId, wordId, WordActionType.DONT_KNOW));
+				new UpdateWordProductivityDto(userId, wordId,
+				                              WordActionType.DONT_KNOW));
 		
 		verify(wordProductivityService).decreaseWordProductivity(userId, wordId);
 	}

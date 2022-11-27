@@ -39,7 +39,7 @@ class UserProductivityServiceTest {
 	private UserProductivityService userProductivityService;
 	
 	@Autowired
-	private KafkaProperties kafkaProperties;
+	private CustomKafkaProperties customKafkaProperties;
 	
 	@Autowired
 	private KafkaConsumer<Long, UserProductivityDto> consumer;
@@ -47,7 +47,7 @@ class UserProductivityServiceTest {
 	@Test
 	@SneakyThrows
 	void updateUserProductivity() {
-		consumer.subscribe(List.of(kafkaProperties.getProductivity().getTopic().getName()));
+		consumer.subscribe(List.of(customKafkaProperties.getProductivity().getTopic().getName()));
 		UserProductivityDto productivity = new UserProductivityDto(1L, UUID.randomUUID(), WordActionType.KNOW);
 		
 		userProductivityService.updateUserProductivity(productivity);
@@ -61,7 +61,7 @@ class UserProductivityServiceTest {
 			
 			assertEquals(1, records.count());
 			records.forEach(r -> {
-				assertEquals(kafkaProperties.getProductivity().getTopic().getName(), r.topic());
+				assertEquals(customKafkaProperties.getProductivity().getTopic().getName(), r.topic());
 				assertEquals(productivity, r.value());
 				assertEquals(productivity.userId(), r.key());
 			});

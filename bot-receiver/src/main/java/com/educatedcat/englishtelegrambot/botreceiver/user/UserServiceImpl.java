@@ -10,11 +10,11 @@ import org.springframework.stereotype.*;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 	private final KafkaTemplate<Long, UserDto> kafkaTemplate;
-	private final KafkaProperties kafkaProperties;
+	private final CustomKafkaProperties customKafkaProperties;
 	
 	@NewSpan("Update user state")
 	@Override
 	public void saveOrUpdate(UserDto userDto) {
-		kafkaTemplate.send(kafkaProperties.getUser().getTopic().getName(), userDto.id(), userDto);
+		kafkaTemplate.send(customKafkaProperties.getUser().getTopic().getName(), userDto.id(), userDto);
 	}
 }
