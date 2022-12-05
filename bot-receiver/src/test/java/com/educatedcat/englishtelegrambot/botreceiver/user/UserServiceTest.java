@@ -39,7 +39,7 @@ class UserServiceTest {
 	private UserService userService;
 	
 	@Autowired
-	private KafkaProperties kafkaProperties;
+	private CustomKafkaProperties customKafkaProperties;
 	
 	@Autowired
 	private KafkaConsumer<Long, UserDto> consumer;
@@ -47,7 +47,7 @@ class UserServiceTest {
 	@Test
 	@SneakyThrows
 	void saveOrUpdate() {
-		consumer.subscribe(List.of(kafkaProperties.getUser().getTopic().getName()));
+		consumer.subscribe(List.of(customKafkaProperties.getUser().getTopic().getName()));
 		UserDto user = new UserDto(1L, MenuButtonType.START, UUID.randomUUID());
 		
 		userService.saveOrUpdate(user);
@@ -61,7 +61,7 @@ class UserServiceTest {
 			
 			assertEquals(1, records.count());
 			records.forEach(r -> {
-				assertEquals(kafkaProperties.getUser().getTopic().getName(), r.topic());
+				assertEquals(customKafkaProperties.getUser().getTopic().getName(), r.topic());
 				assertEquals(user, r.value());
 				assertEquals(user.id(), r.key());
 			});

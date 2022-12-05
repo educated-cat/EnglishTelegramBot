@@ -16,7 +16,8 @@ public class StartKeyboard extends BaseKeyboard {
 	@Override
 	protected List<KeyboardEntry> buttons() {
 		return buttons.stream()
-		              .map(button -> new KeyboardEntry(MenuButtonType.BY_COURSE, "By Course"))
+		              .map(buttonMarker -> (StartButton) buttonMarker)
+		              .map(button -> new KeyboardEntry(button.menuButtonType(), button.name()))
 		              .toList();
 	}
 	

@@ -16,6 +16,10 @@ spring:
   sleuth:
     enabled: false
 
+eureka:
+  client:
+    enabled: false
+
 telegram:
   bot:
     token: 12345:qwerty

@@ -13,20 +13,20 @@ import org.telegram.telegrambots.meta.api.methods.updatingmessages.*;
 @RequiredArgsConstructor
 public class MessageSenderImpl implements MessageSender {
 	private final KafkaTemplate<Long, BotApiMethod<?>> messageKafkaTemplate;
-	private final KafkaProperties kafkaProperties;
+	private final CustomKafkaProperties customKafkaProperties;
 	
 	// TODO: simplify
 	@Override
 	@NewSpan("Send message to bot-sender")
 	public void send(BotApiMethod<?> message) {
 		if (message instanceof SendMessage sendMessage) {
-			messageKafkaTemplate.send(kafkaProperties.getMessageSender().getTopic().getName(),
+			messageKafkaTemplate.send(customKafkaProperties.getMessageSender().getTopic().getName(),
 			                          Long.valueOf(sendMessage.getChatId()), message);
 		} else if (message instanceof EditMessageText editMessageText) {
-			messageKafkaTemplate.send(kafkaProperties.getMessageSender().getTopic().getName(),
+			messageKafkaTemplate.send(customKafkaProperties.getMessageSender().getTopic().getName(),
 			                          Long.valueOf(editMessageText.getChatId()), message);
 		} else {
-			messageKafkaTemplate.send(kafkaProperties.getMessageSender().getTopic().getName(), message);
+			messageKafkaTemplate.send(customKafkaProperties.getMessageSender().getTopic().getName(), message);
 		}
 	}
 }

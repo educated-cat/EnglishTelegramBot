@@ -13,5 +13,24 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         show_sql: true
         ddl-auto: validate
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      acks: all
+      key-serializer: org.apache.kafka.common.serialization.LongSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: user-productivity-group
+      key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      auto-offset-reset: earliest
   sleuth:
     enabled: false
+
+eureka:
+  client:
+    enabled: false
+
+kafka:
+  topic:
+    name: user-productivity-test-topic

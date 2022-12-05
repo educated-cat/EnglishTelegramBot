@@ -15,6 +15,13 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: user-productivity-group
+      key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      auto-offset-reset: earliest
   zipkin:
     sender:
       type: WEB
@@ -25,3 +32,7 @@ spring:
 eureka:
   instance:
     instance-id: ${spring.cloud.client.hostname}:${spring.application.name}::${random.value}
+
+kafka:
+  topic:
+    name: user-productivity-topic

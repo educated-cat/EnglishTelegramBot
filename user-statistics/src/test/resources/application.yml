@@ -1,0 +1,11 @@
+spring:
+  sleuth:
+    enabled: false
+
+eureka:
+  client:
+    enabled: false
+
+dictionary:
+  url:
+    api: http://localhost:8765/dictionary/api

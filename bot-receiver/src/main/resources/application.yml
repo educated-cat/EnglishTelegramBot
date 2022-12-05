@@ -28,7 +28,7 @@ spring:
 
 telegram:
   bot:
-    token: 5455060518:AAGHcfaL9bx5NFyAaxbUcKYkp6lJ8T0Rd4E
+    token: ${TELEGRAM_BOT_TOKEN}
     url:
       api: https://api.telegram.org/bot
   receiver:
@@ -48,3 +48,7 @@ kafka:
   message-sender:
     topic:
       name: bot-message-topic
+
+statistics:
+  url:
+    api: http://localhost:8765/user-statistics/api

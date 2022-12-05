@@ -1,5 +1,6 @@
 package com.educatedcat.englishtelegrambot.dictionary.word;
 
+import com.educatedcat.englishtelegrambot.dictionary.user.productivity.*;
 import lombok.*;
 import org.springframework.cloud.sleuth.annotation.*;
 import org.springframework.http.*;
@@ -12,6 +13,7 @@ import java.util.*;
 @RequestMapping("/api/words")
 public class WordRestController {
 	private final WordService wordService;
+	private final WordProductivityService wordProductivityService;
 	
 	@ContinueSpan(log = "Find word by ID")
 	@GetMapping("/{uuid}")
@@ -44,6 +46,12 @@ public class WordRestController {
 		                  .stream()
 		                  .map(Word::toDto)
 		                  .toList();
+	}
+	
+	@NewSpan("Find word productivity by user id")
+	@GetMapping("/productivity/{userId}")
+	public WordProductivityDto findWordProductivityByUserId(@PathVariable long userId) {
+		return wordProductivityService.getByUserId(userId);
 	}
 	
 	@ContinueSpan(log = "Create word")

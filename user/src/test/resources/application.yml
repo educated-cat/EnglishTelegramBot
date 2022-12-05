@@ -25,6 +25,10 @@ spring:
   sleuth:
     enabled: false
 
+eureka:
+  client:
+    enabled: false
+
 kafka:
   topic:
     name: user-test-topic

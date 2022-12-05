@@ -1,0 +1,16 @@
+server:
+  port: 0
+
+spring:
+  application:
+    name: user-statistics
+  zipkin:
+    sender:
+      type: WEB
+  sleuth:
+    sampler:
+      probability: 1.0
+
+dictionary:
+  url:
+    api: http://localhost:8765/dictionary/api
