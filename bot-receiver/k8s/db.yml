@@ -1,0 +1,110 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bot-receiver-postgres-conf
+data:
+  host: bot-receiver-postgres-service
+  name: bot_receiver_db
+  port: '5432'
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: bot-receiver-postgres-credentials
+data:
+  postgres_bot_receiver_user: Ym90X3JlY2VpdmVyX3VzZXI=
+  postgres_bot_receiver_password: dSV+M1hQZX1+QEYlZ25VQGpSJU14NFRkQWdUfTVGblo=
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bot-receiver-postgres-service
+  labels:
+    app: bot-receiver-postgres
+    tier: database
+spec:
+  ports:
+    - port: 5432
+  selector:
+    app: bot-receiver-postgres
+    tier: database
+  clusterIP: None
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: bot-receiver-postgres-pv-volume
+  labels:
+    type: local
+    app: bot-receiver-postgres
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/mnt/data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: bot-receiver-postgres-pv-claim
+  labels:
+    app: bot-receiver-postgres
+    tier: database
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bot-receiver-postgres-deployment
+  labels:
+    app: bot-receiver-postgres
+    tier: database
+spec:
+  selector:
+    matchLabels:
+      app: bot-receiver-postgres
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: bot-receiver-postgres
+        tier: database
+    spec:
+      containers:
+        - name: bot-receiver-postgres
+          image: postgres:15.1
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: bot-receiver-postgres-credentials
+                  key: postgres_bot_receiver_user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: bot-receiver-postgres-credentials
+                  key: postgres_bot_receiver_password
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: bot-receiver-postgres-conf
+                  key: name
+          ports:
+            - containerPort: 5432
+              name: postgres
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: bot-receiver-postgres-persistence-storage
+      volumes:
+        - name: bot-receiver-postgres-persistence-storage
+          persistentVolumeClaim:
+            claimName: bot-receiver-postgres-pv-claim
