@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: discovery-server-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: discovery-server
+  template:
+    metadata:
+      labels:
+        app: discovery-server
+    spec:
+      containers:
+        - name: discovery-server
+          image: discovery-server:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8761
+          env:
+            - name: PEER_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: discovery-server-config
+                  key: server-url
+            - name: HOSTNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: discovery-server-config
+                  key: hostname
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8761
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8761
+          startupProbe:
+            initialDelaySeconds: 15
+            failureThreshold: 10
+            periodSeconds: 10
+            httpGet:
+              path: /actuator/health
+              port: 8761
+      imagePullSecrets:
+        - name: docker-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: discovery-server-service
+spec:
+  selector:
+    app: discovery-server
+  ports:
+    - port: 8761
+      targetPort: 8761
+  type: LoadBalancer
