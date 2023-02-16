@@ -1,0 +1,14 @@
+apiVersion: skaffold/v4beta1
+kind: Config
+metadata:
+  name: englishtelegrambot-prepare
+build:
+  local: { }
+manifests:
+  rawYaml:
+    - bot-receiver/k8s/db.yml
+    - discovery-server/k8s/app.yml
+    - api-gateway/k8s/app.yml
+    - bot-receiver/k8s/app.yml
+deploy:
+  statusCheckDeadlineSeconds: 60
