@@ -3,6 +3,7 @@ package com.educatedcat.englishtelegrambot.dictionary;
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.core.type.*;
 import com.fasterxml.jackson.databind.*;
+import io.zonky.test.db.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.autoconfigure.web.servlet.*;
 import org.springframework.boot.test.context.*;
@@ -12,6 +13,7 @@ import org.springframework.test.web.servlet.request.*;
 
 import java.io.*;
 
+@AutoConfigureEmbeddedDatabase
 @SpringBootTest
 @AutoConfigureMockMvc
 public class CustomMvcTest {

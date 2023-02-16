@@ -17,7 +17,7 @@ dependencies {
 	/* Test */
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.kafka:spring-kafka-test")
-	testImplementation("org.testcontainers:kafka")
 	testImplementation("org.awaitility:awaitility")
-	testImplementation("com.h2database:h2:1.4.200")
+	testImplementation("io.zonky.test:embedded-postgres")
+	testImplementation("io.zonky.test:embedded-database-spring-test")
 }
