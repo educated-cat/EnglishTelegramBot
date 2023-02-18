@@ -6,9 +6,10 @@ build:
   local: { }
 manifests:
   rawYaml:
-    - bot-receiver/k8s/db.yml
+    - k8s/zipkin.yml
     - discovery-server/k8s/app.yml
     - api-gateway/k8s/app.yml
+    - bot-receiver/k8s/db.yml
     - bot-receiver/k8s/app.yml
     - bot-sender/k8s/app.yml
 deploy:
