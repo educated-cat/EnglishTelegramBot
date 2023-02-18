@@ -10,5 +10,6 @@ manifests:
     - discovery-server/k8s/app.yml
     - api-gateway/k8s/app.yml
     - bot-receiver/k8s/app.yml
+    - bot-sender/k8s/app.yml
 deploy:
   statusCheckDeadlineSeconds: 60
