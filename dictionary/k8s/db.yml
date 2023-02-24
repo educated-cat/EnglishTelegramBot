@@ -1,0 +1,111 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dictionary-postgres-conf
+data:
+  host: dictionary-postgres-service
+  name: dictionary_db
+  port: '5432'
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: dictionary-postgres-credentials
+data:
+  postgres_dictionary_user: Ym90X3JlY2VpdmVyX3VzZXI=
+  postgres_dictionary_password: dSV+M1hQZX1+QEYlZ25VQGpSJU14NFRkQWdUfTVGblo=
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dictionary-postgres-service
+  labels:
+    app: dictionary-postgres
+    tier: database
+spec:
+  ports:
+    - port: 5432
+  selector:
+    app: dictionary-postgres
+    tier: database
+  clusterIP: None
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: dictionary-postgres-pv-volume
+  labels:
+    type: local
+    app: dictionary-postgres
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/mnt/data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: dictionary-postgres-pv-claim
+  labels:
+    app: dictionary-postgres
+    tier: database
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: dictionary-postgres-deployment
+  labels:
+    app: dictionary-postgres
+    tier: database
+spec:
+  serviceName: dictionary-postgres
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dictionary-postgres
+  template:
+    metadata:
+      labels:
+        app: dictionary-postgres
+        tier: database
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: dictionary-postgres
+          image: postgres:15.1
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: dictionary-postgres-credentials
+                  key: postgres_dictionary_user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: dictionary-postgres-credentials
+                  key: postgres_dictionary_password
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: dictionary-postgres-conf
+                  key: name
+          ports:
+            - containerPort: 5432
+              name: postgres
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: dictionary-postgres-persistence-storage
+      volumes:
+        - name: dictionary-postgres-persistence-storage
+          persistentVolumeClaim:
+            claimName: dictionary-postgres-pv-claim
