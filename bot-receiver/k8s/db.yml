@@ -60,24 +60,25 @@ spec:
       storage: 1Gi
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: bot-receiver-postgres-deployment
   labels:
     app: bot-receiver-postgres
     tier: database
 spec:
+  serviceName: bot-receiver-postgres
+  replicas: 3
   selector:
     matchLabels:
       app: bot-receiver-postgres
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
         app: bot-receiver-postgres
         tier: database
     spec:
+      terminationGracePeriodSeconds: 10
       containers:
         - name: bot-receiver-postgres
           image: postgres:15.1
