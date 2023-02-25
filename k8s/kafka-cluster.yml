@@ -74,20 +74,8 @@ spec:
               value: "1"
             - name: KAFKA_BROKER_ID
               value: "1"
-          #          readinessProbe:
-          #            initialDelaySeconds: 10
-          #            exec:
-          #              command:
-          #                - "bash -c (cd .. && cd .. && bin/kafka-topics --list --bootstrap-server=localhost:9092)"
-          lifecycle:
-            postStart:
-              exec:
-                command:
-                  - sh
-                  - -c
-                  - cd ..
-                  - cd ..
-                  - bin/kafka-topics --bootstrap-server localhost:9092 --create --topic bot-message-topic --replication-factor 1 --partitions 5
+            - name: TOPIC_AUTO_CREATE
+              value: "false"
           volumeMounts:
             - name: data
               mountPath: /mnt/kafka
@@ -100,13 +88,6 @@ spec:
         resources:
           requests:
             storage: "1Gi"
-#                  - >
-#                    bash -c
-#                            "sleep 5s && (cd .. && cd .. &&
-#                              (kafka-topics --bootstrap-server localhost:9092 --create --topic user-topic --replication-factor 1 --partitions 5) &&
-#                              (kafka-topics --bootstrap-server localhost:9092 --create --topic bot-message-topic --replication-factor 1 --partitions 5) &&
-#                              (kafka-topics --bootstrap-server localhost:9092 --create --topic user-productivity-topic --replication-factor 1 --partitions 5)&) &&
-#                            /etc/confluent/docker/run"
 ---
 apiVersion: v1
 kind: Service
