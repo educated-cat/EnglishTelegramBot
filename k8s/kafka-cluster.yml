@@ -76,18 +76,10 @@ spec:
               value: "1"
             - name: TOPIC_AUTO_CREATE
               value: "false"
-          volumeMounts:
-            - name: data
-              mountPath: /mnt/kafka
-  volumeClaimTemplates:
-    - metadata:
-        name: data
-      spec:
-        accessModes:
-          - "ReadWriteOnce"
-        resources:
-          requests:
-            storage: "1Gi"
+      volumes:
+        - name: kafka-pv-volume
+          persistentVolumeClaim:
+            claimName: kafka-svc-pv-claim
 ---
 apiVersion: v1
 kind: Service

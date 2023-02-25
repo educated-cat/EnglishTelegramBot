@@ -1,0 +1,119 @@
+# Dictionary
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: dictionary-postgres-pv-volume
+  labels:
+    type: local
+    app: dictionary-postgres
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/mnt/data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: dictionary-postgres-pv-claim
+  labels:
+    app: dictionary-postgres
+    tier: database
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+# Bot Receiver
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: bot-receiver-postgres-pv-volume
+  labels:
+    type: local
+    app: bot-receiver-postgres
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/mnt/data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: bot-receiver-postgres-pv-claim
+  labels:
+    app: bot-receiver-postgres
+    tier: database
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+# User
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: user-postgres-pv-volume
+  labels:
+    type: local
+    app: user-postgres
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/mnt/data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: user-postgres-pv-claim
+  labels:
+    app: user-postgres
+    tier: database
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+# Kafka
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: kafka-pv-volume
+  labels:
+    type: local
+    app: kafka-svc
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/mnt/kafka"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: kafka-svc-pv-claim
+  labels:
+    app: kafka-svc
+    tier: kafka
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

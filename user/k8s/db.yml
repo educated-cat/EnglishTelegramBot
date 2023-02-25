@@ -30,35 +30,6 @@ spec:
     tier: database
   clusterIP: None
 ---
-kind: PersistentVolume
-apiVersion: v1
-metadata:
-  name: user-postgres-pv-volume
-  labels:
-    type: local
-    app: user-postgres
-spec:
-  capacity:
-    storage: 1Gi
-  accessModes:
-    - ReadWriteMany
-  hostPath:
-    path: "/mnt/data"
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: user-postgres-pv-claim
-  labels:
-    app: user-postgres
-    tier: database
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
----
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
