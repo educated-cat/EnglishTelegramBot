@@ -61,3 +61,7 @@ kafka:
 statistics:
   url:
     api: http://localhost
+
+logging:
+  level:
+    com.educatedcat.englishtelegrambot.botreceiver: DEBUG
