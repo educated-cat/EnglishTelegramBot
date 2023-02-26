@@ -1,10 +1,10 @@
 package com.educatedcat.englishtelegrambot.user.kafka;
 
+import com.educatedcat.englishtelegrambot.kafkalib.serializer.*;
 import com.educatedcat.englishtelegrambot.user.user.*;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.serialization.*;
 import org.springframework.kafka.core.*;
-import org.springframework.kafka.support.serializer.*;
 import org.springframework.lang.*;
 
 import java.util.*;
@@ -13,7 +13,7 @@ public class UserConsumerFactory extends DefaultKafkaConsumerFactory<Long, UserD
 	public UserConsumerFactory(Map<String, Object> configs) {
 		super(configs);
 		setKeyDeserializer(new LongDeserializer());
-		setValueDeserializer(new JsonDeserializer<>(UserDto.class, false));
+		setValueDeserializer(new CustomJsonDeserializer<>(UserDto.class, false));
 	}
 	
 	@NonNull

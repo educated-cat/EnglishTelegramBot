@@ -13,6 +13,9 @@ dependencies {
 	/* Telegram */
 	implementation("org.telegram:telegrambots-meta")
 	
+	/* Educated Cat */
+	implementation(project(":kafka-lib"))
+	
 	/* Test */
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.kafka:spring-kafka-test")

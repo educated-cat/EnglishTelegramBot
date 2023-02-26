@@ -20,7 +20,7 @@ spring:
     consumer:
       group-id: user-productivity-group
       key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      value-deserializer: com.educatedcat.englishtelegrambot.kafkalib.serializer.CustomJsonDeserializer
       auto-offset-reset: earliest
   sleuth:
     enabled: false

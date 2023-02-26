@@ -19,6 +19,9 @@ dependencies {
 	/* Cache */
 	implementation("com.github.ben-manes.caffeine:caffeine")
 	
+	/* Educated Cat */
+	implementation(project(":kafka-lib"))
+	
 	/* Test */
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.kafka:spring-kafka-test")

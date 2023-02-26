@@ -4,7 +4,7 @@ spring:
     consumer:
       group-id: bot-message-group
       key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      value-deserializer: com.educatedcat.englishtelegrambot.kafkalib.serializer.CustomJsonDeserializer
       auto-offset-reset: earliest
       properties:
         spring.json.trusted.packages: org.telegram.telegrambots.meta.api.methods.*
