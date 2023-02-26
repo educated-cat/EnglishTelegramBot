@@ -9,3 +9,7 @@ eureka:
 dictionary:
   url:
     api: http://localhost:8765/dictionary/api
+
+logging:
+  level:
+    com.educatedcat.englishtelegrambot.userstatistics: DEBUG
