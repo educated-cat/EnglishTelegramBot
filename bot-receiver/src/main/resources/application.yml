@@ -19,6 +19,7 @@ spring:
       acks: all
       key-serializer: org.apache.kafka.common.serialization.LongSerializer
       value-serializer: com.educatedcat.englishtelegrambot.kafkalib.serializer.CustomJsonSerializer
+      retries: 3
   zipkin:
     sender:
       type: WEB
