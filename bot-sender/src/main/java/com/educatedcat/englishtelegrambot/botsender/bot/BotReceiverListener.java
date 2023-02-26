@@ -17,6 +17,10 @@ public class BotReceiverListener {
 	
 	@KafkaListener(topics = "${kafka.message-sender.topic.name}")
 	public void getUpdates(BotApiMethod<?> message) {
+		if (message == null) {
+			log.warn("Message is null: {}", BotApiMethod.class.getSimpleName());
+			return;
+		}
 		abstractMessageSenderMap.get(message.getClass()).send(message);
 	}
 }
