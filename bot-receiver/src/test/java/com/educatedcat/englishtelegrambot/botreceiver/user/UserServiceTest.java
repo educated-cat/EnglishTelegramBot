@@ -7,9 +7,7 @@ import org.apache.kafka.clients.consumer.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;
-import org.springframework.test.context.*;
-import org.testcontainers.containers.*;
-import org.testcontainers.utility.*;
+import org.springframework.kafka.test.context.*;
 
 import java.time.*;
 import java.util.*;
@@ -17,24 +15,12 @@ import java.util.*;
 import static org.awaitility.Awaitility.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+@EmbeddedKafka
 @SpringBootTest(properties = {
 		"spring.main.lazy-initialization=true",
 		"spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration"
 })
 class UserServiceTest {
-	private static final KafkaContainer kafkaContainer = new KafkaContainer(
-			DockerImageName.parse("confluentinc/cp-kafka:latest"));
-	
-	@BeforeAll
-	public static void beforeAll() {
-		kafkaContainer.start();
-	}
-	
-	@AfterAll
-	public static void afterAll() {
-		kafkaContainer.stop();
-	}
-	
 	@Autowired
 	private UserService userService;
 	
@@ -67,10 +53,5 @@ class UserServiceTest {
 			});
 			return true;
 		});
-	}
-	
-	@DynamicPropertySource
-	private static void updateKafkaBootstrapServer(DynamicPropertyRegistry registry) {
-		registry.add("spring.kafka.bootstrap-servers", kafkaContainer::getBootstrapServers);
 	}
 }

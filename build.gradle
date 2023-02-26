@@ -1,5 +1,7 @@
 plugins {
 	id("io.spring.dependency-management").version("1.0.12.RELEASE")
+	id("org.springframework.boot").version("${springBootVersion}")
+	id("com.bmuschko.docker-spring-boot-application").version("9.2.1").apply(false)
 }
 
 subprojects {
@@ -9,7 +11,7 @@ subprojects {
 	apply plugin: 'java'
 	apply plugin: 'io.spring.dependency-management'
 	apply plugin: 'java-library'
-	
+	apply plugin: 'com.bmuschko.docker-spring-boot-application'
 	repositories {
 		mavenCentral()
 	}
@@ -21,15 +23,17 @@ subprojects {
 	
 	dependencyManagement {
 		imports {
-			mavenBom("org.springframework.boot:spring-boot-dependencies:2.7.5")
+			mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
 			mavenBom "org.springframework.cloud:spring-cloud-dependencies:2021.0.4"
-			mavenBom("org.testcontainers:testcontainers-bom:1.17.5")
+			mavenBom("io.zonky.test.postgres:embedded-postgres-binaries-bom:15.2.0")
 		}
 	}
 	
 	dependencies {
 		constraints {
 			implementation("org.telegram:telegrambots-meta:6.1.0")
+			testImplementation("io.zonky.test:embedded-postgres:2.0.3")
+			testImplementation("io.zonky.test:embedded-database-spring-test:2.2.0")
 		}
 		
 		/* Spring Boot*/
@@ -61,5 +65,12 @@ subprojects {
 	
 	tasks.test {
 		useJUnitPlatform()
+	}
+	
+	docker {
+		springBootApplication {
+			baseImage = 'openjdk:17-jdk-slim-buster'
+			images = ["${project.name}:latest"]
+		}
 	}
 }

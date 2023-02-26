@@ -1,0 +1,92 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bot-sender-config
+data:
+  discovery-server-url: "bot-sender-service.default"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bot-sender-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bot-sender
+  template:
+    metadata:
+      labels:
+        app: bot-sender
+    spec:
+      containers:
+        - name: bot-sender
+          image: bot-sender:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          env:
+            - name: TELEGRAM_BOT_API_URL
+              valueFrom:
+                secretKeyRef:
+                  name: bot-credentials
+                  key: telegram_bot_api_url
+            - name: TELEGRAM_BOT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: bot-credentials
+                  key: telegram_bot_token
+            - name: DISCOVERY_SERVER_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: discovery-server-config
+                  key: server-url
+            - name: DISCOVERY_ZONE
+              valueFrom:
+                configMapKeyRef:
+                  name: discovery-server-config
+                  key: zone
+            - name: DISCOVERY_HOSTNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: bot-sender-config
+                  key: discovery-server-url
+            - name: ZIPKIN_BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: zipkin-config
+                  key: base-url
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              valueFrom:
+                configMapKeyRef:
+                  name: kafka-config
+                  key: bootstrap-servers
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+          startupProbe:
+            initialDelaySeconds: 15
+            failureThreshold: 10
+            periodSeconds: 10
+            httpGet:
+              path: /actuator/health
+              port: 8080
+      imagePullSecrets:
+        - name: docker-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bot-sender-service
+spec:
+  selector:
+    app: bot-sender
+  ports:
+    - port: 8080
+      targetPort: 8080
+  type: ClusterIP

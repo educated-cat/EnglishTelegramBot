@@ -1,5 +1,6 @@
 package com.educatedcat.englishtelegrambot.user.user;
 
+import io.zonky.test.db.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.autoconfigure.orm.jpa.*;
@@ -8,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SuppressWarnings("OptionalGetWithoutIsPresent")
 @DataJpaTest
+@AutoConfigureEmbeddedDatabase
 class UserRepositoryTest {
 	@Autowired
 	private UserRepository userRepository;

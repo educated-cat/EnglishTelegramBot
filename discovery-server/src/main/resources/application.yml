@@ -6,7 +6,11 @@ spring:
     name: discovery-server
 
 eureka:
+  instance:
+    hostname: ${HOSTNAME:localhost}
   client:
+    service-url:
+      defaultZone: ${PEER_URL}
     register-with-eureka: false
     fetch-registry: false
 

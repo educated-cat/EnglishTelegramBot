@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;
 import org.springframework.boot.test.mock.mockito.*;
 import org.springframework.kafka.core.*;
-import org.springframework.test.context.*;
-import org.testcontainers.containers.*;
-import org.testcontainers.utility.*;
+import org.springframework.kafka.test.context.*;
 
 import java.time.*;
 import java.util.*;
@@ -18,34 +16,19 @@ import java.util.*;
 import static org.awaitility.Awaitility.*;
 import static org.mockito.BDDMockito.*;
 
-@MockBeans({
-		@MockBean(UserProductivityFacade.class)
-})
+@EmbeddedKafka
 @SpringBootTest(properties = {
 		"spring.main.lazy-initialization=true",
 		"spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration"
 })
 class UserProductivityListenerTest {
-	private static final KafkaContainer kafkaContainer = new KafkaContainer(
-			DockerImageName.parse("confluentinc/cp-kafka:latest"));
-	
-	@BeforeAll
-	public static void beforeAll() {
-		kafkaContainer.start();
-	}
-	
-	@AfterAll
-	public static void afterAll() {
-		kafkaContainer.stop();
-	}
-	
 	@Autowired
 	private KafkaTemplate<Long, UpdateWordProductivityDto> kafkaTemplate;
 	
 	@Autowired
 	private KafkaProperties kafkaProperties;
 	
-	@Autowired
+	@MockBean
 	private UserProductivityFacade userProductivityFacade;
 	
 	@Autowired
@@ -67,10 +50,4 @@ class UserProductivityListenerTest {
 			return true;
 		});
 	}
-	
-	@DynamicPropertySource
-	private static void updateKafkaBootstrapServer(DynamicPropertyRegistry registry) {
-		registry.add("spring.kafka.bootstrap-servers", kafkaContainer::getBootstrapServers);
-	}
-	
 }

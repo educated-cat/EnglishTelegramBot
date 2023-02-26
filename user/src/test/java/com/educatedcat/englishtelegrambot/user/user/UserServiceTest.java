@@ -1,16 +1,16 @@
 package com.educatedcat.englishtelegrambot.user.user;
 
 import com.educatedcat.englishtelegrambot.user.button.*;
+import io.zonky.test.db.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;
-import org.springframework.test.annotation.*;
 
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DirtiesContext
+@AutoConfigureEmbeddedDatabase
 @SuppressWarnings("OptionalGetWithoutIsPresent")
 @SpringBootTest(properties = {"spring.main.lazy-initialization=true"})
 class UserServiceTest {

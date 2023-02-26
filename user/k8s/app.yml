@@ -1,0 +1,107 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user-config
+data:
+  discovery-server-url: "user-service.default"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user
+  template:
+    metadata:
+      labels:
+        app: user
+    spec:
+      containers:
+        - name: user
+          image: user:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: user-postgres-conf
+                  key: host
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: user-postgres-conf
+                  key: name
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: user-postgres-conf
+                  key: port
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: user-postgres-credentials
+                  key: postgres_user_user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: user-postgres-credentials
+                  key: postgres_user_password
+            - name: DISCOVERY_SERVER_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: discovery-server-config
+                  key: server-url
+            - name: DISCOVERY_ZONE
+              valueFrom:
+                configMapKeyRef:
+                  name: discovery-server-config
+                  key: zone
+            - name: DISCOVERY_HOSTNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: dictionary-config
+                  key: discovery-server-url
+            - name: ZIPKIN_BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: zipkin-config
+                  key: base-url
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              valueFrom:
+                configMapKeyRef:
+                  name: kafka-config
+                  key: bootstrap-servers
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+          startupProbe:
+            initialDelaySeconds: 15
+            failureThreshold: 10
+            periodSeconds: 10
+            httpGet:
+              path: /actuator/health
+              port: 8080
+      imagePullSecrets:
+        - name: docker-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+spec:
+  selector:
+    app: user
+  ports:
+    - port: 8080
+      targetPort: 8080
+  type: ClusterIP

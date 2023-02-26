@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: discovery-server-config
+data:
+  zone: "prod"
+  hostname: "discovery-server-service.default"
+  server-url: "http://discovery-server-service.default:8761/eureka"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zipkin-config
+data:
+  zone: "prod"
+  base-url: "http://zipkin-service.default:9411"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kafka-config
+data:
+  bootstrap-servers: "kafka-1-service.default:9092"
+  listener-security-protocol-map: "PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zookeeper-config
+data:
+  zookeeper-url: "zookeeper-service.default:2181"
+---

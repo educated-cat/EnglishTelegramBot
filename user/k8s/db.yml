@@ -1,0 +1,82 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user-postgres-conf
+data:
+  host: user-postgres-service
+  name: user_db
+  port: '5432'
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: user-postgres-credentials
+data:
+  postgres_user_user: Ym90X3JlY2VpdmVyX3VzZXI=
+  postgres_user_password: dSV+M1hQZX1+QEYlZ25VQGpSJU14NFRkQWdUfTVGblo=
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-postgres-service
+  labels:
+    app: user-postgres
+    tier: database
+spec:
+  ports:
+    - port: 5432
+  selector:
+    app: user-postgres
+    tier: database
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: user-postgres-deployment
+  labels:
+    app: user-postgres
+    tier: database
+spec:
+  serviceName: dictionary-postgres
+  replicas: 3
+  selector:
+    matchLabels:
+      app: user-postgres
+  template:
+    metadata:
+      labels:
+        app: user-postgres
+        tier: database
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: user-postgres
+          image: postgres:15.1
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: user-postgres-credentials
+                  key: postgres_user_user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: user-postgres-credentials
+                  key: postgres_user_password
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: user-postgres-conf
+                  key: name
+          ports:
+            - containerPort: 5432
+              name: postgres
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: user-postgres-persistence-storage
+      volumes:
+        - name: user-postgres-persistence-storage
+          persistentVolumeClaim:
+            claimName: user-postgres-pv-claim

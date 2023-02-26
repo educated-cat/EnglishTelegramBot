@@ -1,17 +1,17 @@
 spring:
   profiles:
     active: test
-  datasource:
-    url: jdbc:postgresql://
-    username: entb
-    password: entb
-    driver-class-name: org.postgresql.Driver
   liquibase:
     contexts: test
     change-log: db/changelog-master.xml
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        show_sql: true
+        ddl-auto: validate
   kafka:
-    bootstrap-servers:
-      - localhost:9092
+    bootstrap-servers: ${spring.embedded.kafka.brokers:localhost:9092}
     producer:
       acks: all
       retries: 0
@@ -24,6 +24,12 @@ spring:
       auto-offset-reset: earliest
   sleuth:
     enabled: false
+
+zonky:
+  test:
+    database:
+      provider: zonky
+      type: postgres
 
 eureka:
   client:
@@ -51,3 +57,7 @@ kafka:
   message-sender:
     topic:
       name: bot-message-test-topic
+
+statistics:
+  url:
+    api: http://localhost

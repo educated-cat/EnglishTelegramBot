@@ -1,3 +1,5 @@
+version = "0.0.1-SNAPSHOT"
+
 dependencies {
 	/* Spring Boot */
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
@@ -6,6 +8,7 @@ dependencies {
 	implementation("org.springframework.cloud:spring-cloud-sleuth-zipkin")
 	implementation("org.springframework.kafka:spring-kafka")
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	
 	/* Telegram */
 	implementation("org.telegram:telegrambots-meta")
@@ -13,7 +16,6 @@ dependencies {
 	/* Test */
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.kafka:spring-kafka-test")
-	testImplementation("org.testcontainers:kafka")
 	testImplementation("org.awaitility:awaitility")
 	testImplementation("com.squareup.okhttp3:mockwebserver")
 }

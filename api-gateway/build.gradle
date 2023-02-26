@@ -1,8 +1,11 @@
+version = "0.0.1-SNAPSHOT"
+
 dependencies {
 	/* Spring Boot */
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 	implementation("org.springframework.cloud:spring-cloud-starter-gateway")
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	
 	/* Test */
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
