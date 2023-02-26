@@ -6,7 +6,7 @@ build:
   local: { }
 manifests:
   rawYaml:
-    - k8s/credentials.yml
+    - ../EnglishTelegramBotSecrets/k8s/credentials.yml
     - k8s/configs.yml
     - k8s/kafka-cluster.yml
     - k8s/zipkin.yml
