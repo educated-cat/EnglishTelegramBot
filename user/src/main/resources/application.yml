@@ -43,3 +43,7 @@ eureka:
 kafka:
   topic:
     name: user-topic
+
+logging:
+  level:
+    com.educatedcat.englishtelegrambot.user: DEBUG

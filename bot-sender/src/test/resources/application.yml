@@ -27,3 +27,7 @@ kafka:
   message-sender:
     topic:
       name: bot-message-test-topic
+
+logging:
+  level:
+    com.educatedcat.englishtelegrambot.botsender: DEBUG
