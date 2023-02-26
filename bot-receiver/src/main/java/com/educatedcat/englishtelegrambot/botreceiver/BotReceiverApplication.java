@@ -7,7 +7,10 @@ import org.springframework.scheduling.annotation.*;
 
 @EnableScheduling
 @EnableEurekaClient
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {
+		"com.educatedcat.englishtelegrambot.botreceiver",
+		"com.educatedcat.englishtelegrambot.kafkalib"
+})
 public class BotReceiverApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BotReceiverApplication.class, args);

@@ -1,3 +1,5 @@
+import org.apache.commons.lang3.JavaVersion
+
 plugins {
 	id("io.spring.dependency-management").version("1.0.12.RELEASE")
 	id("org.springframework.boot").version("${springBootVersion}")
@@ -31,7 +33,10 @@ subprojects {
 	
 	dependencies {
 		constraints {
+			/* Implementation */
 			implementation("org.telegram:telegrambots-meta:6.1.0")
+			
+			/* Test */
 			testImplementation("io.zonky.test:embedded-postgres:2.0.3")
 			testImplementation("io.zonky.test:embedded-database-spring-test:2.2.0")
 		}
@@ -53,8 +58,8 @@ subprojects {
 	}
 	
 	compileJava {
-		sourceCompatibility = 17
-		targetCompatibility = 17
+		sourceCompatibility = JavaVersion.JAVA_17
+		targetCompatibility = JavaVersion.JAVA_17
 	}
 	
 	test {

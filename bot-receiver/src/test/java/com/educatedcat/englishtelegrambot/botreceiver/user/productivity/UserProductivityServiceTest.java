@@ -7,6 +7,7 @@ import org.apache.kafka.clients.consumer.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;
+import org.springframework.kafka.test.context.*;
 
 import java.time.*;
 import java.util.*;
@@ -14,6 +15,7 @@ import java.util.*;
 import static org.awaitility.Awaitility.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+@EmbeddedKafka
 @SpringBootTest(properties = {
 		"spring.main.lazy-initialization=true",
 		"spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration"
