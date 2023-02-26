@@ -43,3 +43,7 @@ eureka:
 kafka:
   topic:
     name: user-productivity-topic
+
+logging:
+  level:
+    com.educatedcat.englishtelegrambot.dictionary: DEBUG
