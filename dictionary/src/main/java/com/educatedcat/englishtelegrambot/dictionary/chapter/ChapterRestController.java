@@ -33,7 +33,7 @@ public class ChapterRestController {
 	@ContinueSpan(log = "Find chapters in course by lesson ID")
 	@GetMapping("/by-lesson/{lessonId}")
 	public List<ChapterDto> findAllChaptersByLessonId(@PathVariable UUID lessonId) {
-		return chapterService.findAllByLessonId(lessonId)
+		return chapterService.findAllInCourseByLessonId(lessonId)
 		                     .stream()
 		                     .map(Chapter::toDto)
 		                     .toList();

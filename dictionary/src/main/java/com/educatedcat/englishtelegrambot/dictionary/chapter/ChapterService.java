@@ -7,5 +7,5 @@ public interface ChapterService {
 	
 	List<Chapter> findAllByCourseId(UUID courseId);
 	
-	List<Chapter> findAllByLessonId(UUID lessonId);
+	List<Chapter> findAllInCourseByLessonId(UUID lessonId);
 }
