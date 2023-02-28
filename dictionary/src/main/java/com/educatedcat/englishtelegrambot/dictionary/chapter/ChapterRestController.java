@@ -12,16 +12,16 @@ import java.util.*;
 public class ChapterRestController {
 	private final ChapterService chapterService;
 	
-	@ContinueSpan(log = "Find chapters in course by ID")
+	@ContinueSpan(log = "Find chapters in course by chapter ID")
 	@GetMapping("/{id}")
 	public List<ChapterDto> findAllInCourseByChapterId(@PathVariable UUID id) {
-		return chapterService.findChaptersById(id)
+		return chapterService.findAllInCourseByChapterId(id)
 		                     .stream()
 		                     .map(Chapter::toDto)
 		                     .toList();
 	}
 	
-	@ContinueSpan(log = "Find chapters in course by chapter ID")
+	@ContinueSpan(log = "Find chapters in course by course ID")
 	@GetMapping("/by-course/{courseId}")
 	public List<ChapterDto> findAllInCourse(@PathVariable UUID courseId) {
 		return chapterService.findAllByCourseId(courseId)

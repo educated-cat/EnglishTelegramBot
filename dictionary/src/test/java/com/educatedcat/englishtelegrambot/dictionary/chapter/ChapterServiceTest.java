@@ -22,7 +22,7 @@ class ChapterServiceTest {
 			"classpath:db/chapter/chapters.sql"
 	})
 	void findChaptersById() {
-		List<Chapter> list = chapterService.findChaptersById(
+		List<Chapter> list = chapterService.findAllInCourseByChapterId(
 				UUID.fromString("7b67037c-76db-46b0-bfe2-7fd3fecb5e98"));
 		
 		assertThat(list.size()).isEqualTo(3);

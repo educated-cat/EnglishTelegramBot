@@ -15,7 +15,7 @@ public class ChapterServiceImpl implements ChapterService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<Chapter> findChaptersById(UUID id) {
+	public List<Chapter> findAllInCourseByChapterId(UUID id) {
 		return chapterRepository.findAllInCourseByChapter_Id(id);
 	}
 	

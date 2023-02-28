@@ -1,36 +1,93 @@
 package com.educatedcat.englishtelegrambot.dictionary.chapter;
 
-import com.educatedcat.englishtelegrambot.dictionary.*;
-import com.fasterxml.jackson.core.type.*;
-import lombok.*;
 import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.boot.test.context.*;
+import org.springframework.boot.test.mock.mockito.*;
+import org.springframework.core.*;
+import org.springframework.test.web.reactive.server.*;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.mockito.BDDMockito.*;
 
-class ChapterRestControllerTest extends CustomMvcTest {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = {
+		"spring.main.lazy-initialization=true",
+		"spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration"
+})
+class ChapterRestControllerTest {
+	@Autowired
+	private WebTestClient webTestClient;
+	
+	@MockBean
+	private ChapterService chapterService;
+	
 	@Test
-	@SneakyThrows
 	void findAllInCourseByChapterId() {
-		List<ChapterDto> chapters = performRequest(get("/api/chapters/" + UUID.randomUUID()),
-		                                           new TypeReference<List<ChapterDto>>() {
-		                                           }).andExpect(status().isOk())
-		                                             .andReturnDto();
+		List<Chapter> res = List.of(new Chapter() {{
+			setId(UUID.randomUUID());
+			setName("Chapter 1");
+		}}, new Chapter() {{
+			setId(UUID.randomUUID());
+			setName("Chapter 2");
+		}});
+		List<ChapterDto> convertedRes = res.stream()
+		                                   .map(Chapter::toDto)
+		                                   .toList();
+		UUID id = UUID.randomUUID();
+		given(chapterService.findAllInCourseByChapterId(id)).willReturn(res);
 		
-		assertEquals(0, chapters.size());
+		webTestClient.get()
+		             .uri("/api/chapters/" + id)
+		             .exchange()
+		             .expectBody(new ParameterizedTypeReference<List<ChapterDto>>() {
+		             })
+		             .isEqualTo(convertedRes);
 	}
 	
 	@Test
-	@SneakyThrows
 	void findAllInCourse() {
-		List<ChapterDto> chapters = performRequest(get("/api/chapters/by-course/" + UUID.randomUUID()),
-		                                           new TypeReference<List<ChapterDto>>() {
-		                                           }).andExpect(status().isOk())
-		                                             .andReturnDto();
+		List<Chapter> res = List.of(new Chapter() {{
+			setId(UUID.randomUUID());
+			setName("Chapter 1");
+		}}, new Chapter() {{
+			setId(UUID.randomUUID());
+			setName("Chapter 2");
+		}});
+		List<ChapterDto> convertedRes = res.stream()
+		                                   .map(Chapter::toDto)
+		                                   .toList();
+		UUID id = UUID.randomUUID();
+		given(chapterService.findAllByCourseId(id)).willReturn(res);
 		
-		assertEquals(0, chapters.size());
+		webTestClient.get()
+		             .uri("/api/chapters/by-course/" + id)
+		             .exchange()
+		             .expectBody(new ParameterizedTypeReference<List<ChapterDto>>() {
+		             })
+		             .isEqualTo(convertedRes);
+	}
+	
+	@Test
+	void findAllChaptersByLessonId() {
+		List<Chapter> res = List.of(new Chapter() {{
+			setId(UUID.randomUUID());
+			setName("Chapter 1");
+		}}, new Chapter() {{
+			setId(UUID.randomUUID());
+			setName("Chapter 2");
+		}});
+		List<ChapterDto> convertedRes = res.stream()
+		                                   .map(Chapter::toDto)
+		                                   .toList();
+		UUID id = UUID.randomUUID();
+		given(chapterService.findAllInCourseByLessonId(id)).willReturn(res);
+		
+		webTestClient.get()
+		             .uri("/api/chapters/by-lesson/" + id)
+		             .exchange()
+		             .expectBody(new ParameterizedTypeReference<List<ChapterDto>>() {
+		             })
+		             .isEqualTo(convertedRes);
 	}
 }
