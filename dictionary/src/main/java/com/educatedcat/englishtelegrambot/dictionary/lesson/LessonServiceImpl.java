@@ -13,7 +13,7 @@ public class LessonServiceImpl implements LessonService {
 	private final LessonRepository lessonRepository;
 	
 	@Override
-	public List<Lesson> findLessonsById(UUID id) {
+	public List<Lesson> findAllInChapterByLessonId(UUID id) {
 		return lessonRepository.findAllInChapterByLesson_Id(id);
 	}
 	

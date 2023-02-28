@@ -15,7 +15,7 @@ public class LessonRestController {
 	@ContinueSpan(log = "Find lessons in chapter by ID")
 	@GetMapping("/{id}")
 	public List<LessonDto> findAllInChapterByLessonId(@PathVariable UUID id) {
-		return lessonService.findLessonsById(id)
+		return lessonService.findAllInChapterByLessonId(id)
 		                    .stream()
 		                    .map(Lesson::toDto)
 		                    .toList();

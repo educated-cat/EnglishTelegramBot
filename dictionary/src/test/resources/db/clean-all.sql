@@ -1,6 +1,1 @@
-TRUNCATE lessons_words CASCADE;
-TRUNCATE rus_translations;
-TRUNCATE deu_translations;
-TRUNCATE word_productivity;
-TRUNCATE chapters;
-TRUNCATE courses;
+TRUNCATE TABLE lessons_words, words, lessons, rus_translations, deu_translations, word_productivity, chapters, courses;
