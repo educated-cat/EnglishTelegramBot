@@ -26,7 +26,8 @@ public class WordServiceImpl implements WordService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	@Cacheable({"words"})
+	// FIXME: fix cacheable
+	//	@Cacheable({"words"})
 	public List<Word> findAllByLessonId(UUID lessonId) {
 		return wordRepository.findAllByLessons_Id(lessonId);
 	}
@@ -40,7 +41,8 @@ public class WordServiceImpl implements WordService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	@Cacheable({"words"})
+	// FIXME: fix cacheable
+	//	@Cacheable({"words"})
 	public Optional<Word> findFirstInLessonByLessonId(UUID lessonId) {
 		return wordRepository.findFirstByLessonsId(lessonId);
 	}
@@ -67,7 +69,10 @@ public class WordServiceImpl implements WordService {
 	@Transactional
 	public void update(UUID uuid, WordDto dto) {
 		wordRepository.findById(uuid)
-		              .ifPresentOrElse(word -> word.merge(dto),
-		                               () -> log.error("Word not found, id={}", dto.id()));
+		              .map(word -> {
+			              word.merge(dto);
+			              return word;
+		              })
+		              .orElseThrow();
 	}
 }
