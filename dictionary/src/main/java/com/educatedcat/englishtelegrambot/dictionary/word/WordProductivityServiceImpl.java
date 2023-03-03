@@ -27,6 +27,7 @@ public class WordProductivityServiceImpl implements WordProductivityService {
 	}
 	
 	@Override
+	@Transactional(readOnly = true)
 	public WordProductivityDto getByUserId(long userId) {
 		int fullyLearnedWords = wordProductivityRepository.countByUserIdAndProgress(userId, (byte) 100);
 		int partlyLearnedWords = wordProductivityRepository.countByUserIdAndProgressBetween(userId, (byte) 1,
