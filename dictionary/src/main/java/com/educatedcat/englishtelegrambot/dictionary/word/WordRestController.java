@@ -48,7 +48,7 @@ public class WordRestController {
 		                  .toList();
 	}
 	
-	@NewSpan("Find word productivity by user id")
+	@ContinueSpan(log = "Find word productivity by user id")
 	@GetMapping("/productivity/{userId}")
 	public WordProductivityDto findWordProductivityByUserId(@PathVariable long userId) {
 		return wordProductivityService.getByUserId(userId);
