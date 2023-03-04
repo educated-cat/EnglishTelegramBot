@@ -1,7 +1,9 @@
 package com.educatedcat.englishtelegrambot.dictionary.word;
 
+import com.educatedcat.englishtelegrambot.dictionary.user.productivity.*;
 import io.zonky.test.db.*;
 import org.junit.jupiter.api.*;
+import org.mockito.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;
 import org.springframework.boot.test.mock.mockito.*;
@@ -23,6 +25,9 @@ class WordProductivityServiceTest {
 	
 	@SpyBean
 	private WordProductivityRepository wordProductivityRepository;
+	
+	@Captor
+	private ArgumentCaptor<Byte> byteArgumentCaptor;
 	
 	@BeforeEach
 	void beforeEach() {
@@ -96,5 +101,38 @@ class WordProductivityServiceTest {
 		assertThat(updated).isNotNull();
 		assertThat(updated.getProgress()).isEqualTo((byte) 0);
 		then(wordProductivityRepository).should().save(any(WordProductivity.class));
+	}
+	
+	@Test
+	@Sql({
+			"classpath:db/clean-all.sql",
+			"classpath:db/course/courses.sql",
+			"classpath:db/chapter/chapters.sql",
+			"classpath:db/lesson/lessons.sql",
+			"classpath:db/translation/rus/translations.sql",
+			"classpath:db/word/words.sql",
+			"classpath:db/word/word_productivity.sql",
+			"classpath:db/lessons_words/lessons_words.sql"
+	})
+	void getByUserId() {
+		long userId = 123L;
+		
+		WordProductivityDto productivity = wordProductivityService.getByUserId(userId);
+		
+		assertThat(productivity).isNotNull();
+		assertThat(productivity.fullyLearnedWords()).isEqualTo(1);
+		assertThat(productivity.notLearnedWords()).isEqualTo(1);
+		assertThat(productivity.partlyLearnedWords()).isEqualTo(1);
+		
+		then(wordProductivityRepository).should(times(2))
+		                                .countByUserIdAndProgress(eq(userId), byteArgumentCaptor.capture());
+		then(wordProductivityRepository).should().countByUserIdAndProgressBetween(userId, (byte) 1, (byte) 99);
+		
+		List<Byte> bytes = byteArgumentCaptor.getAllValues();
+		assertThat(bytes.size()).isEqualTo(2);
+		assertThat(bytes.stream()
+		                .filter(b -> b.equals((byte) 100) || b.equals((byte) 0))
+		                .toList()
+		                .size()).isEqualTo(2);
 	}
 }
