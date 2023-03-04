@@ -18,6 +18,7 @@ class CourseServiceTest {
 	
 	@Test
 	@Sql({
+			"classpath:db/clear-all.sql",
 			"classpath:db/course/courses.sql"
 	})
 	void findAll() {

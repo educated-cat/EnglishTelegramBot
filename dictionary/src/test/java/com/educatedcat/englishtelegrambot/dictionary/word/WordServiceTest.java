@@ -23,7 +23,7 @@ class WordServiceTest {
 	
 	@Test
 	@Sql({
-			"classpath:db/clean-all.sql",
+			"classpath:db/clear-all.sql",
 			"classpath:db/course/courses.sql",
 			"classpath:db/chapter/chapters.sql",
 			"classpath:db/lesson/lessons.sql",
@@ -44,7 +44,7 @@ class WordServiceTest {
 	
 	@Test
 	@Sql({
-			"classpath:db/clean-all.sql",
+			"classpath:db/clear-all.sql",
 			"classpath:db/course/courses.sql",
 			"classpath:db/chapter/chapters.sql",
 			"classpath:db/lesson/lessons.sql",
@@ -60,7 +60,7 @@ class WordServiceTest {
 	
 	@Test
 	@Sql({
-			"classpath:db/clean-all.sql",
+			"classpath:db/clear-all.sql",
 			"classpath:db/course/courses.sql",
 			"classpath:db/chapter/chapters.sql",
 			"classpath:db/translation/rus/translations.sql",
@@ -81,7 +81,7 @@ class WordServiceTest {
 	
 	@Test
 	@Sql({
-			"classpath:db/clean-all.sql",
+			"classpath:db/clear-all.sql",
 			"classpath:db/course/courses.sql",
 			"classpath:db/chapter/chapters.sql",
 			"classpath:db/lesson/lessons.sql",
@@ -104,7 +104,7 @@ class WordServiceTest {
 	
 	@Test
 	@Sql({
-			"classpath:db/clean-all.sql",
+			"classpath:db/clear-all.sql",
 			"classpath:db/course/courses.sql",
 			"classpath:db/chapter/chapters.sql",
 			"classpath:db/lesson/lessons.sql",
@@ -126,7 +126,7 @@ class WordServiceTest {
 	
 	@Test
 	@Sql({
-			"classpath:db/clean-all.sql",
+			"classpath:db/clear-all.sql",
 			"classpath:db/course/courses.sql",
 			"classpath:db/chapter/chapters.sql",
 			"classpath:db/lesson/lessons.sql",
@@ -141,7 +141,7 @@ class WordServiceTest {
 	
 	@Test
 	@Sql({
-			"classpath:db/clean-all.sql",
+			"classpath:db/clear-all.sql",
 			"classpath:db/course/courses.sql",
 			"classpath:db/chapter/chapters.sql",
 			"classpath:db/lesson/lessons.sql",
@@ -168,7 +168,7 @@ class WordServiceTest {
 	
 	@Test
 	@Sql({
-			"classpath:db/clean-all.sql",
+			"classpath:db/clear-all.sql",
 			"classpath:db/course/courses.sql",
 			"classpath:db/chapter/chapters.sql",
 			"classpath:db/lesson/lessons.sql",
