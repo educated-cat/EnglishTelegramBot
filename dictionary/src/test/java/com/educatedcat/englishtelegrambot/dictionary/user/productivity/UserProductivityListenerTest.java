@@ -13,6 +13,7 @@ import java.time.*;
 import java.util.*;
 
 import static org.awaitility.Awaitility.*;
+import static org.mockito.BDDMockito.reset;
 import static org.mockito.BDDMockito.*;
 
 @EmbeddedKafka
@@ -30,9 +31,13 @@ class UserProductivityListenerTest {
 	@MockBean
 	private UserProductivityFacade userProductivityFacade;
 	
-	@Autowired
-	@SuppressWarnings("unused")
+	@SpyBean
 	private UserProductivityListener userProductivityListener;
+	
+	@BeforeEach
+	void beforeEach() {
+		reset(userProductivityListener);
+	}
 	
 	@Test
 	void updateUserProductivity() {
@@ -44,5 +49,19 @@ class UserProductivityListenerTest {
 		       .with()
 		       .pollInterval(Duration.ofMillis(100))
 		       .untilAsserted(() -> then(userProductivityFacade).should().updateUserProductivity(productivity));
+	}
+	
+	@Test
+	void unableToUpdateUserProductivityBecauseProductivityIsNull() {
+		userProductivityListener.updateUserProductivity(null);
+		
+		await().during(Duration.ofMillis(200))
+		       .and()
+		       .atMost(Duration.ofSeconds(10))
+		       .with()
+		       .pollInterval(Duration.ofMillis(100))
+		       .untilAsserted(() -> then(userProductivityListener).should().updateUserProductivity(
+				       nullable(UpdateWordProductivityDto.class)));
+		then(userProductivityFacade).should(never()).updateUserProductivity(any(UpdateWordProductivityDto.class));
 	}
 }
