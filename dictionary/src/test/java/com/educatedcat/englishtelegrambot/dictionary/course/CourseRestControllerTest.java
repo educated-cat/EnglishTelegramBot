@@ -1,25 +1,47 @@
 package com.educatedcat.englishtelegrambot.dictionary.course;
 
-import com.educatedcat.englishtelegrambot.dictionary.*;
-import com.fasterxml.jackson.core.type.*;
-import lombok.*;
 import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.boot.test.context.*;
+import org.springframework.boot.test.mock.mockito.*;
+import org.springframework.core.*;
+import org.springframework.test.web.reactive.server.*;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.mockito.BDDMockito.*;
 
-class CourseRestControllerTest extends CustomMvcTest {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = {
+		"spring.main.lazy-initialization=true",
+		"spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration"
+})
+class CourseRestControllerTest {
+	@Autowired
+	private WebTestClient webTestClient;
+	
+	@MockBean
+	private CourseService courseService;
+	
 	@Test
-	@SneakyThrows
 	void findAll() {
-		List<CourseDto> courses = performRequest(get("/api/courses"), new TypeReference<List<CourseDto>>() {
-		}).andExpect(status().isOk())
-		  .andReturnDto();
+		List<Course> res = List.of(new Course() {{
+			setId(UUID.randomUUID());
+			setName("Course 1");
+		}}, new Course() {{
+			setId(UUID.randomUUID());
+			setName("Course 2");
+		}});
+		List<CourseDto> convertedRes = res.stream()
+		                                  .map(Course::toDto)
+		                                  .toList();
+		given(courseService.findAll()).willReturn(res);
 		
-		assertEquals(0, courses.size());
+		webTestClient.get()
+		             .uri("/api/courses")
+		             .exchange()
+		             .expectBody(new ParameterizedTypeReference<List<CourseDto>>() {
+		             })
+		             .isEqualTo(convertedRes);
 	}
 	
 }

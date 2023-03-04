@@ -12,10 +12,10 @@ import java.util.*;
 public class LessonRestController {
 	private final LessonService lessonService;
 	
-	@ContinueSpan(log = "Find lessons in chapter by ID")
+	@ContinueSpan(log = "Find lessons in chapter by lesson ID")
 	@GetMapping("/{id}")
 	public List<LessonDto> findAllInChapterByLessonId(@PathVariable UUID id) {
-		return lessonService.findLessonsById(id)
+		return lessonService.findAllInChapterByLessonId(id)
 		                    .stream()
 		                    .map(Lesson::toDto)
 		                    .toList();

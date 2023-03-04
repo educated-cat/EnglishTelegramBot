@@ -3,7 +3,6 @@ package com.educatedcat.englishtelegrambot.dictionary.word;
 import com.educatedcat.englishtelegrambot.dictionary.translation.*;
 import lombok.*;
 import lombok.extern.slf4j.*;
-import org.springframework.cache.annotation.*;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.*;
@@ -26,7 +25,6 @@ public class WordServiceImpl implements WordService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	@Cacheable({"words"})
 	public List<Word> findAllByLessonId(UUID lessonId) {
 		return wordRepository.findAllByLessons_Id(lessonId);
 	}
@@ -40,14 +38,12 @@ public class WordServiceImpl implements WordService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	@Cacheable({"words"})
 	public Optional<Word> findFirstInLessonByLessonId(UUID lessonId) {
 		return wordRepository.findFirstByLessonsId(lessonId);
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
-	@Cacheable({"words"})
 	public Optional<Word> findNext(UUID previousWordId) {
 		AtomicReference<Optional<Word>> res = new AtomicReference<>(Optional.empty());
 		wordRepository.findById(previousWordId)
@@ -67,7 +63,10 @@ public class WordServiceImpl implements WordService {
 	@Transactional
 	public void update(UUID uuid, WordDto dto) {
 		wordRepository.findById(uuid)
-		              .ifPresentOrElse(word -> word.merge(dto),
-		                               () -> log.error("Word not found, id={}", dto.id()));
+		              .map(word -> {
+			              word.merge(dto);
+			              return word;
+		              })
+		              .orElseThrow();
 	}
 }

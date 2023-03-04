@@ -3,7 +3,6 @@ package com.educatedcat.englishtelegrambot.dictionary.user.productivity;
 import com.educatedcat.englishtelegrambot.dictionary.kafka.*;
 import com.educatedcat.englishtelegrambot.dictionary.word.*;
 import org.junit.jupiter.api.*;
-import org.mockito.exceptions.verification.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;
 import org.springframework.boot.test.mock.mockito.*;
@@ -14,6 +13,7 @@ import java.time.*;
 import java.util.*;
 
 import static org.awaitility.Awaitility.*;
+import static org.mockito.BDDMockito.reset;
 import static org.mockito.BDDMockito.*;
 
 @EmbeddedKafka
@@ -31,9 +31,13 @@ class UserProductivityListenerTest {
 	@MockBean
 	private UserProductivityFacade userProductivityFacade;
 	
-	@Autowired
-	@SuppressWarnings("unused")
+	@SpyBean
 	private UserProductivityListener userProductivityListener;
+	
+	@BeforeEach
+	void beforeEach() {
+		reset(userProductivityListener);
+	}
 	
 	@Test
 	void updateUserProductivity() {
@@ -41,13 +45,23 @@ class UserProductivityListenerTest {
 				1L, UUID.randomUUID(), WordActionType.KNOW);
 		kafkaTemplate.send(kafkaProperties.getTopic().getName(), productivity.userId(), productivity);
 		
-		await().atMost(Duration.ofSeconds(10)).with().pollInterval(Duration.ofMillis(100)).until(() -> {
-			try {
-				then(userProductivityFacade).should().updateUserProductivity(productivity);
-			} catch (WantedButNotInvoked e) {
-				return false;
-			}
-			return true;
-		});
+		await().atMost(Duration.ofSeconds(10))
+		       .with()
+		       .pollInterval(Duration.ofMillis(100))
+		       .untilAsserted(() -> then(userProductivityFacade).should().updateUserProductivity(productivity));
+	}
+	
+	@Test
+	void unableToUpdateUserProductivityBecauseProductivityIsNull() {
+		userProductivityListener.updateUserProductivity(null);
+		
+		await().during(Duration.ofMillis(200))
+		       .and()
+		       .atMost(Duration.ofSeconds(10))
+		       .with()
+		       .pollInterval(Duration.ofMillis(100))
+		       .untilAsserted(() -> then(userProductivityListener).should().updateUserProductivity(
+				       nullable(UpdateWordProductivityDto.class)));
+		then(userProductivityFacade).should(never()).updateUserProductivity(any(UpdateWordProductivityDto.class));
 	}
 }
