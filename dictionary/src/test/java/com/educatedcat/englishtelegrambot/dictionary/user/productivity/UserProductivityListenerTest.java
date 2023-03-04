@@ -3,7 +3,6 @@ package com.educatedcat.englishtelegrambot.dictionary.user.productivity;
 import com.educatedcat.englishtelegrambot.dictionary.kafka.*;
 import com.educatedcat.englishtelegrambot.dictionary.word.*;
 import org.junit.jupiter.api.*;
-import org.mockito.exceptions.verification.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;
 import org.springframework.boot.test.mock.mockito.*;
@@ -41,13 +40,9 @@ class UserProductivityListenerTest {
 				1L, UUID.randomUUID(), WordActionType.KNOW);
 		kafkaTemplate.send(kafkaProperties.getTopic().getName(), productivity.userId(), productivity);
 		
-		await().atMost(Duration.ofSeconds(10)).with().pollInterval(Duration.ofMillis(100)).until(() -> {
-			try {
-				then(userProductivityFacade).should().updateUserProductivity(productivity);
-			} catch (WantedButNotInvoked e) {
-				return false;
-			}
-			return true;
-		});
+		await().atMost(Duration.ofSeconds(10))
+		       .with()
+		       .pollInterval(Duration.ofMillis(100))
+		       .untilAsserted(() -> then(userProductivityFacade).should().updateUserProductivity(productivity));
 	}
 }
