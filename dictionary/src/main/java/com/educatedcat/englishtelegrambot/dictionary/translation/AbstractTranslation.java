@@ -1,9 +1,9 @@
 package com.educatedcat.englishtelegrambot.dictionary.translation;
 
 import com.educatedcat.englishtelegrambot.dictionary.word.*;
+import jakarta.persistence.*;
 import lombok.*;
 
-import javax.persistence.*;
 import java.util.*;
 
 /**

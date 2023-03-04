@@ -3,9 +3,9 @@ package com.educatedcat.englishtelegrambot.botreceiver.word.end;
 import com.educatedcat.englishtelegrambot.botreceiver.button.*;
 import com.educatedcat.englishtelegrambot.botreceiver.keyboard.*;
 import com.educatedcat.englishtelegrambot.botreceiver.start.*;
+import jakarta.annotation.*;
 import lombok.*;
 
-import javax.annotation.*;
 import java.util.*;
 
 public class EndWordKeyboard extends BaseKeyboard {

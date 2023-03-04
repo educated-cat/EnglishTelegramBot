@@ -2,11 +2,11 @@ package com.educatedcat.englishtelegrambot.botreceiver.keyboard;
 
 import com.educatedcat.englishtelegrambot.botreceiver.button.*;
 import com.educatedcat.englishtelegrambot.botreceiver.dictionary.*;
+import jakarta.annotation.*;
 import lombok.*;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.*;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.*;
 
-import javax.annotation.*;
 import java.util.*;
 
 public abstract class BaseKeyboard extends InlineKeyboardMarkup {

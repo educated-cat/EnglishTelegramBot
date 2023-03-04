@@ -1,11 +1,10 @@
 package com.educatedcat.englishtelegrambot.botreceiver.dictionary;
 
+import jakarta.validation.constraints.*;
 import lombok.*;
 import org.springframework.boot.context.properties.*;
 import org.springframework.stereotype.*;
 import org.springframework.validation.annotation.*;
-
-import javax.validation.constraints.*;
 
 @Data
 @Component

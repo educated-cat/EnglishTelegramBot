@@ -3,10 +3,10 @@ package com.educatedcat.englishtelegrambot.botreceiver.word;
 import com.educatedcat.englishtelegrambot.botreceiver.button.*;
 import com.educatedcat.englishtelegrambot.botreceiver.keyboard.*;
 import com.educatedcat.englishtelegrambot.botreceiver.lesson.*;
+import jakarta.annotation.*;
 import lombok.*;
 import org.springframework.util.*;
 
-import javax.annotation.*;
 import java.util.*;
 
 public class WordKeyboard extends BaseKeyboard {

@@ -3,9 +3,9 @@ package com.educatedcat.englishtelegrambot.botreceiver.course;
 import com.educatedcat.englishtelegrambot.botreceiver.button.*;
 import com.educatedcat.englishtelegrambot.botreceiver.dictionary.*;
 import com.educatedcat.englishtelegrambot.botreceiver.keyboard.*;
+import jakarta.annotation.*;
 import lombok.*;
 
-import javax.annotation.*;
 import java.util.*;
 
 public class CourseKeyboard extends BaseKeyboard {

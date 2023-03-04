@@ -5,9 +5,9 @@ import com.educatedcat.englishtelegrambot.botreceiver.course.*;
 import com.educatedcat.englishtelegrambot.botreceiver.dictionary.*;
 import com.educatedcat.englishtelegrambot.botreceiver.keyboard.*;
 import com.educatedcat.englishtelegrambot.botreceiver.start.*;
+import jakarta.annotation.*;
 import lombok.*;
 
-import javax.annotation.*;
 import java.util.*;
 
 public class StatisticsKeyboard extends BaseKeyboard {
