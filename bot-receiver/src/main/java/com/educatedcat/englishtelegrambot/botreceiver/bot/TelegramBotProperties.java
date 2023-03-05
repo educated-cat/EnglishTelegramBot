@@ -1,12 +1,12 @@
 package com.educatedcat.englishtelegrambot.botreceiver.bot;
 
+import jakarta.validation.constraints.*;
 import lombok.*;
 import org.springframework.boot.context.properties.*;
 import org.springframework.stereotype.*;
 import org.springframework.validation.annotation.*;
 import org.springframework.web.util.*;
 
-import javax.validation.constraints.*;
 import java.net.*;
 
 @Data

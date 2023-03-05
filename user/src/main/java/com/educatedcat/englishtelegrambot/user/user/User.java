@@ -1,14 +1,13 @@
 package com.educatedcat.englishtelegrambot.user.user;
 
 import com.educatedcat.englishtelegrambot.user.user.state.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.OrderBy;
+import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
-import javax.persistence.*;
 import java.util.*;
 
 @NamedEntityGraph(name = "User.states",

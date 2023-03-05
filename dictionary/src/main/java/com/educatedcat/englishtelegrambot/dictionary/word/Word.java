@@ -2,13 +2,13 @@ package com.educatedcat.englishtelegrambot.dictionary.word;
 
 import com.educatedcat.englishtelegrambot.dictionary.lesson.*;
 import com.educatedcat.englishtelegrambot.dictionary.translation.*;
+import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.*;
+import org.hibernate.type.descriptor.java.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.*;
 import java.util.*;
 
 @Getter
@@ -34,17 +34,15 @@ public class Word {
 	@Column(nullable = false, unique = true, updatable = false)
 	private Long index;
 	
-	@SuppressWarnings({"deprecation", "JpaAttributeTypeInspection"})
-	@Any(metaDef = "WordMetaDef",
-	     metaColumn = @Column(name = "translation_type", nullable = false, length = 3),
-	     fetch = FetchType.LAZY)
-	@AnyMetaDef(name = "WordMetaDef",
-	            metaType = "string",
-	            idType = "pg-uuid",
-	            metaValues = {
-			            @MetaValue(value = "RUS", targetEntity = RusTranslation.class),
-			            @MetaValue(value = "DEU", targetEntity = DeuTranslation.class)
-	            })
+	@SuppressWarnings("JpaAttributeTypeInspection")
+	@Any(fetch = FetchType.LAZY)
+	@AnyDiscriminator
+	@AnyDiscriminatorValues({
+			@AnyDiscriminatorValue(discriminator = "RUS", entity = RusTranslation.class),
+			@AnyDiscriminatorValue(discriminator = "DEU", entity = DeuTranslation.class)
+	})
+	@AnyKeyJavaType(value = UUIDJavaType.class)
+	@Column(name = "translation_type", length = 3)
 	@JoinColumn(name = "translation_id")
 	private AbstractTranslation translation;
 	

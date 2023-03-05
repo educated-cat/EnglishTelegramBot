@@ -2,12 +2,11 @@ package com.educatedcat.englishtelegrambot.dictionary.chapter;
 
 import com.educatedcat.englishtelegrambot.dictionary.course.*;
 import com.educatedcat.englishtelegrambot.dictionary.lesson.*;
+import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.*;
 import java.util.*;
 
 @Getter

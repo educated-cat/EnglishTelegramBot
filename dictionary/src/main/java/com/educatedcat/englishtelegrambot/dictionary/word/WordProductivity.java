@@ -1,11 +1,10 @@
 package com.educatedcat.englishtelegrambot.dictionary.word;
 
+import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.*;
 import java.io.*;
 import java.util.*;
 

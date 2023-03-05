@@ -2,12 +2,11 @@ package com.educatedcat.englishtelegrambot.user.user.state;
 
 import com.educatedcat.englishtelegrambot.user.button.*;
 import com.educatedcat.englishtelegrambot.user.user.*;
+import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.*;
 import java.time.*;
 import java.util.*;
 
