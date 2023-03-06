@@ -39,7 +39,7 @@ metadata:
     tier: database
 spec:
   serviceName: dictionary-postgres
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: dictionary-postgres

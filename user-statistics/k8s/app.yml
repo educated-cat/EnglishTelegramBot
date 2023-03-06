@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: user-statistics
-          image: user-statistics:latest
+          image: com.educatedcat.englishtelegrambot.user-statistics:latest
           imagePullPolicy: Never
           ports:
             - containerPort: 8080

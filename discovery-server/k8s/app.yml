@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: discovery-server
-          image: discovery-server:latest
+          image: com.educatedcat.englishtelegrambot.discovery-server:latest
           imagePullPolicy: Never
           ports:
             - containerPort: 8761

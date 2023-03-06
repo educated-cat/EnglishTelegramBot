@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: bot-sender
-          image: bot-sender:latest
+          image: com.educatedcat.englishtelegrambot.bot-sender:latest
           imagePullPolicy: Never
           ports:
             - containerPort: 8080

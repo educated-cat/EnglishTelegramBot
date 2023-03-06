@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: api-gateway:latest
+          image: com.educatedcat.englishtelegrambot.api-gateway:latest
           imagePullPolicy: Never
           ports:
             - containerPort: 8765

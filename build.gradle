@@ -13,7 +13,10 @@ subprojects {
 	apply plugin: 'java'
 	apply plugin: 'io.spring.dependency-management'
 	apply plugin: 'java-library'
-	apply plugin: 'com.bmuschko.docker-spring-boot-application'
+	if (!it.name.contains('kafka-lib')) {
+		apply plugin: 'com.bmuschko.docker-spring-boot-application'
+	}
+	
 	repositories {
 		mavenCentral()
 	}
@@ -72,10 +75,12 @@ subprojects {
 		useJUnitPlatform()
 	}
 	
-	docker {
-		springBootApplication {
-			baseImage = 'openjdk:17-jdk-slim-buster'
-			images = ["${project.name}:latest"]
+	if (!it.name.contains('kafka-lib')) {
+		docker {
+			springBootApplication {
+				baseImage = 'openjdk:17-jdk-slim-buster'
+				images = ["com.educatedcat.englishtelegrambot.${project.name}:latest"]
+			}
 		}
 	}
 }

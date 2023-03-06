@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: dictionary
-          image: dictionary:latest
+          image: com.educatedcat.englishtelegrambot.dictionary:latest
           imagePullPolicy: Never
           ports:
             - containerPort: 8080
