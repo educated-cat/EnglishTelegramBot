@@ -1,5 +1,6 @@
 package com.educatedcat.englishtelegrambot.botreceiver.by_course;
 
+import com.educatedcat.englishtelegrambot.botreceiver.bot.*;
 import com.educatedcat.englishtelegrambot.botreceiver.button.*;
 import com.educatedcat.englishtelegrambot.botreceiver.course.*;
 import com.educatedcat.englishtelegrambot.botreceiver.keyboard.*;
@@ -26,7 +27,7 @@ public class DefaultByCourseButtonHandler extends AbstractButtonHandler {
 	}
 	
 	@Override
-	protected String getText(KeyboardEntry entry) {
+	protected String getText(BotResponse response) {
 		return messageSource.getMessage("page.course", null, Locale.ENGLISH);
 	}
 }

@@ -1,7 +1,7 @@
 package com.educatedcat.englishtelegrambot.botreceiver.statistics;
 
-import com.educatedcat.englishtelegrambot.botreceiver.keyboard.*;
+import com.educatedcat.englishtelegrambot.botreceiver.bot.*;
 
 public interface StatisticsTextFactory {
-	String buildText(KeyboardEntry entry);
+	String buildText(BotResponse response);
 }

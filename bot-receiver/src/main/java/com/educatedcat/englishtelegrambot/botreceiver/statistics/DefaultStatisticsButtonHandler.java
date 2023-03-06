@@ -1,5 +1,6 @@
 package com.educatedcat.englishtelegrambot.botreceiver.statistics;
 
+import com.educatedcat.englishtelegrambot.botreceiver.bot.*;
 import com.educatedcat.englishtelegrambot.botreceiver.button.*;
 import com.educatedcat.englishtelegrambot.botreceiver.keyboard.*;
 import org.springframework.beans.factory.annotation.*;
@@ -25,7 +26,7 @@ public class DefaultStatisticsButtonHandler extends AbstractButtonHandler {
 	}
 	
 	@Override
-	protected String getText(KeyboardEntry entry) {
-		return statisticsTextFactory.buildText(entry);
+	protected String getText(BotResponse response) {
+		return statisticsTextFactory.buildText(response);
 	}
 }

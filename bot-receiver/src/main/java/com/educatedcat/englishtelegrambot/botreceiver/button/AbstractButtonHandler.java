@@ -22,12 +22,12 @@ public abstract class AbstractButtonHandler {
 		if (response.editable()) {
 			return EditMessageText.builder().chatId(response.chatId())
 			                                .messageId(response.messageId())
-			                                .text(getText(response.getEntry()))
+			                                .text(getText(response))
 			                                .replyMarkup(getKeyboard(response.getEntry()))
 			                                .build();
 		} else {
 			return SendMessage.builder().chatId(response.chatId())
-			                            .text(getText(response.getEntry()))
+			                            .text(getText(response))
 			                            .replyMarkup(getKeyboard(response.getEntry()))
 			                            .build();
 		}
@@ -35,5 +35,5 @@ public abstract class AbstractButtonHandler {
 	
 	protected abstract InlineKeyboardMarkup getKeyboard(KeyboardEntry entry);
 	
-	protected abstract String getText(KeyboardEntry entry);
+	protected abstract String getText(BotResponse response);
 }

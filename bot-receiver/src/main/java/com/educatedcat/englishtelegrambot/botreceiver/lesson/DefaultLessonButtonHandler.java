@@ -1,5 +1,6 @@
 package com.educatedcat.englishtelegrambot.botreceiver.lesson;
 
+import com.educatedcat.englishtelegrambot.botreceiver.bot.*;
 import com.educatedcat.englishtelegrambot.botreceiver.button.*;
 import com.educatedcat.englishtelegrambot.botreceiver.keyboard.*;
 import com.educatedcat.englishtelegrambot.botreceiver.word.*;
@@ -23,7 +24,7 @@ public class DefaultLessonButtonHandler extends AbstractButtonHandler {
 	}
 	
 	@Override
-	protected String getText(KeyboardEntry entry) {
-		return wordTextFactory.buildText(entry);
+	protected String getText(BotResponse response) {
+		return wordTextFactory.buildText(response.getEntry());
 	}
 }

@@ -1,5 +1,6 @@
 package com.educatedcat.englishtelegrambot.botreceiver.lesson;
 
+import com.educatedcat.englishtelegrambot.botreceiver.bot.*;
 import com.educatedcat.englishtelegrambot.botreceiver.button.*;
 import com.educatedcat.englishtelegrambot.botreceiver.chapter.*;
 import com.educatedcat.englishtelegrambot.botreceiver.keyboard.*;
@@ -26,7 +27,7 @@ public class PreviousLessonButtonHandler extends AbstractButtonHandler {
 	}
 	
 	@Override
-	protected String getText(KeyboardEntry entry) {
+	protected String getText(BotResponse response) {
 		return messageSource.getMessage("page.chapter", null, Locale.ENGLISH);
 	}
 }

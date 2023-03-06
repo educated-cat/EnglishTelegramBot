@@ -1,5 +1,6 @@
 package com.educatedcat.englishtelegrambot.botreceiver.start;
 
+import com.educatedcat.englishtelegrambot.botreceiver.bot.*;
 import com.educatedcat.englishtelegrambot.botreceiver.button.*;
 import com.educatedcat.englishtelegrambot.botreceiver.keyboard.*;
 import org.springframework.context.*;
@@ -25,7 +26,7 @@ public class DefaultStartButtonHandler extends AbstractButtonHandler {
 	}
 	
 	@Override
-	protected String getText(KeyboardEntry entry) {
+	protected String getText(BotResponse response) {
 		return messageSource.getMessage("page.start", null, Locale.ENGLISH);
 	}
 }
