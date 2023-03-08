@@ -2,11 +2,9 @@ package com.educatedcat.englishtelegrambot.botreceiver;
 
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
-import org.springframework.cloud.netflix.eureka.*;
 import org.springframework.scheduling.annotation.*;
 
 @EnableScheduling
-@EnableEurekaClient
 @SpringBootApplication(scanBasePackages = {
 		"com.educatedcat.englishtelegrambot.botreceiver",
 		"com.educatedcat.englishtelegrambot.kafkalib"

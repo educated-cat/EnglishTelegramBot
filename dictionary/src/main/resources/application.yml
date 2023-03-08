@@ -1,3 +1,6 @@
+server:
+  port: ${SERVER_PORT:0}
+
 spring:
   application:
     name: dictionary
@@ -20,13 +23,14 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
       value-deserializer: com.educatedcat.englishtelegrambot.kafkalib.serializer.CustomJsonDeserializer
       auto-offset-reset: earliest
-  zipkin:
-    sender:
-      type: WEB
-    base-url: ${ZIPKIN_BASE_URL:http://localhost:9411}
-  sleuth:
-    sampler:
+
+management:
+  tracing:
+    sampling:
       probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: ${ZIPKIN_BASE_URL:http://localhost:9411/api/v2/spans}
 
 eureka:
   client:
@@ -47,3 +51,5 @@ kafka:
 logging:
   level:
     com.educatedcat.englishtelegrambot.dictionary: DEBUG
+  pattern:
+    level: '%5p [%X{traceId:-},%X{spanId:-}]'

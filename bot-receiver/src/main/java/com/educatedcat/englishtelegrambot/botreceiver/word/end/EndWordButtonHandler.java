@@ -1,5 +1,6 @@
 package com.educatedcat.englishtelegrambot.botreceiver.word.end;
 
+import com.educatedcat.englishtelegrambot.botreceiver.bot.*;
 import com.educatedcat.englishtelegrambot.botreceiver.button.*;
 import com.educatedcat.englishtelegrambot.botreceiver.keyboard.*;
 import org.springframework.context.*;
@@ -25,7 +26,7 @@ public class EndWordButtonHandler extends AbstractButtonHandler {
 	}
 	
 	@Override
-	protected String getText(KeyboardEntry entry) {
+	protected String getText(BotResponse response) {
 		return messageSource.getMessage("page.word.end", null, Locale.ENGLISH);
 	}
 }

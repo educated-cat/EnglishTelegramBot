@@ -1,8 +1,8 @@
 package com.educatedcat.englishtelegrambot.dictionary.word;
 
 import com.educatedcat.englishtelegrambot.dictionary.user.productivity.*;
+import io.micrometer.tracing.annotation.*;
 import lombok.*;
-import org.springframework.cloud.sleuth.annotation.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 

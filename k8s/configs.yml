@@ -13,7 +13,7 @@ metadata:
   name: zipkin-config
 data:
   zone: "prod"
-  base-url: "http://zipkin-service.default:9411"
+  base-url: "http://zipkin-service.default:9411/api/v2/spans"
 ---
 apiVersion: v1
 kind: ConfigMap

@@ -1,8 +1,8 @@
 package com.educatedcat.englishtelegrambot.user.user;
 
+import io.micrometer.tracing.annotation.*;
 import lombok.*;
 import lombok.extern.slf4j.*;
-import org.springframework.cloud.sleuth.annotation.*;
 import org.springframework.kafka.annotation.*;
 import org.springframework.stereotype.*;
 

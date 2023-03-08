@@ -1,8 +1,8 @@
 package com.educatedcat.englishtelegrambot.botreceiver.message;
 
 import com.educatedcat.englishtelegrambot.botreceiver.kafka.*;
+import io.micrometer.tracing.annotation.*;
 import lombok.*;
-import org.springframework.cloud.sleuth.annotation.*;
 import org.springframework.kafka.core.*;
 import org.springframework.stereotype.*;
 import org.telegram.telegrambots.meta.api.methods.*;

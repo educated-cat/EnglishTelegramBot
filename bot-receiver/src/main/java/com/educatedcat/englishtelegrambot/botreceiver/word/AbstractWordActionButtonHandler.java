@@ -39,7 +39,7 @@ public abstract class AbstractWordActionButtonHandler extends AbstractButtonHand
 	}
 	
 	@Override
-	protected String getText(KeyboardEntry entry) {
-		return wordTextFactory.buildText(entry);
+	protected String getText(BotResponse response) {
+		return wordTextFactory.buildText(response.getEntry());
 	}
 }

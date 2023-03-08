@@ -1,6 +1,6 @@
 package com.educatedcat.englishtelegrambot.botreceiver.statistics;
 
-import com.educatedcat.englishtelegrambot.botreceiver.keyboard.*;
+import com.educatedcat.englishtelegrambot.botreceiver.bot.*;
 import lombok.*;
 import lombok.extern.slf4j.*;
 import org.springframework.stereotype.*;
@@ -14,9 +14,8 @@ public class StatisticsTextFactoryImpl implements StatisticsTextFactory {
 	
 	@Override
 	@SneakyThrows
-	public String buildText(KeyboardEntry entry) {
-		// TODO: get user id
-		var res = statisticsClient.getStatistics(255442971L);
+	public String buildText(BotResponse response) {
+		var res = statisticsClient.getStatistics(response.chatId());
 		return statisticsTextFormatter.format(res);
 	}
 }

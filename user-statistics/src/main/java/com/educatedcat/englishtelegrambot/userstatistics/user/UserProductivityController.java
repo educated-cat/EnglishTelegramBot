@@ -1,7 +1,7 @@
 package com.educatedcat.englishtelegrambot.userstatistics.user;
 
+import io.micrometer.tracing.annotation.*;
 import lombok.*;
-import org.springframework.cloud.sleuth.annotation.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
