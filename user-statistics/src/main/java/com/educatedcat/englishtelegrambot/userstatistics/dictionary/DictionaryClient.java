@@ -1,8 +1,8 @@
 package com.educatedcat.englishtelegrambot.userstatistics.dictionary;
 
 import com.educatedcat.englishtelegrambot.userstatistics.word.*;
+import io.micrometer.tracing.annotation.*;
 import lombok.*;
-import org.springframework.cloud.sleuth.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.reactive.function.client.*;
 

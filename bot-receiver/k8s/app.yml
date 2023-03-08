@@ -91,6 +91,8 @@ spec:
                 configMapKeyRef:
                   name: dictionary-config
                   key: api-url
+            - name: SERVER_PORT
+              value: '8080'
           livenessProbe:
             httpGet:
               path: /actuator/health

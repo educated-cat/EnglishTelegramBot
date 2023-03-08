@@ -1,7 +1,7 @@
 package com.educatedcat.englishtelegrambot.botreceiver.statistics;
 
+import io.micrometer.tracing.annotation.*;
 import lombok.*;
-import org.springframework.cloud.sleuth.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.reactive.function.client.*;
 
