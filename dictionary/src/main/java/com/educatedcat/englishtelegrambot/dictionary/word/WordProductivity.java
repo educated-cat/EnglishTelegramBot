@@ -6,6 +6,7 @@ import lombok.*;
 import org.hibernate.annotations.*;
 
 import java.io.*;
+import java.time.*;
 import java.util.*;
 
 @Getter
@@ -32,6 +33,10 @@ public class WordProductivity implements Serializable {
 	 */
 	@Column(nullable = false)
 	private byte progress;
+	
+	@CreationTimestamp
+	@Column(nullable = false, updatable = false)
+	private LocalDateTime creationTimestamp;
 	
 	public WordProductivity(Long userId, UUID wordId) {
 		this.userId = userId;
