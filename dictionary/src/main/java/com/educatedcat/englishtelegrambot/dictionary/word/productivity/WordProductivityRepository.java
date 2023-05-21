@@ -1,4 +1,4 @@
-package com.educatedcat.englishtelegrambot.dictionary.word;
+package com.educatedcat.englishtelegrambot.dictionary.word.productivity;
 
 import org.springframework.data.jpa.repository.*;
 

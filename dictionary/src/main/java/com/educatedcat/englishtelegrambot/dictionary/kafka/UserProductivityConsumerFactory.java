@@ -1,6 +1,6 @@
 package com.educatedcat.englishtelegrambot.dictionary.kafka;
 
-import com.educatedcat.englishtelegrambot.dictionary.word.*;
+import com.educatedcat.englishtelegrambot.dictionary.word.productivity.*;
 import com.educatedcat.englishtelegrambot.kafkalib.serializer.*;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.serialization.*;

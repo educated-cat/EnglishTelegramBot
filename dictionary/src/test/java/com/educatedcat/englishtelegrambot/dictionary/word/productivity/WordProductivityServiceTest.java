@@ -1,4 +1,4 @@
-package com.educatedcat.englishtelegrambot.dictionary.word;
+package com.educatedcat.englishtelegrambot.dictionary.word.productivity;
 
 import com.educatedcat.englishtelegrambot.dictionary.user.productivity.*;
 import io.zonky.test.db.*;

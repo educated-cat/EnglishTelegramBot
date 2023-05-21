@@ -2,6 +2,7 @@ package com.educatedcat.englishtelegrambot.dictionary.user.productivity;
 
 import com.educatedcat.englishtelegrambot.dictionary.kafka.*;
 import com.educatedcat.englishtelegrambot.dictionary.word.*;
+import com.educatedcat.englishtelegrambot.dictionary.word.productivity.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;

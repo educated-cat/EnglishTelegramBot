@@ -1,6 +1,6 @@
 package com.educatedcat.englishtelegrambot.dictionary.user.productivity;
 
-import com.educatedcat.englishtelegrambot.dictionary.word.*;
+import com.educatedcat.englishtelegrambot.dictionary.word.productivity.*;
 import io.micrometer.tracing.annotation.*;
 import lombok.*;
 import lombok.extern.slf4j.*;
