@@ -38,16 +38,39 @@ public class WordProductivity implements Serializable {
 	@Column(nullable = false, updatable = false)
 	private LocalDateTime creationTimestamp;
 	
+	private LocalDateTime learnTimestamp;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private RepeatingStatus repeatingStatus;
+	
+	@Column(nullable = false)
+	private int failedAttemptsCount;
+	
+	@Column(nullable = false)
+	private int successAttemptsCount;
+	
+	@Column(nullable = false)
+	private int successAttemptsDayCount;
+	
 	public WordProductivity(Long userId, UUID wordId) {
 		this.userId = userId;
 		this.wordId = wordId;
 		progress = 0;
+		creationTimestamp = LocalDateTime.now();
+		failedAttemptsCount = 0;
+		successAttemptsCount = 0;
+		successAttemptsDayCount = 0;
 	}
 	
+	// TODO: move business logic to another class
 	public void increaseProgress() {
 		progress += 25;
 		if (progress > 100) {
 			progress = 100;
+		}
+		if (progress == 100) {
+			learnTimestamp = LocalDateTime.now();
 		}
 	}
 	

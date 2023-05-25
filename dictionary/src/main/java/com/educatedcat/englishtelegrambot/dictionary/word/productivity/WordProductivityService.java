@@ -10,4 +10,6 @@ public interface WordProductivityService {
 	void decreaseWordProductivity(long userId, UUID wordId);
 	
 	WordProductivityDto getByUserId(long userId);
+	
+	void updateStatuses();
 }
