@@ -9,7 +9,6 @@ import org.springframework.stereotype.*;
 import org.springframework.web.reactive.function.client.*;
 import org.telegram.telegrambots.meta.api.methods.updates.*;
 import org.telegram.telegrambots.meta.api.objects.*;
-import org.telegram.telegrambots.meta.exceptions.*;
 
 import java.util.*;
 
@@ -32,22 +31,23 @@ public class MessageReceiver {
 		                                          .orElseThrow()
 		                                          .getOffset()
 		                                          .intValue();
-		var response = botWebClient.get()
-		                           .uri(uriBuilder -> uriBuilder.pathSegment("getUpdates")
-		                                                        .queryParam("offset", currentOffset + 1)
-		                                                        .queryParam("allowed_updates",
-		                                                                    List.of("message", "callback_query")
-		                                                                        .toString())
-		                                                        .build())
-		                           .exchangeToMono(clientResponse -> clientResponse.bodyToMono(String.class))
-		                           .block();
+
 		try {
+			var response = botWebClient.get()
+			                           .uri(uriBuilder -> uriBuilder.pathSegment("getUpdates")
+			                                                        .queryParam("offset", currentOffset + 1)
+			                                                        .queryParam("allowed_updates",
+			                                                                    List.of("message", "callback_query")
+			                                                                        .toString())
+			                                                        .build())
+			                           .exchangeToMono(clientResponse -> clientResponse.bodyToMono(String.class))
+			                           .block();
 			var updatesDeserializer = GetUpdates.builder().build();
 			final List<Update> updates = updatesDeserializer.deserializeResponse(response);
 			final Integer lastUpdateId = getLastUpdateId(currentOffset, updates);
 			botOffsetService.updateCurrentOffset(lastUpdateId);
 			return updates;
-		} catch (TelegramApiRequestException e) {
+		} catch (Exception e) {
 			log.error("", e);
 			return Collections.emptyList();
 		}

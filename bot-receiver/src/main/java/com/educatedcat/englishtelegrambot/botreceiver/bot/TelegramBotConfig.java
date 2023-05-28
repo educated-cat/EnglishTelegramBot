@@ -1,6 +1,7 @@
 package com.educatedcat.englishtelegrambot.botreceiver.bot;
 
 import io.netty.channel.*;
+import io.netty.resolver.*;
 import org.springframework.context.annotation.*;
 import org.springframework.http.*;
 import org.springframework.http.client.reactive.*;
@@ -16,6 +17,7 @@ public class TelegramBotConfig {
 	public WebClient botWebClient(TelegramBotProperties botProperties) {
 		final var httpClient = HttpClient.create()
 		                                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
+		                                 .resolver(DefaultAddressResolverGroup.INSTANCE)
 		                                 .responseTimeout(Duration.ofSeconds(5));
 		return WebClient.builder()
 		                .clientConnector(new ReactorClientHttpConnector(httpClient))
