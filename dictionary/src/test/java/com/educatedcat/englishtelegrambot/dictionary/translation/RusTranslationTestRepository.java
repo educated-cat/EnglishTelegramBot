@@ -1,8 +1,6 @@
 package com.educatedcat.englishtelegrambot.dictionary.translation;
 
-import org.springframework.data.jpa.repository.*;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.*;
-
-public interface RusTranslationTestRepository extends JpaRepository<RusTranslation, UUID> {
+public interface RusTranslationTestRepository extends JpaRepository<RusTranslation, Long> {
 }

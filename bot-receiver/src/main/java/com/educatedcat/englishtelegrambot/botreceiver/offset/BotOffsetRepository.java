@@ -1,8 +1,9 @@
 package com.educatedcat.englishtelegrambot.botreceiver.offset;
 
-import org.springframework.data.jdbc.repository.query.*;
-import org.springframework.data.repository.*;
-import org.springframework.data.repository.query.*;
+import org.springframework.data.jdbc.repository.query.Modifying;
+import org.springframework.data.jdbc.repository.query.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 interface BotOffsetRepository extends CrudRepository<BotOffset, Long> {
 	@Modifying

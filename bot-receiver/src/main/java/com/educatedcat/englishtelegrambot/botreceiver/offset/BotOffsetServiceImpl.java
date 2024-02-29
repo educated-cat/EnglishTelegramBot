@@ -1,10 +1,10 @@
 package com.educatedcat.englishtelegrambot.botreceiver.offset;
 
-import lombok.*;
-import org.springframework.stereotype.*;
-import org.springframework.transaction.annotation.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

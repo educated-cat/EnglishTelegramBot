@@ -1,8 +1,8 @@
 package com.educatedcat.englishtelegrambot.userstatistics.word;
 
-import com.educatedcat.englishtelegrambot.userstatistics.dictionary.*;
-import lombok.*;
-import org.springframework.stereotype.*;
+import com.educatedcat.englishtelegrambot.userstatistics.dictionary.DictionaryClient;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor

@@ -1,12 +1,14 @@
 package com.educatedcat.englishtelegrambot.botreceiver;
 
-import com.educatedcat.englishtelegrambot.botreceiver.user.*;
-import com.educatedcat.englishtelegrambot.botreceiver.user.productivity.*;
-import com.educatedcat.englishtelegrambot.kafkalib.serializer.*;
-import org.apache.kafka.clients.consumer.*;
-import org.apache.kafka.common.serialization.*;
-import org.springframework.context.annotation.*;
-import org.springframework.kafka.core.*;
+import com.educatedcat.englishtelegrambot.botreceiver.user.UserDto;
+import com.educatedcat.englishtelegrambot.botreceiver.user.productivity.UserProductivityDto;
+import com.educatedcat.englishtelegrambot.kafkalib.serializer.CustomJsonDeserializer;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.serialization.LongDeserializer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.kafka.core.ConsumerFactory;
 
 @Configuration
 public class TestKafkaConfig {

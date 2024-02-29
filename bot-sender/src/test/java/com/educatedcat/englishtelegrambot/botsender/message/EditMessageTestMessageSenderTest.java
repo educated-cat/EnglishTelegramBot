@@ -1,19 +1,24 @@
 package com.educatedcat.englishtelegrambot.botsender.message;
 
-import com.educatedcat.englishtelegrambot.botsender.bot.*;
-import com.fasterxml.jackson.databind.*;
-import lombok.*;
-import okhttp3.mockwebserver.*;
-import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.boot.test.context.*;
-import org.springframework.boot.test.mock.mockito.*;
-import org.springframework.test.context.*;
-import org.springframework.web.reactive.function.client.*;
-import org.telegram.telegrambots.meta.api.methods.*;
-import org.telegram.telegrambots.meta.api.methods.updatingmessages.*;
+import com.educatedcat.englishtelegrambot.botsender.bot.TelegramBotProperties;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
+import okhttp3.mockwebserver.MockWebServer;
+import okhttp3.mockwebserver.RecordedRequest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.boot.test.mock.mockito.SpyBeans;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 
-import java.util.*;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 

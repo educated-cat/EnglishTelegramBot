@@ -1,16 +1,16 @@
 package com.educatedcat.englishtelegrambot.botreceiver.user;
 
-import com.educatedcat.englishtelegrambot.botreceiver.button.*;
-import com.educatedcat.englishtelegrambot.botreceiver.kafka.*;
-import lombok.*;
-import org.apache.kafka.clients.consumer.*;
-import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.boot.test.context.*;
-import org.springframework.kafka.test.context.*;
+import com.educatedcat.englishtelegrambot.botreceiver.button.MenuButtonType;
+import com.educatedcat.englishtelegrambot.botreceiver.kafka.CustomKafkaProperties;
+import lombok.SneakyThrows;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.kafka.test.context.EmbeddedKafka;
 
-import java.time.*;
-import java.util.*;
+import java.time.Duration;
+import java.util.List;
 
 import static org.awaitility.Awaitility.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,7 +34,7 @@ class UserServiceTest {
 	@SneakyThrows
 	void saveOrUpdate() {
 		consumer.subscribe(List.of(customKafkaProperties.getUser().getTopic().getName()));
-		UserDto user = new UserDto(1L, MenuButtonType.START, UUID.randomUUID());
+		UserDto user = new UserDto(1L, MenuButtonType.START, 1L);
 		
 		userService.saveOrUpdate(user);
 		

@@ -1,17 +1,18 @@
 package com.educatedcat.englishtelegrambot.dictionary.word;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 public interface WordService {
-	Optional<Word> find(UUID uuid);
+	Optional<Word> find(long id);
 	
-	List<Word> findAllByLessonId(UUID lessonId);
+	List<Word> findAllByLessonId(long lessonId);
 	
 	Word save(WordDto dto);
 	
-	Optional<Word> findFirstInLessonByLessonId(UUID lessonId);
+	Optional<Word> findFirstInLessonByLessonId(long lessonId);
 	
-	Optional<Word> findNext(UUID previousWordId);
+	Optional<Word> findNext(long previousWordId);
 	
-	void update(UUID uuid, WordDto dto);
+	void update(long id, WordDto dto);
 }

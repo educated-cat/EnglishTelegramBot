@@ -1,9 +1,11 @@
 package com.educatedcat.englishtelegrambot.botreceiver.bot;
 
-import com.educatedcat.englishtelegrambot.botreceiver.keyboard.*;
-import lombok.*;
+import com.educatedcat.englishtelegrambot.botreceiver.keyboard.KeyboardEntry;
+import lombok.Data;
 import org.springframework.lang.NonNull;
-import org.telegram.telegrambots.meta.api.objects.*;
+import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
+import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Data
 public class BotResponse {

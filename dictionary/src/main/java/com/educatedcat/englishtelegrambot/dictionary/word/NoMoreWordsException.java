@@ -1,7 +1,7 @@
 package com.educatedcat.englishtelegrambot.dictionary.word;
 
-import org.springframework.http.*;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @SuppressWarnings("unused")
 @ResponseStatus(HttpStatus.NO_CONTENT)

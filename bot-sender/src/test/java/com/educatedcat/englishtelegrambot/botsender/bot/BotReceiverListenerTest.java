@@ -1,18 +1,20 @@
 package com.educatedcat.englishtelegrambot.botsender.bot;
 
-import com.educatedcat.englishtelegrambot.botsender.kafka.*;
-import com.educatedcat.englishtelegrambot.botsender.message.*;
-import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.boot.test.context.*;
-import org.springframework.boot.test.mock.mockito.*;
-import org.springframework.kafka.core.*;
-import org.springframework.kafka.test.context.*;
-import org.springframework.web.reactive.function.client.*;
-import org.telegram.telegrambots.meta.api.methods.*;
-import org.telegram.telegrambots.meta.api.methods.send.*;
+import com.educatedcat.englishtelegrambot.botsender.kafka.KafkaProperties;
+import com.educatedcat.englishtelegrambot.botsender.message.SendMessageMessageSender;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.MockBeans;
+import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
-import java.time.*;
+import java.time.Duration;
 
 import static org.awaitility.Awaitility.*;
 import static org.mockito.BDDMockito.*;

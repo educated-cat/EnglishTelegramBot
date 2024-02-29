@@ -1,11 +1,13 @@
 package com.educatedcat.englishtelegrambot.botreceiver.user.productivity;
 
-import com.educatedcat.englishtelegrambot.kafkalib.serializer.*;
-import lombok.*;
-import org.apache.kafka.common.serialization.*;
-import org.springframework.boot.autoconfigure.kafka.*;
-import org.springframework.context.annotation.*;
-import org.springframework.kafka.core.*;
+import com.educatedcat.englishtelegrambot.kafkalib.serializer.CustomJsonSerializer;
+import lombok.RequiredArgsConstructor;
+import org.apache.kafka.common.serialization.LongSerializer;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.core.DefaultKafkaProducerFactory;
+import org.springframework.kafka.core.KafkaTemplate;
 
 @Configuration
 @RequiredArgsConstructor

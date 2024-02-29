@@ -1,19 +1,23 @@
 package com.educatedcat.englishtelegrambot.botreceiver.statistics;
 
-import com.educatedcat.englishtelegrambot.botreceiver.button.*;
-import com.educatedcat.englishtelegrambot.botreceiver.course.*;
-import com.educatedcat.englishtelegrambot.botreceiver.dictionary.*;
-import com.educatedcat.englishtelegrambot.botreceiver.keyboard.*;
-import com.educatedcat.englishtelegrambot.botreceiver.start.*;
-import jakarta.annotation.*;
-import lombok.*;
+import com.educatedcat.englishtelegrambot.botreceiver.button.ActionButtonType;
+import com.educatedcat.englishtelegrambot.botreceiver.button.MenuButtonType;
+import com.educatedcat.englishtelegrambot.botreceiver.course.CourseDto;
+import com.educatedcat.englishtelegrambot.botreceiver.dictionary.ButtonMarker;
+import com.educatedcat.englishtelegrambot.botreceiver.keyboard.BaseKeyboard;
+import com.educatedcat.englishtelegrambot.botreceiver.keyboard.KeyboardEntry;
+import com.educatedcat.englishtelegrambot.botreceiver.keyboard.KeyboardEntryMapper;
+import com.educatedcat.englishtelegrambot.botreceiver.start.StartButton;
+import jakarta.annotation.Nullable;
+import lombok.SneakyThrows;
+import org.springframework.context.MessageSource;
 
-import java.util.*;
+import java.util.List;
 
 public class StatisticsKeyboard extends BaseKeyboard {
 	protected StatisticsKeyboard(KeyboardEntryMapper keyboardEntryMapper, List<? extends ButtonMarker> buttons,
-	                             ButtonMarker backButton, MenuButtonType backButtonIdType) {
-		super(keyboardEntryMapper, buttons, backButton, backButtonIdType);
+	                             ButtonMarker backButton, MenuButtonType backButtonIdType, MessageSource messageSource) {
+		super(keyboardEntryMapper, buttons, backButton, backButtonIdType, messageSource);
 	}
 	
 	@Override

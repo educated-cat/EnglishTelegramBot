@@ -1,10 +1,10 @@
 package com.educatedcat.englishtelegrambot.botreceiver.command;
 
-import com.educatedcat.englishtelegrambot.botreceiver.bot.*;
-import com.educatedcat.englishtelegrambot.botreceiver.start.*;
-import lombok.*;
-import org.springframework.stereotype.*;
-import org.telegram.telegrambots.meta.api.methods.*;
+import com.educatedcat.englishtelegrambot.botreceiver.bot.BotResponse;
+import com.educatedcat.englishtelegrambot.botreceiver.start.DefaultStartButtonHandler;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 
 @Component
 @RequiredArgsConstructor

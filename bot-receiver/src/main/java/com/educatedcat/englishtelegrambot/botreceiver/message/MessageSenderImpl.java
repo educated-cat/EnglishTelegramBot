@@ -1,13 +1,13 @@
 package com.educatedcat.englishtelegrambot.botreceiver.message;
 
-import com.educatedcat.englishtelegrambot.botreceiver.kafka.*;
-import io.micrometer.tracing.annotation.*;
-import lombok.*;
-import org.springframework.kafka.core.*;
-import org.springframework.stereotype.*;
-import org.telegram.telegrambots.meta.api.methods.*;
-import org.telegram.telegrambots.meta.api.methods.send.*;
-import org.telegram.telegrambots.meta.api.methods.updatingmessages.*;
+import com.educatedcat.englishtelegrambot.botreceiver.kafka.CustomKafkaProperties;
+import io.micrometer.tracing.annotation.NewSpan;
+import lombok.RequiredArgsConstructor;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 
 @Component
 @RequiredArgsConstructor

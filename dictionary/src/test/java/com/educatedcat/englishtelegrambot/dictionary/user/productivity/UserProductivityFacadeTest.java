@@ -1,12 +1,12 @@
 package com.educatedcat.englishtelegrambot.dictionary.user.productivity;
 
-import com.educatedcat.englishtelegrambot.dictionary.word.*;
-import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.boot.test.context.*;
-import org.springframework.boot.test.mock.mockito.*;
-
-import java.util.*;
+import com.educatedcat.englishtelegrambot.dictionary.word.UpdateWordProductivityDto;
+import com.educatedcat.englishtelegrambot.dictionary.word.WordActionType;
+import com.educatedcat.englishtelegrambot.dictionary.word.WordProductivityService;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import static org.mockito.Mockito.*;
 
@@ -24,7 +24,7 @@ class UserProductivityFacadeTest {
 	@Test
 	void increaseUserProductivity() {
 		long userId = 123L;
-		UUID wordId = UUID.randomUUID();
+		long wordId = 100L;
 		
 		userProductivityFacade.updateUserProductivity(
 				new UpdateWordProductivityDto(userId, wordId,
@@ -36,7 +36,7 @@ class UserProductivityFacadeTest {
 	@Test
 	void increaseUserProductivitySeveralTimes() {
 		long userId = 123L;
-		UUID wordId = UUID.randomUUID();
+		long wordId = 100L;
 		
 		userProductivityFacade.updateUserProductivity(
 				new UpdateWordProductivityDto(userId, wordId,

@@ -1,8 +1,9 @@
 package com.educatedcat.englishtelegrambot.dictionary.translation;
 
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-import java.util.*;
+import java.util.EnumMap;
 
 @Configuration
 public class TranslationConfig {

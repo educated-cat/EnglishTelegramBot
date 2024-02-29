@@ -1,10 +1,10 @@
 package com.educatedcat.englishtelegrambot.botreceiver.word;
 
-import com.educatedcat.englishtelegrambot.botreceiver.button.*;
-import com.educatedcat.englishtelegrambot.botreceiver.dictionary.*;
-import com.educatedcat.englishtelegrambot.botreceiver.keyboard.*;
-import lombok.*;
-import org.springframework.stereotype.*;
+import com.educatedcat.englishtelegrambot.botreceiver.button.MenuButtonType;
+import com.educatedcat.englishtelegrambot.botreceiver.dictionary.DictionaryClient;
+import com.educatedcat.englishtelegrambot.botreceiver.keyboard.KeyboardEntry;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor

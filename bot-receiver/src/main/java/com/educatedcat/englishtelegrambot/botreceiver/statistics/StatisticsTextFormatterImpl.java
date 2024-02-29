@@ -1,10 +1,10 @@
 package com.educatedcat.englishtelegrambot.botreceiver.statistics;
 
-import lombok.*;
-import org.springframework.context.*;
-import org.springframework.stereotype.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.Locale;
 
 @Component
 @RequiredArgsConstructor

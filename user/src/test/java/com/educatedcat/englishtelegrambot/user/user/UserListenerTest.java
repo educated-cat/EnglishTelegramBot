@@ -1,16 +1,15 @@
 package com.educatedcat.englishtelegrambot.user.user;
 
-import com.educatedcat.englishtelegrambot.user.button.*;
-import com.educatedcat.englishtelegrambot.user.kafka.*;
-import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.boot.test.context.*;
-import org.springframework.boot.test.mock.mockito.*;
-import org.springframework.kafka.core.*;
-import org.springframework.kafka.test.context.*;
+import com.educatedcat.englishtelegrambot.user.button.MenuButtonType;
+import com.educatedcat.englishtelegrambot.user.kafka.KafkaProperties;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.test.context.EmbeddedKafka;
 
-import java.time.*;
-import java.util.*;
+import java.time.Duration;
 
 import static org.awaitility.Awaitility.*;
 import static org.mockito.BDDMockito.*;
@@ -36,7 +35,7 @@ class UserListenerTest {
 	
 	@Test
 	void saveUserState() {
-		UserDto user = new UserDto(1L, MenuButtonType.START, UUID.randomUUID());
+		UserDto user = new UserDto(1L, MenuButtonType.START, 1L);
 		
 		kafkaTemplate.send(kafkaProperties.getTopic().getName(), user.id(), user);
 		

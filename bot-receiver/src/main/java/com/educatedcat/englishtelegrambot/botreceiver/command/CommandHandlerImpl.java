@@ -1,11 +1,11 @@
 package com.educatedcat.englishtelegrambot.botreceiver.command;
 
-import com.educatedcat.englishtelegrambot.botreceiver.bot.*;
-import lombok.*;
-import org.springframework.stereotype.*;
-import org.telegram.telegrambots.meta.api.methods.*;
+import com.educatedcat.englishtelegrambot.botreceiver.bot.BotResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 
-import java.util.*;
+import java.util.EnumMap;
 
 @Service
 @RequiredArgsConstructor

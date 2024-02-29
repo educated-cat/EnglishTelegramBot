@@ -1,6 +1,6 @@
 package com.educatedcat.englishtelegrambot.botreceiver.word;
 
-import org.springframework.stereotype.*;
+import org.springframework.stereotype.Component;
 
 @Component
 public class WordTextHandlerImpl implements WordTextHandler {

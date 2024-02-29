@@ -1,16 +1,21 @@
 package com.educatedcat.englishtelegrambot.botreceiver.word.end;
 
-import com.educatedcat.englishtelegrambot.botreceiver.button.*;
-import com.educatedcat.englishtelegrambot.botreceiver.keyboard.*;
-import com.educatedcat.englishtelegrambot.botreceiver.start.*;
-import jakarta.annotation.*;
-import lombok.*;
+import com.educatedcat.englishtelegrambot.botreceiver.button.ActionButtonType;
+import com.educatedcat.englishtelegrambot.botreceiver.button.MenuButtonType;
+import com.educatedcat.englishtelegrambot.botreceiver.keyboard.BaseKeyboard;
+import com.educatedcat.englishtelegrambot.botreceiver.keyboard.KeyboardEntry;
+import com.educatedcat.englishtelegrambot.botreceiver.keyboard.KeyboardEntryMapper;
+import com.educatedcat.englishtelegrambot.botreceiver.start.StartButton;
+import jakarta.annotation.Nullable;
+import lombok.SneakyThrows;
+import org.springframework.context.MessageSource;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
 
 public class EndWordKeyboard extends BaseKeyboard {
-	protected EndWordKeyboard(KeyboardEntryMapper keyboardEntryMapper, StartButton backButton) {
-		super(keyboardEntryMapper, Collections.emptyList(), backButton, null);
+	protected EndWordKeyboard(KeyboardEntryMapper keyboardEntryMapper, StartButton backButton, MessageSource messageSource) {
+		super(keyboardEntryMapper, Collections.emptyList(), backButton, null, messageSource);
 	}
 	
 	@Override

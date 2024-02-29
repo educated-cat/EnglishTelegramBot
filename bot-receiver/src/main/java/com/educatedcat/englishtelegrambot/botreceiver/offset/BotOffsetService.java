@@ -1,6 +1,6 @@
 package com.educatedcat.englishtelegrambot.botreceiver.offset;
 
-import java.util.*;
+import java.util.Optional;
 
 public interface BotOffsetService {
 	Optional<BotOffset> getCurrentOffset();

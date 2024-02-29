@@ -1,10 +1,10 @@
 package com.educatedcat.englishtelegrambot.userstatistics.dictionary;
 
-import com.educatedcat.englishtelegrambot.userstatistics.word.*;
-import io.micrometer.tracing.annotation.*;
-import lombok.*;
-import org.springframework.stereotype.*;
-import org.springframework.web.reactive.function.client.*;
+import com.educatedcat.englishtelegrambot.userstatistics.word.WordProductivityDto;
+import io.micrometer.tracing.annotation.NewSpan;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Component
 @RequiredArgsConstructor

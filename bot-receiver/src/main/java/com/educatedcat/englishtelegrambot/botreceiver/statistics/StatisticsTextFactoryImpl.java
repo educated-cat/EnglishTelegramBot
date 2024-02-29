@@ -1,9 +1,10 @@
 package com.educatedcat.englishtelegrambot.botreceiver.statistics;
 
-import com.educatedcat.englishtelegrambot.botreceiver.bot.*;
-import lombok.*;
-import lombok.extern.slf4j.*;
-import org.springframework.stereotype.*;
+import com.educatedcat.englishtelegrambot.botreceiver.bot.BotResponse;
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component

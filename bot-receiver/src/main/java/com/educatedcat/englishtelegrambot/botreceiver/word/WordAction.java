@@ -1,8 +1,6 @@
 package com.educatedcat.englishtelegrambot.botreceiver.word;
 
-import com.educatedcat.englishtelegrambot.botreceiver.dictionary.*;
+import com.educatedcat.englishtelegrambot.botreceiver.dictionary.ButtonMarker;
 
-import java.util.*;
-
-public record WordAction(UUID id, WordActionType actionType) implements ButtonMarker {
+public record WordAction(Long id, WordActionType actionType, long lessonId) implements ButtonMarker {
 }

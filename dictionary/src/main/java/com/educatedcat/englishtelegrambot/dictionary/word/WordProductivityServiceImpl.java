@@ -1,11 +1,9 @@
 package com.educatedcat.englishtelegrambot.dictionary.word;
 
-import com.educatedcat.englishtelegrambot.dictionary.user.productivity.*;
-import lombok.*;
-import org.springframework.stereotype.*;
-import org.springframework.transaction.annotation.*;
-
-import java.util.*;
+import com.educatedcat.englishtelegrambot.dictionary.user.productivity.WordProductivityDto;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -14,14 +12,14 @@ public class WordProductivityServiceImpl implements WordProductivityService {
 	
 	@Override
 	@Transactional
-	public void increaseWordProductivity(long userId, UUID wordId) {
+	public void increaseWordProductivity(long userId, long wordId) {
 		WordProductivity productivity = findByUserIdAndWordId(userId, wordId);
 		productivity.increaseProgress();
 	}
 	
 	@Override
 	@Transactional
-	public void decreaseWordProductivity(long userId, UUID wordId) {
+	public void decreaseWordProductivity(long userId, long wordId) {
 		WordProductivity productivity = findByUserIdAndWordId(userId, wordId);
 		productivity.decreaseProgress();
 	}
@@ -36,7 +34,7 @@ public class WordProductivityServiceImpl implements WordProductivityService {
 		return new WordProductivityDto(fullyLearnedWords, partlyLearnedWords, notLearnedWords);
 	}
 	
-	private WordProductivity findByUserIdAndWordId(long userId, UUID wordId) {
+	private WordProductivity findByUserIdAndWordId(long userId, long wordId) {
 		return wordProductivityRepository.findByUserIdAndWordId(userId, wordId)
 		                                 .orElseGet(() -> wordProductivityRepository.save(
 				                                 new WordProductivity(userId, wordId)));

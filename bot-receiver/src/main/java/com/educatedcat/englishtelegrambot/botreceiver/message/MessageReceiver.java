@@ -1,16 +1,17 @@
 package com.educatedcat.englishtelegrambot.botreceiver.message;
 
-import com.educatedcat.englishtelegrambot.botreceiver.offset.*;
-import lombok.*;
-import lombok.extern.slf4j.*;
-import org.springframework.context.annotation.*;
-import org.springframework.scheduling.annotation.*;
-import org.springframework.stereotype.*;
-import org.springframework.web.reactive.function.client.*;
-import org.telegram.telegrambots.meta.api.methods.updates.*;
-import org.telegram.telegrambots.meta.api.objects.*;
+import com.educatedcat.englishtelegrambot.botreceiver.offset.BotOffsetService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Profile;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.telegram.telegrambots.meta.api.methods.updates.GetUpdates;
+import org.telegram.telegrambots.meta.api.objects.Update;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
 
 @Profile({"!test"})
 @Slf4j

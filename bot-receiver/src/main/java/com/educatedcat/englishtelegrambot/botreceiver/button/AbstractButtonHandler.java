@@ -1,12 +1,12 @@
 package com.educatedcat.englishtelegrambot.botreceiver.button;
 
-import com.educatedcat.englishtelegrambot.botreceiver.bot.*;
-import com.educatedcat.englishtelegrambot.botreceiver.keyboard.*;
-import lombok.*;
-import org.telegram.telegrambots.meta.api.methods.*;
-import org.telegram.telegrambots.meta.api.methods.send.*;
-import org.telegram.telegrambots.meta.api.methods.updatingmessages.*;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.*;
+import com.educatedcat.englishtelegrambot.botreceiver.bot.BotResponse;
+import com.educatedcat.englishtelegrambot.botreceiver.keyboard.KeyboardEntry;
+import lombok.Getter;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
 @Getter
 public abstract class AbstractButtonHandler {
