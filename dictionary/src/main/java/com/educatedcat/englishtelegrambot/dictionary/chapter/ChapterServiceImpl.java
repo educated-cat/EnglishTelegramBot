@@ -1,10 +1,10 @@
 package com.educatedcat.englishtelegrambot.dictionary.chapter;
 
-import lombok.*;
-import org.springframework.stereotype.*;
-import org.springframework.transaction.annotation.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -13,19 +13,19 @@ public class ChapterServiceImpl implements ChapterService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<Chapter> findAllInCourseByChapterId(UUID id) {
+	public List<Chapter> findAllInCourseByChapterId(long id) {
 		return chapterRepository.findAllInCourseByChapter_Id(id);
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<Chapter> findAllByCourseId(UUID courseId) {
+	public List<Chapter> findAllByCourseId(long courseId) {
 		return chapterRepository.findAllByCourse_Id(courseId);
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<Chapter> findAllInCourseByLessonId(UUID lessonId) {
+	public List<Chapter> findAllInCourseByLessonId(long lessonId) {
 		return chapterRepository.findAllInCourseByLessonId(lessonId);
 	}
 }

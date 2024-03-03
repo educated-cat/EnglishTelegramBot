@@ -1,12 +1,12 @@
 package com.educatedcat.englishtelegrambot.dictionary.translation;
 
-import com.educatedcat.englishtelegrambot.dictionary.*;
-import com.educatedcat.englishtelegrambot.dictionary.word.*;
-import lombok.*;
-import org.junit.jupiter.api.*;
-import org.junit.jupiter.params.*;
-import org.junit.jupiter.params.provider.*;
-import org.springframework.beans.factory.annotation.*;
+import com.educatedcat.englishtelegrambot.dictionary.CustomMvcTest;
+import com.educatedcat.englishtelegrambot.dictionary.word.WordDto;
+import lombok.SneakyThrows;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,7 +21,11 @@ class TranslationServiceTest extends CustomMvcTest {
 		AbstractTranslation translation = translationService.save(
 				new WordDto(null, null, null, null, "translation...", language));
 		
-		assertNotNull(translation.getId());
+		if (language == Language.RUS) {
+			assertNotNull(((RusTranslation) translation).getId());
+		} else {
+			assertNotNull(((DeuTranslation) translation).getId());
+		}
 		assertEquals("translation...", translation.getTranslation());
 		checkTranslation(language, translation);
 	}

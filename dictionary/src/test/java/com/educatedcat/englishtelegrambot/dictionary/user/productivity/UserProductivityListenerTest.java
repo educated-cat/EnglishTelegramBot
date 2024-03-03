@@ -1,16 +1,18 @@
 package com.educatedcat.englishtelegrambot.dictionary.user.productivity;
 
-import com.educatedcat.englishtelegrambot.dictionary.kafka.*;
-import com.educatedcat.englishtelegrambot.dictionary.word.*;
-import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.boot.test.context.*;
-import org.springframework.boot.test.mock.mockito.*;
-import org.springframework.kafka.core.*;
-import org.springframework.kafka.test.context.*;
+import com.educatedcat.englishtelegrambot.dictionary.kafka.KafkaProperties;
+import com.educatedcat.englishtelegrambot.dictionary.word.UpdateWordProductivityDto;
+import com.educatedcat.englishtelegrambot.dictionary.word.WordActionType;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.test.context.EmbeddedKafka;
 
-import java.time.*;
-import java.util.*;
+import java.time.Duration;
 
 import static org.awaitility.Awaitility.*;
 import static org.mockito.BDDMockito.reset;
@@ -42,7 +44,7 @@ class UserProductivityListenerTest {
 	@Test
 	void updateUserProductivity() {
 		UpdateWordProductivityDto productivity = new UpdateWordProductivityDto(
-				1L, UUID.randomUUID(), WordActionType.KNOW);
+				1L, 2, WordActionType.KNOW);
 		kafkaTemplate.send(kafkaProperties.getTopic().getName(), productivity.userId(), productivity);
 		
 		await().atMost(Duration.ofSeconds(10))

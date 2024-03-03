@@ -1,16 +1,21 @@
 package com.educatedcat.englishtelegrambot.botreceiver.message;
 
-import com.educatedcat.englishtelegrambot.botreceiver.bot.*;
-import com.educatedcat.englishtelegrambot.botreceiver.button.*;
-import com.educatedcat.englishtelegrambot.botreceiver.callback.*;
-import com.educatedcat.englishtelegrambot.botreceiver.command.*;
-import com.educatedcat.englishtelegrambot.botreceiver.keyboard.*;
-import com.educatedcat.englishtelegrambot.botreceiver.user.*;
-import lombok.*;
-import lombok.extern.slf4j.*;
-import org.springframework.stereotype.*;
-import org.telegram.telegrambots.meta.api.methods.*;
-import org.telegram.telegrambots.meta.api.objects.*;
+import com.educatedcat.englishtelegrambot.botreceiver.bot.BotResponse;
+import com.educatedcat.englishtelegrambot.botreceiver.button.MenuButtonType;
+import com.educatedcat.englishtelegrambot.botreceiver.callback.CallbackHandler;
+import com.educatedcat.englishtelegrambot.botreceiver.callback.UnknownCallbackException;
+import com.educatedcat.englishtelegrambot.botreceiver.command.CommandHandler;
+import com.educatedcat.englishtelegrambot.botreceiver.command.NotCommandException;
+import com.educatedcat.englishtelegrambot.botreceiver.command.UnknownCommandException;
+import com.educatedcat.englishtelegrambot.botreceiver.keyboard.KeyboardEntry;
+import com.educatedcat.englishtelegrambot.botreceiver.keyboard.KeyboardEntryMapper;
+import com.educatedcat.englishtelegrambot.botreceiver.user.UserDto;
+import com.educatedcat.englishtelegrambot.botreceiver.user.UserService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
+import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Slf4j
 @Component

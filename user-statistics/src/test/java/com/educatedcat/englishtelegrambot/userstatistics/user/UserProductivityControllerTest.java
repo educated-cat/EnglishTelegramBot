@@ -1,12 +1,13 @@
 package com.educatedcat.englishtelegrambot.userstatistics.user;
 
-import com.educatedcat.englishtelegrambot.userstatistics.word.*;
-import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.boot.test.context.*;
-import org.springframework.boot.test.mock.mockito.*;
-import org.springframework.http.*;
-import org.springframework.test.web.reactive.server.*;
+import com.educatedcat.englishtelegrambot.userstatistics.word.WordProductivityDto;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.MockBeans;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.reactive.server.WebTestClient;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;

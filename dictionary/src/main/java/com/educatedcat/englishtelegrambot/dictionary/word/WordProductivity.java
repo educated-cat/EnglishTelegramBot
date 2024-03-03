@@ -1,12 +1,19 @@
 package com.educatedcat.englishtelegrambot.dictionary.word;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.annotations.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
-import java.io.*;
-import java.util.*;
+import java.io.Serializable;
 
 @Getter
 @Entity
@@ -19,13 +26,13 @@ public class WordProductivity implements Serializable {
 	@Id
 	@SequenceGenerator(name = "word_productivity_id_generator", sequenceName = "word_productivity_id_sequence")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "word_productivity_id_generator")
-	private Long id;
+	private long id;
 	
 	@Column(nullable = false, updatable = false)
 	private long userId;
 	
 	@Column(nullable = false)
-	private UUID wordId;
+	private long wordId;
 	
 	/**
 	 * Percentage of assimilation
@@ -33,7 +40,7 @@ public class WordProductivity implements Serializable {
 	@Column(nullable = false)
 	private byte progress;
 	
-	public WordProductivity(Long userId, UUID wordId) {
+	public WordProductivity(Long userId, long wordId) {
 		this.userId = userId;
 		this.wordId = wordId;
 		progress = 0;

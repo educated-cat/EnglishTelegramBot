@@ -1,16 +1,18 @@
 package com.educatedcat.englishtelegrambot.dictionary.word;
 
-import com.educatedcat.englishtelegrambot.dictionary.translation.*;
-import com.educatedcat.englishtelegrambot.dictionary.user.productivity.*;
-import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.boot.test.context.*;
-import org.springframework.boot.test.mock.mockito.*;
-import org.springframework.core.*;
-import org.springframework.http.*;
-import org.springframework.test.web.reactive.server.*;
+import com.educatedcat.englishtelegrambot.dictionary.translation.Language;
+import com.educatedcat.englishtelegrambot.dictionary.translation.RusTranslation;
+import com.educatedcat.englishtelegrambot.dictionary.user.productivity.WordProductivityDto;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatus;
+import org.springframework.test.web.reactive.server.WebTestClient;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.BDDMockito.*;
 
@@ -30,8 +32,8 @@ class WordRestControllerTest {
 	
 	@Test
 	void findById() {
-		UUID id = UUID.randomUUID();
-		WordDto dto = new WordDto(null, null, "cat", "caat", "", Language.RUS);
+		long id = 1;
+		WordDto dto = new WordDto(0L, null, "cat", "caat", "", Language.RUS);
 		Word word = new Word(dto, new RusTranslation(dto));
 		given(wordService.find(id)).willReturn(Optional.of(word));
 		
@@ -44,8 +46,8 @@ class WordRestControllerTest {
 	
 	@Test
 	void findFirstInLessonByLessonId() {
-		UUID lessonId = UUID.randomUUID();
-		WordDto dto = new WordDto(null, null, "cat", "caat", "", Language.RUS);
+		long lessonId = 1;
+		WordDto dto = new WordDto(0L, null, "cat", "caat", "", Language.RUS);
 		Word word = new Word(dto, new RusTranslation(dto));
 		given(wordService.findFirstInLessonByLessonId(lessonId)).willReturn(Optional.of(word));
 		
@@ -58,8 +60,8 @@ class WordRestControllerTest {
 	
 	@Test
 	void findNext() {
-		UUID previousWordId = UUID.randomUUID();
-		WordDto dto = new WordDto(null, null, "cat", "caat", "", Language.RUS);
+		long previousWordId = 1;
+		WordDto dto = new WordDto(0L, null, "cat", "caat", "", Language.RUS);
 		Word word = new Word(dto, new RusTranslation(dto));
 		given(wordService.findNext(previousWordId)).willReturn(Optional.of(word));
 		
@@ -72,8 +74,8 @@ class WordRestControllerTest {
 	
 	@Test
 	void findAllByLessonId() {
-		UUID lessonId = UUID.randomUUID();
-		WordDto dto = new WordDto(null, null, "cat", "caat", "", Language.RUS);
+		long lessonId = 1;
+		WordDto dto = new WordDto(0L, null, "cat", "caat", "", Language.RUS);
 		Word word = new Word(dto, new RusTranslation(dto));
 		given(wordService.findAllByLessonId(lessonId)).willReturn(List.of(word, word, word));
 		
@@ -100,7 +102,7 @@ class WordRestControllerTest {
 	
 	@Test
 	void create() {
-		WordDto dto = new WordDto(null, null, "cat", "caat", "", Language.RUS);
+		WordDto dto = new WordDto(0L, null, "cat", "caat", "", Language.RUS);
 		given(wordService.save(dto)).willReturn(new Word(dto, new RusTranslation(dto)));
 		
 		webTestClient.post()
@@ -113,11 +115,11 @@ class WordRestControllerTest {
 	
 	@Test
 	void update() {
-		UUID uuid = UUID.randomUUID();
-		WordDto dto = new WordDto(null, null, "cat", "caat", "", Language.RUS);
+		long id = 1;
+		WordDto dto = new WordDto(0L, null, "cat", "caat", "", Language.RUS);
 		
 		webTestClient.put()
-		             .uri("/api/words/{uuid}", uuid)
+		             .uri("/api/words/{id}", id)
 		             .bodyValue(dto)
 		             .exchange()
 		             .expectStatus()

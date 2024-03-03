@@ -1,14 +1,26 @@
 package com.educatedcat.englishtelegrambot.user.user.state;
 
-import com.educatedcat.englishtelegrambot.user.button.*;
-import com.educatedcat.englishtelegrambot.user.user.*;
+import com.educatedcat.englishtelegrambot.user.button.MenuButtonType;
+import com.educatedcat.englishtelegrambot.user.user.User;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.annotations.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
-import java.time.*;
-import java.util.*;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -22,12 +34,12 @@ public class UserState {
 	@Id
 	@SequenceGenerator(name = "user_id_generator", sequenceName = "user_id_sequence")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_generator")
-	private Long id;
+	private long id;
 	
 	@Enumerated
 	@Column(nullable = false, columnDefinition = "INT2")
 	private MenuButtonType buttonType;
-	private UUID buttonTypeId;
+	private long buttonTypeId;
 	
 	@CreationTimestamp
 	@Column(nullable = false, updatable = false)
@@ -37,7 +49,7 @@ public class UserState {
 	@JoinColumn(name = "user_id")
 	private User user;
 	
-	public UserState(User user, MenuButtonType buttonType, UUID buttonTypeId) {
+	public UserState(User user, MenuButtonType buttonType, long buttonTypeId) {
 		this.buttonType = buttonType;
 		this.buttonTypeId = buttonTypeId;
 		this.user = user;

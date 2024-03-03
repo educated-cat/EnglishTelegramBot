@@ -1,13 +1,13 @@
 package com.educatedcat.englishtelegrambot.dictionary.course;
 
-import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.boot.test.context.*;
-import org.springframework.boot.test.mock.mockito.*;
-import org.springframework.core.*;
-import org.springframework.test.web.reactive.server.*;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.test.web.reactive.server.WebTestClient;
 
-import java.util.*;
+import java.util.List;
 
 import static org.mockito.BDDMockito.*;
 
@@ -25,10 +25,10 @@ class CourseRestControllerTest {
 	@Test
 	void findAll() {
 		List<Course> res = List.of(new Course() {{
-			setId(UUID.randomUUID());
+			setId(1);
 			setName("Course 1");
 		}}, new Course() {{
-			setId(UUID.randomUUID());
+			setId(2);
 			setName("Course 2");
 		}});
 		List<CourseDto> convertedRes = res.stream()

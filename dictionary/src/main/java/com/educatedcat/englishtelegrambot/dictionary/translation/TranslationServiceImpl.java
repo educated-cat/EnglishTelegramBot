@@ -1,12 +1,12 @@
 package com.educatedcat.englishtelegrambot.dictionary.translation;
 
-import com.educatedcat.englishtelegrambot.dictionary.word.*;
-import lombok.*;
-import lombok.extern.slf4j.*;
-import org.springframework.stereotype.*;
-import org.springframework.transaction.annotation.*;
+import com.educatedcat.englishtelegrambot.dictionary.word.WordDto;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.EnumMap;
 
 @Slf4j
 @Service

@@ -1,10 +1,11 @@
 package com.educatedcat.englishtelegrambot.botreceiver.kafka;
 
-import jakarta.validation.constraints.*;
-import lombok.*;
-import org.springframework.boot.context.properties.*;
-import org.springframework.stereotype.*;
-import org.springframework.validation.annotation.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 
 @Data
 @Validated

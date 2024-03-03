@@ -1,8 +1,9 @@
 package com.educatedcat.englishtelegrambot.botreceiver.offset;
 
-import lombok.*;
-import org.springframework.data.annotation.*;
-import org.springframework.data.relational.core.mapping.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
 @Data
 @Table(name = "bot_offset")

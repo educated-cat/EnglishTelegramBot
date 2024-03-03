@@ -1,8 +1,6 @@
 package com.educatedcat.englishtelegrambot.user.user;
 
-import com.educatedcat.englishtelegrambot.user.button.*;
+import com.educatedcat.englishtelegrambot.user.button.MenuButtonType;
 
-import java.util.*;
-
-public record UserDto(Long id, MenuButtonType buttonType, UUID buttonTypeId) {
+public record UserDto(long id, MenuButtonType buttonType, long buttonTypeId) {
 }

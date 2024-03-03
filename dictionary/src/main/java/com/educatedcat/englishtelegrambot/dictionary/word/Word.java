@@ -1,15 +1,35 @@
 package com.educatedcat.englishtelegrambot.dictionary.word;
 
-import com.educatedcat.englishtelegrambot.dictionary.lesson.*;
-import com.educatedcat.englishtelegrambot.dictionary.translation.*;
+import com.educatedcat.englishtelegrambot.dictionary.lesson.Lesson;
+import com.educatedcat.englishtelegrambot.dictionary.translation.AbstractTranslation;
+import com.educatedcat.englishtelegrambot.dictionary.translation.DeuTranslation;
+import com.educatedcat.englishtelegrambot.dictionary.translation.Language;
+import com.educatedcat.englishtelegrambot.dictionary.translation.RusTranslation;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.Any;
+import org.hibernate.annotations.AnyDiscriminator;
+import org.hibernate.annotations.AnyDiscriminatorValue;
+import org.hibernate.annotations.AnyDiscriminatorValues;
+import org.hibernate.annotations.AnyKeyJavaType;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.*;
-import org.hibernate.type.descriptor.java.*;
+import org.hibernate.annotations.GenerationTime;
+import org.hibernate.type.descriptor.java.LongJavaType;
 
-import java.util.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,10 +39,10 @@ import java.util.*;
 @Table(name = "words")
 public class Word {
 	@Id
-	@GeneratedValue(generator = "UUID")
-	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "words_id_seq")
+	@SequenceGenerator(name = "words_id_seq", sequenceName = "words_id_seq")
 	@Column(name = "id")
-	private UUID id;
+	private long id;
 	
 	@Column(name = "name", nullable = false)
 	private String name;
@@ -41,7 +61,7 @@ public class Word {
 			@AnyDiscriminatorValue(discriminator = "RUS", entity = RusTranslation.class),
 			@AnyDiscriminatorValue(discriminator = "DEU", entity = DeuTranslation.class)
 	})
-	@AnyKeyJavaType(value = UUIDJavaType.class)
+	@AnyKeyJavaType(value = LongJavaType.class)
 	@Column(name = "translation_type", length = 3)
 	@JoinColumn(name = "translation_id")
 	private AbstractTranslation translation;

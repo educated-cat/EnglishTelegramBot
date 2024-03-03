@@ -1,13 +1,13 @@
 package com.educatedcat.englishtelegrambot.dictionary.lesson;
 
-import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.boot.test.context.*;
-import org.springframework.boot.test.mock.mockito.*;
-import org.springframework.core.*;
-import org.springframework.test.web.reactive.server.*;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.test.web.reactive.server.WebTestClient;
 
-import java.util.*;
+import java.util.List;
 
 import static org.mockito.BDDMockito.*;
 
@@ -25,13 +25,13 @@ class LessonRestControllerTest {
 	@Test
 	void findAllInChapterByLessonId() {
 		List<Lesson> res = List.of(new Lesson() {{
-			setId(UUID.randomUUID());
+			setId(1);
 			setName("Course 1");
 		}}, new Lesson() {{
-			setId(UUID.randomUUID());
+			setId(2);
 			setName("Course 2");
 		}});
-		UUID id = UUID.randomUUID();
+		long id = 1;
 		List<LessonDto> convertedRes = res.stream()
 		                                  .map(Lesson::toDto)
 		                                  .toList();
@@ -48,13 +48,13 @@ class LessonRestControllerTest {
 	@Test
 	void findAllInChapter() {
 		List<Lesson> res = List.of(new Lesson() {{
-			setId(UUID.randomUUID());
+			setId(1);
 			setName("Course 1");
 		}}, new Lesson() {{
-			setId(UUID.randomUUID());
+			setId(2);
 			setName("Course 2");
 		}});
-		UUID id = UUID.randomUUID();
+		long id = 1;
 		List<LessonDto> convertedRes = res.stream()
 		                                  .map(Lesson::toDto)
 		                                  .toList();

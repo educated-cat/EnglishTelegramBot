@@ -1,12 +1,19 @@
 package com.educatedcat.englishtelegrambot.dictionary.word;
 
-import com.educatedcat.englishtelegrambot.dictionary.user.productivity.*;
-import io.micrometer.tracing.annotation.*;
-import lombok.*;
-import org.springframework.http.*;
-import org.springframework.web.bind.annotation.*;
+import com.educatedcat.englishtelegrambot.dictionary.user.productivity.WordProductivityDto;
+import io.micrometer.tracing.annotation.ContinueSpan;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,16 +23,16 @@ public class WordRestController {
 	private final WordProductivityService wordProductivityService;
 	
 	@ContinueSpan(log = "Find word by ID")
-	@GetMapping("/{uuid}")
-	public WordDto findById(@PathVariable UUID uuid) {
-		return wordService.find(uuid)
+	@GetMapping("/{id}")
+	public WordDto findById(@PathVariable long id) {
+		return wordService.find(id)
 		                  .map(Word::toDto)
 		                  .orElseThrow();
 	}
 	
 	@ContinueSpan(log = "Find first word in lesson")
 	@GetMapping("/first/{lessonId}")
-	public WordDto findFirstInLessonByLessonId(@PathVariable UUID lessonId) {
+	public WordDto findFirstInLessonByLessonId(@PathVariable long lessonId) {
 		return wordService.findFirstInLessonByLessonId(lessonId)
 		                  .map(Word::toDto)
 		                  .orElseThrow();
@@ -33,7 +40,7 @@ public class WordRestController {
 	
 	@ContinueSpan(log = "Find next word in lesson")
 	@GetMapping("/next/{previousWordId}")
-	public WordDto findNext(@PathVariable UUID previousWordId) {
+	public WordDto findNext(@PathVariable long previousWordId) {
 		return wordService.findNext(previousWordId)
 		                  .map(Word::toDto)
 		                  .orElseThrow();
@@ -41,7 +48,7 @@ public class WordRestController {
 	
 	@ContinueSpan(log = "Find all words in lesson by lesson ID")
 	@GetMapping("/by-lesson/{lessonId}")
-	public List<WordDto> findAllByLessonId(@PathVariable UUID lessonId) {
+	public List<WordDto> findAllByLessonId(@PathVariable long lessonId) {
 		return wordService.findAllByLessonId(lessonId)
 		                  .stream()
 		                  .map(Word::toDto)
@@ -62,8 +69,8 @@ public class WordRestController {
 	}
 	
 	@ContinueSpan(log = "Update word by ID")
-	@PutMapping("/{uuid}")
-	public void update(@PathVariable UUID uuid, @RequestBody WordDto dto) {
-		wordService.update(uuid, dto);
+	@PutMapping("/{id}")
+	public void update(@PathVariable long id, @RequestBody WordDto dto) {
+		wordService.update(id, dto);
 	}
 }

@@ -1,10 +1,10 @@
 package com.educatedcat.englishtelegrambot.user.user;
 
-import io.micrometer.tracing.annotation.*;
-import lombok.*;
-import lombok.extern.slf4j.*;
-import org.springframework.kafka.annotation.*;
-import org.springframework.stereotype.*;
+import io.micrometer.tracing.annotation.NewSpan;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component

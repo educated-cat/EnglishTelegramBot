@@ -1,7 +1,7 @@
 package com.educatedcat.englishtelegrambot.dictionary.word;
 
-import org.junit.jupiter.api.*;
-import org.springframework.test.util.*;
+import org.junit.jupiter.api.Test;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import static org.junit.jupiter.api.Assertions.*;
 

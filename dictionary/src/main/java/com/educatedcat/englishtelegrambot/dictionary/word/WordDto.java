@@ -1,8 +1,7 @@
 package com.educatedcat.englishtelegrambot.dictionary.word;
 
-import com.educatedcat.englishtelegrambot.dictionary.translation.*;
+import com.educatedcat.englishtelegrambot.dictionary.translation.Language;
 
-import java.util.*;
-
-public record WordDto(UUID id, Long index, String name, String transcription, String translation, Language language) {
+public record WordDto(Long id, Long index, String name, String transcription, String translation,
+                      Language language) {
 }

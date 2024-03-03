@@ -1,7 +1,7 @@
 package com.educatedcat.englishtelegrambot.dictionary.translation;
 
-import com.educatedcat.englishtelegrambot.dictionary.word.*;
-import org.springframework.stereotype.*;
+import com.educatedcat.englishtelegrambot.dictionary.word.WordDto;
+import org.springframework.stereotype.Component;
 
 /**
  * Builder that creates an entity from language, for example, for {@link Language#RUS} -> {@link RusTranslation}

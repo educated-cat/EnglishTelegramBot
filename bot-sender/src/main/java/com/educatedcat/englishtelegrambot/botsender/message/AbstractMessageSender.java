@@ -1,9 +1,9 @@
 package com.educatedcat.englishtelegrambot.botsender.message;
 
-import lombok.*;
-import lombok.extern.slf4j.*;
-import org.springframework.web.reactive.function.client.*;
-import org.telegram.telegrambots.meta.api.methods.*;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 
 @Slf4j
 @RequiredArgsConstructor

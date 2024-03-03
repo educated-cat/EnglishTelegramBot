@@ -1,8 +1,6 @@
 package com.educatedcat.englishtelegrambot.dictionary.course;
 
-import org.springframework.data.jpa.repository.*;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.*;
-
-interface CourseRepository extends JpaRepository<Course, UUID> {
+interface CourseRepository extends JpaRepository<Course, Long> {
 }

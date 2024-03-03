@@ -1,9 +1,9 @@
 package com.educatedcat.englishtelegrambot.botreceiver.statistics;
 
-import io.micrometer.tracing.annotation.*;
-import lombok.*;
-import org.springframework.stereotype.*;
-import org.springframework.web.reactive.function.client.*;
+import io.micrometer.tracing.annotation.NewSpan;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Component
 @RequiredArgsConstructor

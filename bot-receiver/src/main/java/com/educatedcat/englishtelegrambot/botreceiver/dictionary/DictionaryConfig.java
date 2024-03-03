@@ -1,20 +1,26 @@
 package com.educatedcat.englishtelegrambot.botreceiver.dictionary;
 
-import io.netty.channel.*;
-import lombok.*;
-import org.springframework.context.annotation.*;
-import org.springframework.http.*;
-import org.springframework.http.client.reactive.*;
-import org.springframework.web.reactive.function.client.*;
-import reactor.netty.http.client.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.netty.channel.ChannelOption;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.client.reactive.ReactorClientHttpConnector;
+import org.springframework.http.codec.json.Jackson2JsonDecoder;
+import org.springframework.http.codec.json.Jackson2JsonEncoder;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.netty.http.client.HttpClient;
 
-import java.nio.charset.*;
-import java.time.*;
+import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 
 @Configuration
 @RequiredArgsConstructor
 public class DictionaryConfig {
 	private final DictionaryProperties dictionaryProperties;
+	private final ObjectMapper objectMapper;
 	
 	@Bean
 	public WebClient dictionaryWebClient() {
@@ -27,6 +33,13 @@ public class DictionaryConfig {
 				                                httpHeaders.add(HttpHeaders.CONTENT_TYPE,
 				                                                new MediaType(MediaType.APPLICATION_JSON,
 				                                                              StandardCharsets.UTF_8).toString()))
+		                .codecs(clientCodecConfigurer -> {
+			                clientCodecConfigurer.defaultCodecs()
+			                                     .jackson2JsonDecoder(new Jackson2JsonDecoder(objectMapper, MediaType.APPLICATION_JSON));
+			                clientCodecConfigurer.defaultCodecs()
+			                                     .jackson2JsonEncoder(new Jackson2JsonEncoder(objectMapper, MediaType.APPLICATION_JSON));
+			                
+		                })
 		                .baseUrl(dictionaryProperties.getUrl().getApi())
 		                .build();
 	}

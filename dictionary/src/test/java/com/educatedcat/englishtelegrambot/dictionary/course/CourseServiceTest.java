@@ -1,12 +1,12 @@
 package com.educatedcat.englishtelegrambot.dictionary.course;
 
-import io.zonky.test.db.*;
-import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.boot.test.context.*;
-import org.springframework.test.context.jdbc.*;
+import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.jdbc.Sql;
 
-import java.util.*;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
