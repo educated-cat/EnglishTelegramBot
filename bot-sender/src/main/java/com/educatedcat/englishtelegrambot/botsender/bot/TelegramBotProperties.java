@@ -1,13 +1,13 @@
 package com.educatedcat.englishtelegrambot.botsender.bot;
 
-import jakarta.validation.constraints.*;
-import lombok.*;
-import org.springframework.boot.context.properties.*;
-import org.springframework.stereotype.*;
-import org.springframework.validation.annotation.*;
-import org.springframework.web.util.*;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.*;
+import java.net.URL;
 
 @Data
 @Validated

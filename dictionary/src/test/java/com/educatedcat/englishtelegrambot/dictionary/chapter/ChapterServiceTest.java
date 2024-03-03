@@ -1,12 +1,12 @@
 package com.educatedcat.englishtelegrambot.dictionary.chapter;
 
-import io.zonky.test.db.*;
-import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.boot.test.context.*;
-import org.springframework.test.context.jdbc.*;
+import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.jdbc.Sql;
 
-import java.util.*;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -22,8 +22,7 @@ class ChapterServiceTest {
 			"classpath:db/chapter/chapters.sql"
 	})
 	void findChaptersById() {
-		List<Chapter> list = chapterService.findAllInCourseByChapterId(
-				UUID.fromString("7b67037c-76db-46b0-bfe2-7fd3fecb5e98"));
+		List<Chapter> list = chapterService.findAllInCourseByChapterId(1);
 		
 		assertThat(list.size()).isEqualTo(3);
 	}
@@ -35,8 +34,7 @@ class ChapterServiceTest {
 			"classpath:db/chapter/chapters.sql"
 	})
 	void findAllByCourseId() {
-		List<Chapter> list = chapterService.findAllByCourseId(
-				UUID.fromString("d5503c87-b259-4014-8f76-42096c99a0a7"));
+		List<Chapter> list = chapterService.findAllByCourseId(1);
 		
 		assertThat(list.size()).isEqualTo(3);
 	}
@@ -49,8 +47,7 @@ class ChapterServiceTest {
 			"classpath:db/lesson/lessons.sql"
 	})
 	void findAllInCourseByLessonId() {
-		List<Chapter> list = chapterService.findAllInCourseByLessonId(
-				UUID.fromString("3a7d5900-96fb-423b-9d23-cd2f0c18695e"));
+		List<Chapter> list = chapterService.findAllInCourseByLessonId(1);
 		
 		assertThat(list.size()).isEqualTo(3);
 	}

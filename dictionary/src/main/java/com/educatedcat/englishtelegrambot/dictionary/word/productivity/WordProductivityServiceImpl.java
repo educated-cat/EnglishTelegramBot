@@ -1,32 +1,32 @@
 package com.educatedcat.englishtelegrambot.dictionary.word.productivity;
 
-import com.educatedcat.englishtelegrambot.dictionary.*;
-import com.educatedcat.englishtelegrambot.dictionary.user.productivity.*;
-import lombok.*;
-import org.springframework.stereotype.*;
-import org.springframework.transaction.annotation.*;
+import com.educatedcat.englishtelegrambot.dictionary.DictionaryProperties;
+import com.educatedcat.englishtelegrambot.dictionary.user.productivity.WordProductivityDto;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.time.*;
-import java.util.*;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
 public class WordProductivityServiceImpl implements WordProductivityService {
 	private final WordProductivityRepository wordProductivityRepository;
 	private final DictionaryProperties dictionaryProperties;
+	private final WordProductivityProcessService wordProductivityProcessService;
 	
 	@Override
 	@Transactional
-	public void increaseWordProductivity(long userId, UUID wordId) {
+	public void increaseWordProductivity(long userId, long wordId) {
 		WordProductivity productivity = findByUserIdAndWordId(userId, wordId);
-		productivity.increaseProgress();
+		wordProductivityProcessService.increaseProgress(productivity);
 	}
 	
 	@Override
 	@Transactional
-	public void decreaseWordProductivity(long userId, UUID wordId) {
+	public void decreaseWordProductivity(long userId, long wordId) {
 		WordProductivity productivity = findByUserIdAndWordId(userId, wordId);
-		productivity.decreaseProgress();
+		wordProductivityProcessService.decreaseProgress(productivity);
 	}
 	
 	@Override
@@ -50,7 +50,7 @@ public class WordProductivityServiceImpl implements WordProductivityService {
 		wordProductivityRepository.updateRepeatingStatuses(successDayCountToLearn, dateTimeToRepeatLearnedWords);
 	}
 	
-	private WordProductivity findByUserIdAndWordId(long userId, UUID wordId) {
+	private WordProductivity findByUserIdAndWordId(long userId, long wordId) {
 		return wordProductivityRepository.findByUserIdAndWordId(userId, wordId)
 		                                 .orElseGet(() -> wordProductivityRepository.save(
 				                                 new WordProductivity(userId, wordId)));

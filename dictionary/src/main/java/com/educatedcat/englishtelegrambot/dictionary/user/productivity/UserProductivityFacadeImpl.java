@@ -1,8 +1,9 @@
 package com.educatedcat.englishtelegrambot.dictionary.user.productivity;
 
-import com.educatedcat.englishtelegrambot.dictionary.word.productivity.*;
-import lombok.*;
-import org.springframework.stereotype.*;
+import com.educatedcat.englishtelegrambot.dictionary.word.UpdateWordProductivityDto;
+import com.educatedcat.englishtelegrambot.dictionary.word.productivity.WordProductivityService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor

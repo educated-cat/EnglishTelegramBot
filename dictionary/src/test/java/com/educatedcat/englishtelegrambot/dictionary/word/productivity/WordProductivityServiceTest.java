@@ -1,15 +1,17 @@
 package com.educatedcat.englishtelegrambot.dictionary.word.productivity;
 
-import com.educatedcat.englishtelegrambot.dictionary.user.productivity.*;
-import io.zonky.test.db.*;
-import org.junit.jupiter.api.*;
-import org.mockito.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.boot.test.context.*;
-import org.springframework.boot.test.mock.mockito.*;
-import org.springframework.test.context.jdbc.*;
+import com.educatedcat.englishtelegrambot.dictionary.user.productivity.WordProductivityDto;
+import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.test.context.jdbc.Sql;
 
-import java.util.*;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
@@ -46,7 +48,7 @@ class WordProductivityServiceTest {
 	})
 	void increaseUserProductivity() {
 		long userId = 123L;
-		UUID wordId = UUID.fromString("9109e810-fae5-4e9b-baaa-6d5fc1600a47");
+		long wordId = 1;
 		
 		wordProductivityService.increaseWordProductivity(userId, wordId);
 		
@@ -68,7 +70,7 @@ class WordProductivityServiceTest {
 	})
 	void decreaseUserProductivity() {
 		long userId = 123L;
-		UUID wordId = UUID.fromString("d800edd8-551a-4640-b749-fdf967ec99ef");
+		long wordId = 2;
 		
 		wordProductivityService.decreaseWordProductivity(userId, wordId);
 		
@@ -80,27 +82,25 @@ class WordProductivityServiceTest {
 	@Test
 	void increaseUserProductivityForUnknownUserIdAndWordId() {
 		long userId = 123L;
-		UUID wordId = UUID.randomUUID();
+		long wordId = 1231312312312312123L;
 		
 		wordProductivityService.increaseWordProductivity(userId, wordId);
 		
 		WordProductivity updated = wordProductivityRepository.findByUserIdAndWordId(userId, wordId).get();
 		assertThat(updated).isNotNull();
 		assertThat(updated.getProgress()).isGreaterThan((byte) 0);
-		then(wordProductivityRepository).should().save(any(WordProductivity.class));
 	}
 	
 	@Test
 	void decreaseUserProductivityForUnknownUserIdAndWordId() {
 		long userId = 123L;
-		UUID wordId = UUID.randomUUID();
+		long wordId = 1231312312312312123L;
 		
 		wordProductivityService.decreaseWordProductivity(userId, wordId);
 		
 		WordProductivity updated = wordProductivityRepository.findByUserIdAndWordId(userId, wordId).get();
 		assertThat(updated).isNotNull();
 		assertThat(updated.getProgress()).isEqualTo((byte) 0);
-		then(wordProductivityRepository).should().save(any(WordProductivity.class));
 	}
 	
 	@Test

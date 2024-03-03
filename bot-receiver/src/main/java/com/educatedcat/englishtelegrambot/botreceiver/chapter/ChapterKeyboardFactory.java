@@ -1,14 +1,19 @@
 package com.educatedcat.englishtelegrambot.botreceiver.chapter;
 
-import com.educatedcat.englishtelegrambot.botreceiver.button.*;
-import com.educatedcat.englishtelegrambot.botreceiver.course.*;
-import com.educatedcat.englishtelegrambot.botreceiver.dictionary.*;
-import com.educatedcat.englishtelegrambot.botreceiver.keyboard.*;
-import lombok.*;
-import org.springframework.context.*;
-import org.springframework.stereotype.*;
+import com.educatedcat.englishtelegrambot.botreceiver.button.ActionButtonType;
+import com.educatedcat.englishtelegrambot.botreceiver.button.MenuButtonType;
+import com.educatedcat.englishtelegrambot.botreceiver.course.CourseDto;
+import com.educatedcat.englishtelegrambot.botreceiver.dictionary.DictionaryClient;
+import com.educatedcat.englishtelegrambot.botreceiver.keyboard.AbstractKeyboardFactory;
+import com.educatedcat.englishtelegrambot.botreceiver.keyboard.BaseKeyboard;
+import com.educatedcat.englishtelegrambot.botreceiver.keyboard.KeyboardEntry;
+import com.educatedcat.englishtelegrambot.botreceiver.keyboard.KeyboardEntryMapper;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.List;
+import java.util.Locale;
 
 @Component
 @RequiredArgsConstructor
@@ -32,6 +37,6 @@ public class ChapterKeyboardFactory extends AbstractKeyboardFactory {
 		return new ChapterKeyboard(keyboardEntryMapper, buttons,
 		                           new CourseDto(entry.id(),
 		                                         messageSource.getMessage("button.back.message", null, Locale.ENGLISH)),
-		                           entry.idType());
+		                           entry.idType(), messageSource);
 	}
 }

@@ -1,11 +1,11 @@
 package com.educatedcat.englishtelegrambot.dictionary.chapter;
 
-import java.util.*;
+import java.util.List;
 
 public interface ChapterService {
-	List<Chapter> findAllInCourseByChapterId(UUID id);
+	List<Chapter> findAllInCourseByChapterId(long id);
 	
-	List<Chapter> findAllByCourseId(UUID courseId);
+	List<Chapter> findAllByCourseId(long courseId);
 	
-	List<Chapter> findAllInCourseByLessonId(UUID lessonId);
+	List<Chapter> findAllInCourseByLessonId(long lessonId);
 }

@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+    <changeSet id="2024-02-29_01-update-ids-to-bigint" author="Ilya Malyshev">
+        <comment>Update ids to BIGINT</comment>
+        <sql>
+            -- Courses
+            ALTER TABLE courses
+                RENAME COLUMN id TO id_old;
+
+            ALTER TABLE courses
+            DROP
+            CONSTRAINT courses_pkey;
+
+            ALTER TABLE courses
+                ADD COLUMN id BIGSERIAL PRIMARY KEY;
+
+            ALTER TABLE courses
+                ALTER COLUMN id SET DATA TYPE BIGINT;
+
+            -- Chapters
+            ALTER TABLE chapters
+                RENAME COLUMN id TO id_old;
+
+            ALTER TABLE chapters
+            DROP
+            CONSTRAINT chapters_pkey;
+
+            ALTER TABLE chapters
+                ADD COLUMN id BIGSERIAL PRIMARY KEY;
+
+            ALTER TABLE chapters
+                ALTER COLUMN id SET DATA TYPE BIGINT;
+
+            ALTER TABLE chapters
+                RENAME COLUMN course_id TO course_id_old;
+
+            ALTER TABLE chapters
+                ADD COLUMN course_id BIGINT;
+
+            UPDATE chapters AS chapter
+            SET course_id = (SELECT course.id
+                             FROM courses AS course
+                             WHERE course.id_old = chapter.course_id_old);
+
+            ALTER TABLE courses
+            DROP
+            COLUMN id_old;
+
+            ALTER TABLE chapters
+            DROP
+            COLUMN course_id_old,
+	        ALTER
+            COLUMN course_id SET NOT NULL;
+
+            -- Lessons
+            ALTER TABLE lessons_words
+                RENAME COLUMN lesson_id TO lesson_id_old;
+
+            ALTER TABLE lessons_words
+            DROP
+            CONSTRAINT lessons_words_lesson_id_lessons_id;
+
+            ALTER TABLE lessons
+                RENAME COLUMN id TO id_old;
+
+            ALTER TABLE lessons
+            DROP
+            CONSTRAINT lessons_pkey;
+
+            ALTER TABLE lessons
+                ADD COLUMN id BIGSERIAL PRIMARY KEY;
+
+            ALTER TABLE lessons
+                ALTER COLUMN id SET DATA TYPE BIGINT;
+
+            ALTER TABLE lessons
+                RENAME COLUMN chapter_id TO chapter_id_old;
+
+            ALTER TABLE lessons
+                ADD COLUMN chapter_id BIGINT;
+
+            UPDATE lessons AS lesson
+            SET chapter_id = (SELECT chapter.id
+                              FROM chapters AS chapter
+                              WHERE chapter.id_old = lesson.chapter_id_old);
+
+            ALTER TABLE chapters
+            DROP
+            COLUMN id_old;
+
+            ALTER TABLE lessons
+            DROP
+            COLUMN chapter_id_old,
+	        ALTER
+            COLUMN chapter_id SET NOT NULL;
+
+            ALTER TABLE lessons_words
+                ADD COLUMN lesson_id BIGINT;
+
+            UPDATE lessons_words AS lw
+            SET lesson_id = (SELECT l.id
+                             FROM lessons AS l
+                             WHERE l.id_old = lw.lesson_id_old);
+
+            ALTER TABLE lessons_words
+                ALTER COLUMN lesson_id SET NOT NULL;
+
+            ALTER TABLE lessons_words
+                ADD CONSTRAINT lessons_words_lesson_id_lessons_id FOREIGN KEY (lesson_id) REFERENCES lessons (id);
+
+            ALTER TABLE lessons_words
+            DROP
+            COLUMN lesson_id_old;
+
+            ALTER TABLE lessons
+            DROP
+            COLUMN id_old;
+
+            -- Words
+            ALTER TABLE lessons_words
+                RENAME COLUMN word_id TO word_id_old;
+
+            ALTER TABLE lessons_words
+            DROP
+            CONSTRAINT lessons_words_word_id_words_id;
+
+            ALTER TABLE words
+                RENAME COLUMN id TO id_old;
+
+            ALTER TABLE words
+            DROP
+            CONSTRAINT words_pkey;
+
+            ALTER TABLE words
+                ADD COLUMN id BIGSERIAL PRIMARY KEY;
+
+            ALTER TABLE words
+                ALTER COLUMN id SET DATA TYPE BIGINT;
+
+            ALTER TABLE lessons_words
+                ADD COLUMN word_id BIGINT;
+
+            UPDATE lessons_words AS lw
+            SET word_id = (SELECT w.id
+                           FROM words AS w
+                           WHERE w.id_old = lw.word_id_old);
+
+            ALTER TABLE lessons_words
+                ALTER COLUMN word_id SET NOT NULL;
+
+            ALTER TABLE lessons_words
+                ADD CONSTRAINT lessons_words_word_id_words_id FOREIGN KEY (word_id) REFERENCES words (id);
+
+            ALTER TABLE lessons_words
+            DROP
+            COLUMN word_id_old;
+
+            -- Word Productivity
+            ALTER TABLE word_productivity
+                RENAME COLUMN word_id TO word_id_old;
+
+            ALTER TABLE word_productivity
+                ADD COLUMN word_id BIGINT;
+
+            UPDATE word_productivity AS wp
+            SET word_id = (SELECT w.id
+                           FROM words AS w
+                           WHERE w.id_old = wp.word_id_old);
+
+            ALTER TABLE words
+            DROP
+            COLUMN id_old;
+
+            ALTER TABLE word_productivity
+            DROP
+            COLUMN word_id_old;
+
+            -- Translations
+            ALTER TABLE rus_translations
+                RENAME COLUMN id TO id_old;
+
+            ALTER TABLE rus_translations
+            DROP
+            CONSTRAINT ru_translations_pkey;
+
+            ALTER TABLE rus_translations
+                ADD COLUMN id BIGSERIAL PRIMARY KEY;
+
+            ALTER TABLE rus_translations
+                ALTER COLUMN id SET DATA TYPE BIGINT;
+
+            -- Deu
+            ALTER TABLE deu_translations
+                RENAME COLUMN id TO id_old;
+
+            ALTER TABLE deu_translations
+            DROP
+            CONSTRAINT deu_translations_pkey;
+
+            ALTER TABLE deu_translations
+                ADD COLUMN id BIGSERIAL PRIMARY KEY;
+
+            ALTER TABLE deu_translations
+                ALTER COLUMN id SET DATA TYPE BIGINT;
+
+            ALTER TABLE deu_translations
+            DROP
+            COLUMN id_old;
+
+            -- Translations in words
+            ALTER TABLE words
+                RENAME COLUMN translation_id TO translation_id_old;
+
+            ALTER TABLE words
+                ADD COLUMN translation_id BIGINT;
+
+            UPDATE words AS w
+            SET translation_id = (SELECT rt.id
+                                  FROM rus_translations AS rt
+                                  WHERE rt.id_old = w.translation_id_old);
+
+            ALTER TABLE rus_translations
+            DROP
+            COLUMN id_old;
+
+            ALTER TABLE words
+            DROP
+            COLUMN translation_id_old;
+
+            ALTER TABLE words
+                ALTER COLUMN translation_id SET NOT NULL;
+
+            -- Update sequences
+            ALTER SEQUENCE courses_id_seq INCREMENT BY 50;
+            ALTER SEQUENCE chapters_id_seq INCREMENT BY 50;
+            ALTER SEQUENCE lessons_id_seq INCREMENT BY 50;
+            ALTER SEQUENCE rus_translations_id_seq INCREMENT BY 50;
+            ALTER SEQUENCE deu_translations_id_seq INCREMENT BY 50;
+            ALTER SEQUENCE words_id_seq INCREMENT BY 50;
+        </sql>
+    </changeSet>
+</databaseChangeLog>

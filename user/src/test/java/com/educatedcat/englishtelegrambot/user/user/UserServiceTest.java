@@ -1,12 +1,10 @@
 package com.educatedcat.englishtelegrambot.user.user;
 
-import com.educatedcat.englishtelegrambot.user.button.*;
-import io.zonky.test.db.*;
-import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.boot.test.context.*;
-
-import java.util.*;
+import com.educatedcat.englishtelegrambot.user.button.MenuButtonType;
+import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,7 +22,7 @@ class UserServiceTest {
 	void save() {
 		var id = 123L;
 		var buttonType = MenuButtonType.START;
-		var buttonId = UUID.randomUUID();
+		var buttonId = 1L;
 		
 		userService.saveOrUpdate(new UserDto(id, buttonType, buttonId));
 		
@@ -39,8 +37,8 @@ class UserServiceTest {
 	void update() {
 		var id = 1234L;
 		var buttonType = MenuButtonType.LESSON;
-		var buttonId = UUID.randomUUID();
-		userService.saveOrUpdate(new UserDto(id, MenuButtonType.START, UUID.randomUUID()));
+		var buttonId = 1L;
+		userService.saveOrUpdate(new UserDto(id, MenuButtonType.START, 1L));
 		
 		userService.saveOrUpdate(new UserDto(id, buttonType, buttonId));
 		

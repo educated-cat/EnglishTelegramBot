@@ -1,13 +1,19 @@
 package com.educatedcat.englishtelegrambot.botreceiver.callback;
 
-import com.educatedcat.englishtelegrambot.botreceiver.bot.*;
-import com.educatedcat.englishtelegrambot.botreceiver.button.*;
-import com.educatedcat.englishtelegrambot.botreceiver.word.*;
-import lombok.*;
-import org.springframework.stereotype.*;
-import org.telegram.telegrambots.meta.api.methods.*;
+import com.educatedcat.englishtelegrambot.botreceiver.bot.BotResponse;
+import com.educatedcat.englishtelegrambot.botreceiver.button.AbstractButtonHandler;
+import com.educatedcat.englishtelegrambot.botreceiver.button.ActionButtonType;
+import com.educatedcat.englishtelegrambot.botreceiver.button.ButtonHandlerKey;
+import com.educatedcat.englishtelegrambot.botreceiver.button.MenuButtonType;
+import com.educatedcat.englishtelegrambot.botreceiver.word.AbstractWordActionButtonHandler;
+import com.educatedcat.englishtelegrambot.botreceiver.word.NoMoreWordsException;
+import com.educatedcat.englishtelegrambot.botreceiver.word.WordActionType;
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import org.springframework.stereotype.Service;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 
-import java.util.*;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor

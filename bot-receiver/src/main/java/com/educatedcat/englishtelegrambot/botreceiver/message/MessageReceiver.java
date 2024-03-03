@@ -1,17 +1,17 @@
 package com.educatedcat.englishtelegrambot.botreceiver.message;
 
-import com.educatedcat.englishtelegrambot.botreceiver.offset.*;
-import lombok.*;
-import lombok.extern.slf4j.*;
-import org.springframework.context.annotation.*;
-import org.springframework.scheduling.annotation.*;
-import org.springframework.stereotype.*;
-import org.springframework.web.reactive.function.client.*;
-import org.telegram.telegrambots.meta.api.methods.updates.*;
-import org.telegram.telegrambots.meta.api.objects.*;
-import org.telegram.telegrambots.meta.exceptions.*;
+import com.educatedcat.englishtelegrambot.botreceiver.offset.BotOffsetService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Profile;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.telegram.telegrambots.meta.api.methods.updates.GetUpdates;
+import org.telegram.telegrambots.meta.api.objects.Update;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
 
 @Profile({"!test"})
 @Slf4j
@@ -32,22 +32,23 @@ public class MessageReceiver {
 		                                          .orElseThrow()
 		                                          .getOffset()
 		                                          .intValue();
-		var response = botWebClient.get()
-		                           .uri(uriBuilder -> uriBuilder.pathSegment("getUpdates")
-		                                                        .queryParam("offset", currentOffset + 1)
-		                                                        .queryParam("allowed_updates",
-		                                                                    List.of("message", "callback_query")
-		                                                                        .toString())
-		                                                        .build())
-		                           .exchangeToMono(clientResponse -> clientResponse.bodyToMono(String.class))
-		                           .block();
+
 		try {
+			var response = botWebClient.get()
+			                           .uri(uriBuilder -> uriBuilder.pathSegment("getUpdates")
+			                                                        .queryParam("offset", currentOffset + 1)
+			                                                        .queryParam("allowed_updates",
+			                                                                    List.of("message", "callback_query")
+			                                                                        .toString())
+			                                                        .build())
+			                           .exchangeToMono(clientResponse -> clientResponse.bodyToMono(String.class))
+			                           .block();
 			var updatesDeserializer = GetUpdates.builder().build();
 			final List<Update> updates = updatesDeserializer.deserializeResponse(response);
 			final Integer lastUpdateId = getLastUpdateId(currentOffset, updates);
 			botOffsetService.updateCurrentOffset(lastUpdateId);
 			return updates;
-		} catch (TelegramApiRequestException e) {
+		} catch (Exception e) {
 			log.error("", e);
 			return Collections.emptyList();
 		}

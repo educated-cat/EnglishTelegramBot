@@ -1,9 +1,9 @@
 package com.educatedcat.englishtelegrambot.dictionary.course;
 
-import lombok.*;
-import org.springframework.stereotype.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor

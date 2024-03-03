@@ -1,13 +1,11 @@
 package com.educatedcat.englishtelegrambot.dictionary.word.productivity;
 
-import com.educatedcat.englishtelegrambot.dictionary.user.productivity.*;
-
-import java.util.*;
+import com.educatedcat.englishtelegrambot.dictionary.user.productivity.WordProductivityDto;
 
 public interface WordProductivityService {
-	void increaseWordProductivity(long userId, UUID wordId);
+	void increaseWordProductivity(long userId, long wordId);
 	
-	void decreaseWordProductivity(long userId, UUID wordId);
+	void decreaseWordProductivity(long userId, long wordId);
 	
 	WordProductivityDto getByUserId(long userId);
 	

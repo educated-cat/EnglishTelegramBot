@@ -1,9 +1,9 @@
 package com.educatedcat.englishtelegrambot.user.user;
 
-import com.educatedcat.englishtelegrambot.user.user.state.*;
-import lombok.*;
-import org.springframework.stereotype.*;
-import org.springframework.transaction.annotation.*;
+import com.educatedcat.englishtelegrambot.user.user.state.UserState;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor

@@ -1,14 +1,18 @@
 package com.educatedcat.englishtelegrambot.dictionary.word;
 
-import com.educatedcat.englishtelegrambot.dictionary.translation.*;
-import lombok.*;
-import lombok.extern.slf4j.*;
-import org.springframework.data.domain.*;
-import org.springframework.stereotype.*;
-import org.springframework.transaction.annotation.*;
+import com.educatedcat.englishtelegrambot.dictionary.translation.AbstractTranslation;
+import com.educatedcat.englishtelegrambot.dictionary.translation.TranslationService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
-import java.util.concurrent.atomic.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Slf4j
 @Service
@@ -19,13 +23,13 @@ public class WordServiceImpl implements WordService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public Optional<Word> find(UUID uuid) {
-		return wordRepository.findById(uuid);
+	public Optional<Word> find(long id) {
+		return wordRepository.findById(id);
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<Word> findAllByLessonId(UUID lessonId) {
+	public List<Word> findAllByLessonId(long lessonId) {
 		return wordRepository.findAllByLessons_Id(lessonId);
 	}
 	
@@ -38,13 +42,13 @@ public class WordServiceImpl implements WordService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public Optional<Word> findFirstInLessonByLessonId(UUID lessonId) {
+	public Optional<Word> findFirstInLessonByLessonId(long lessonId) {
 		return wordRepository.findFirstByLessonsId(lessonId);
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
-	public Optional<Word> findNext(UUID previousWordId) {
+	public Optional<Word> findNext(long previousWordId) {
 		AtomicReference<Optional<Word>> res = new AtomicReference<>(Optional.empty());
 		wordRepository.findById(previousWordId)
 		              .ifPresent(word -> {
@@ -61,8 +65,8 @@ public class WordServiceImpl implements WordService {
 	
 	@Override
 	@Transactional
-	public void update(UUID uuid, WordDto dto) {
-		wordRepository.findById(uuid)
+	public void update(long id, WordDto dto) {
+		wordRepository.findById(id)
 		              .map(word -> {
 			              word.merge(dto);
 			              return word;

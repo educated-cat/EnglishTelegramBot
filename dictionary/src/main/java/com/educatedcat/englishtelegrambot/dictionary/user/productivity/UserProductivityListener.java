@@ -1,12 +1,12 @@
 package com.educatedcat.englishtelegrambot.dictionary.user.productivity;
 
-import com.educatedcat.englishtelegrambot.dictionary.word.productivity.*;
-import io.micrometer.tracing.annotation.*;
-import lombok.*;
-import lombok.extern.slf4j.*;
-import org.springframework.kafka.annotation.*;
-import org.springframework.messaging.handler.annotation.*;
-import org.springframework.stereotype.*;
+import com.educatedcat.englishtelegrambot.dictionary.word.UpdateWordProductivityDto;
+import io.micrometer.tracing.annotation.NewSpan;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component

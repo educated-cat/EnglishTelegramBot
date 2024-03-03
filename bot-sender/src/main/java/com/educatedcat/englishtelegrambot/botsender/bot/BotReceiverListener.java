@@ -1,13 +1,13 @@
 package com.educatedcat.englishtelegrambot.botsender.bot;
 
-import com.educatedcat.englishtelegrambot.botsender.message.*;
-import lombok.*;
-import lombok.extern.slf4j.*;
-import org.springframework.kafka.annotation.*;
-import org.springframework.stereotype.*;
-import org.telegram.telegrambots.meta.api.methods.*;
+import com.educatedcat.englishtelegrambot.botsender.message.AbstractMessageSender;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 
-import java.util.*;
+import java.util.Map;
 
 @Slf4j
 @Component

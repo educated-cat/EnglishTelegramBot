@@ -1,9 +1,9 @@
 package com.educatedcat.englishtelegrambot.dictionary.lesson;
 
-import java.util.*;
+import java.util.List;
 
 public interface LessonService {
-	List<Lesson> findAllInChapterByLessonId(UUID id);
+	List<Lesson> findAllInChapterByLessonId(long id);
 	
-	List<Lesson> findAllByChapterId(UUID chapterId);
+	List<Lesson> findAllByChapterId(long chapterId);
 }

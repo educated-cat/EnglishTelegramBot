@@ -1,9 +1,10 @@
 package com.educatedcat.englishtelegrambot.dictionary.kafka;
 
-import com.educatedcat.englishtelegrambot.dictionary.word.productivity.*;
+import com.educatedcat.englishtelegrambot.dictionary.word.UpdateWordProductivityDto;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
-import org.springframework.context.annotation.*;
-import org.springframework.kafka.config.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 
 @Configuration
 public class KafkaConfig {

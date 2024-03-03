@@ -1,13 +1,24 @@
 package com.educatedcat.englishtelegrambot.dictionary.lesson;
 
-import com.educatedcat.englishtelegrambot.dictionary.chapter.*;
-import com.educatedcat.englishtelegrambot.dictionary.word.*;
+import com.educatedcat.englishtelegrambot.dictionary.chapter.Chapter;
+import com.educatedcat.englishtelegrambot.dictionary.word.Word;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.annotations.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,10 +27,10 @@ import java.util.*;
 @Table(name = "lessons")
 public class Lesson {
 	@Id
-	@GeneratedValue(generator = "UUID")
-	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "lessons_id_seq")
+	@SequenceGenerator(name = "lessons_id_seq", sequenceName = "lessons_id_seq")
 	@Column(name = "id")
-	private UUID id;
+	private long id;
 	
 	@Column(name = "name", nullable = false)
 	private String name;

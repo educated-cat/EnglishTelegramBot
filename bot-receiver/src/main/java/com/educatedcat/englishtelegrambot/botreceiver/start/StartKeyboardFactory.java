@@ -1,12 +1,16 @@
 package com.educatedcat.englishtelegrambot.botreceiver.start;
 
-import com.educatedcat.englishtelegrambot.botreceiver.button.*;
-import com.educatedcat.englishtelegrambot.botreceiver.keyboard.*;
-import lombok.*;
-import org.springframework.context.*;
-import org.springframework.stereotype.*;
+import com.educatedcat.englishtelegrambot.botreceiver.button.MenuButtonType;
+import com.educatedcat.englishtelegrambot.botreceiver.keyboard.AbstractKeyboardFactory;
+import com.educatedcat.englishtelegrambot.botreceiver.keyboard.BaseKeyboard;
+import com.educatedcat.englishtelegrambot.botreceiver.keyboard.KeyboardEntry;
+import com.educatedcat.englishtelegrambot.botreceiver.keyboard.KeyboardEntryMapper;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.List;
+import java.util.Locale;
 
 @Component
 @RequiredArgsConstructor
@@ -22,6 +26,6 @@ public class StartKeyboardFactory extends AbstractKeyboardFactory {
 				                MenuButtonType.BY_COURSE),
 				new StartButton(messageSource.getMessage("button.statistics", null, Locale.ENGLISH),
 				                MenuButtonType.STATISTICS));
-		return new StartKeyboard(keyboardEntryMapper, buttons, null, null);
+		return new StartKeyboard(keyboardEntryMapper, buttons, null, null, messageSource);
 	}
 }

@@ -1,14 +1,16 @@
 package com.educatedcat.englishtelegrambot.botreceiver.by_course;
 
-import com.educatedcat.englishtelegrambot.botreceiver.bot.*;
-import com.educatedcat.englishtelegrambot.botreceiver.button.*;
-import com.educatedcat.englishtelegrambot.botreceiver.course.*;
-import com.educatedcat.englishtelegrambot.botreceiver.keyboard.*;
-import org.springframework.context.*;
-import org.springframework.stereotype.*;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.*;
+import com.educatedcat.englishtelegrambot.botreceiver.bot.BotResponse;
+import com.educatedcat.englishtelegrambot.botreceiver.button.AbstractButtonHandler;
+import com.educatedcat.englishtelegrambot.botreceiver.button.ActionButtonType;
+import com.educatedcat.englishtelegrambot.botreceiver.button.MenuButtonType;
+import com.educatedcat.englishtelegrambot.botreceiver.course.CourseKeyboardFactory;
+import com.educatedcat.englishtelegrambot.botreceiver.keyboard.KeyboardEntry;
+import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
-import java.util.*;
+import java.util.Locale;
 
 @Component
 public class DefaultByCourseButtonHandler extends AbstractButtonHandler {

@@ -1,6 +1,6 @@
 package com.educatedcat.englishtelegrambot.botreceiver.keyboard;
 
-import lombok.*;
+import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public abstract class AbstractKeyboardFactory {

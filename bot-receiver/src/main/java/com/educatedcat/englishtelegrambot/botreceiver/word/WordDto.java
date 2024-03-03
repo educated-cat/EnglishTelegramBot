@@ -1,9 +1,8 @@
 package com.educatedcat.englishtelegrambot.botreceiver.word;
 
-import com.educatedcat.englishtelegrambot.botreceiver.dictionary.*;
+import com.educatedcat.englishtelegrambot.botreceiver.dictionary.ButtonMarker;
+import com.educatedcat.englishtelegrambot.botreceiver.dictionary.Language;
 
-import java.util.*;
-
-public record WordDto(UUID id, String name, String transcription, String translation, Language language)
+public record WordDto(long id, String name, String transcription, String translation, Language language)
 		implements ButtonMarker {
 }

@@ -1,13 +1,19 @@
 package com.educatedcat.englishtelegrambot.botreceiver;
 
-import com.educatedcat.englishtelegrambot.botreceiver.button.*;
-import com.educatedcat.englishtelegrambot.botreceiver.command.*;
-import com.educatedcat.englishtelegrambot.botreceiver.word.*;
-import org.springframework.context.annotation.*;
+import com.educatedcat.englishtelegrambot.botreceiver.button.AbstractButtonHandler;
+import com.educatedcat.englishtelegrambot.botreceiver.button.ButtonHandlerKey;
+import com.educatedcat.englishtelegrambot.botreceiver.command.BotCommand;
+import com.educatedcat.englishtelegrambot.botreceiver.command.BotCommandType;
+import com.educatedcat.englishtelegrambot.botreceiver.word.AbstractWordActionButtonHandler;
+import com.educatedcat.englishtelegrambot.botreceiver.word.WordActionType;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-import java.util.*;
-import java.util.function.*;
-import java.util.stream.*;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Configuration
 public class MapConfig {

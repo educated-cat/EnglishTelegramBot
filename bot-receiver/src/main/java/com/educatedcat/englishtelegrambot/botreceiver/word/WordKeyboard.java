@@ -1,18 +1,23 @@
 package com.educatedcat.englishtelegrambot.botreceiver.word;
 
-import com.educatedcat.englishtelegrambot.botreceiver.button.*;
-import com.educatedcat.englishtelegrambot.botreceiver.keyboard.*;
-import com.educatedcat.englishtelegrambot.botreceiver.lesson.*;
-import jakarta.annotation.*;
-import lombok.*;
-import org.springframework.util.*;
+import com.educatedcat.englishtelegrambot.botreceiver.button.ActionButtonType;
+import com.educatedcat.englishtelegrambot.botreceiver.button.MenuButtonType;
+import com.educatedcat.englishtelegrambot.botreceiver.dictionary.ButtonMarker;
+import com.educatedcat.englishtelegrambot.botreceiver.keyboard.BaseKeyboard;
+import com.educatedcat.englishtelegrambot.botreceiver.keyboard.KeyboardEntry;
+import com.educatedcat.englishtelegrambot.botreceiver.keyboard.KeyboardEntryMapper;
+import com.educatedcat.englishtelegrambot.botreceiver.lesson.LessonDto;
+import jakarta.annotation.Nullable;
+import lombok.SneakyThrows;
+import org.springframework.context.MessageSource;
 
-import java.util.*;
+import java.util.List;
+import java.util.Locale;
 
 public class WordKeyboard extends BaseKeyboard {
 	protected WordKeyboard(KeyboardEntryMapper keyboardEntryMapper, List<WordAction> buttons,
-	                       LessonDto backButton, MenuButtonType backButtonIdType) {
-		super(keyboardEntryMapper, buttons, backButton, backButtonIdType);
+	                       ButtonMarker backButton, MenuButtonType backButtonIdType, MessageSource messageSource) {
+		super(keyboardEntryMapper, buttons, backButton, backButtonIdType, messageSource);
 	}
 	
 	@Override
@@ -20,8 +25,10 @@ public class WordKeyboard extends BaseKeyboard {
 		return buttons.stream()
 		              .map(buttonMarker -> (WordAction) buttonMarker)
 		              .map(button -> new KeyboardEntry(MenuButtonType.WORD, button.id(),
-		                                               StringUtils.capitalize(button.actionType().name().toLowerCase()),
-		                                               button.actionType()))
+		                                               messageSource.getMessage(button.actionType() == WordActionType.KNOW
+		                                                                        ? "button.word.know" : "button.word.dont-know", null,
+		                                                                        Locale.ENGLISH),
+		                                               button.actionType(), button.lessonId()))
 		              .toList();
 	}
 	
@@ -31,6 +38,6 @@ public class WordKeyboard extends BaseKeyboard {
 	protected KeyboardEntry backButton() {
 		LessonDto backButton = (LessonDto) this.backButton;
 		return new KeyboardEntry(MenuButtonType.WORD, ActionButtonType.PREVIOUS, backButton.id(), backButton.name(),
-		                         backButtonIdType);
+		                         backButtonIdType, null, backButton.id());
 	}
 }

@@ -1,13 +1,24 @@
 package com.educatedcat.englishtelegrambot.dictionary.word.productivity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.annotations.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
-import java.io.*;
-import java.time.*;
-import java.util.*;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Getter
 @Entity
@@ -20,17 +31,18 @@ public class WordProductivity implements Serializable {
 	@Id
 	@SequenceGenerator(name = "word_productivity_id_generator", sequenceName = "word_productivity_id_sequence")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "word_productivity_id_generator")
-	private Long id;
+	private long id;
 	
 	@Column(nullable = false, updatable = false)
 	private long userId;
 	
 	@Column(nullable = false)
-	private UUID wordId;
+	private long wordId;
 	
 	/**
 	 * Percentage of assimilation
 	 */
+	@Setter
 	@Column(nullable = false)
 	private byte progress;
 	
@@ -38,6 +50,7 @@ public class WordProductivity implements Serializable {
 	@Column(nullable = false, updatable = false)
 	private LocalDateTime creationTimestamp;
 	
+	@Setter
 	private LocalDateTime learnTimestamp;
 	
 	@Enumerated(EnumType.STRING)
@@ -53,7 +66,7 @@ public class WordProductivity implements Serializable {
 	@Column(nullable = false)
 	private int successAttemptsDayCount;
 	
-	public WordProductivity(Long userId, UUID wordId) {
+	public WordProductivity(Long userId, long wordId) {
 		this.userId = userId;
 		this.wordId = wordId;
 		progress = 0;
