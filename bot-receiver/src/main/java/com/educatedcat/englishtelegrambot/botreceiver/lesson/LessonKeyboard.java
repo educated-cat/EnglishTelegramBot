@@ -31,7 +31,7 @@ public class LessonKeyboard extends BaseKeyboard {
 	@SneakyThrows
 	@Nullable
 	protected KeyboardEntry backButton() {
-		ChapterDto backButton = (ChapterDto) this.backButton;
+		ChapterDto backButton = (ChapterDto) this.backButton; // TODO: why chapter DTO? If we press back button from words, then should use a lesson dto
 		return new KeyboardEntry(MenuButtonType.LESSON, ActionButtonType.PREVIOUS, backButton.id(), backButton.name(),
 		                         backButtonIdType);
 	}

@@ -36,7 +36,7 @@ public class WordKeyboard extends BaseKeyboard {
 	@SneakyThrows
 	@Nullable
 	protected KeyboardEntry backButton() {
-		LessonDto backButton = (LessonDto) this.backButton;
+		LessonDto backButton = (LessonDto) this.backButton; // TODO: Если после первого слова нажать на Back button, то должно вернуться WordDto
 		return new KeyboardEntry(MenuButtonType.WORD, ActionButtonType.PREVIOUS, backButton.id(), backButton.name(),
 		                         backButtonIdType, null, backButton.id());
 	}
