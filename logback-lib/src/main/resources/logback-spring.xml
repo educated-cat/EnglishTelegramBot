@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<include resource="org/springframework/boot/logging/logback/base.xml"/>
+	<springProperty scope="context" name="application.name" source="spring.application.name"/>
+
+	<appender name="asyncLogstash" class="com.educatedcat.englishtelegrambot.logbacklib.LogstashAppender">
+		<encoder class="co.elastic.logging.logback.EcsEncoder"/>
+		<connectionStratagy>
+			<roundRobin>
+				<connectionTTL>10 minutes</connectionTTL>
+			</roundRobin>
+		</connectionStratagy>
+		<encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="asyncLogstash"/>
+	</root>
+
+	<shutdownHook class="ch.qos.logback.core.hook.DefaultShutdownHook"/>
+</configuration>

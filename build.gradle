@@ -38,6 +38,8 @@ subprojects {
 		constraints {
 			/* Implementation */
 			implementation("org.telegram:telegrambots-meta:6.1.0")
+			implementation("net.logstash.logback:logstash-logback-encoder:7.3")
+			implementation("co.elastic.logging:logback-ecs-encoder:1.5.0")
 			
 			/* Test */
 			testImplementation("io.zonky.test:embedded-postgres:2.0.3")
@@ -54,6 +56,9 @@ subprojects {
 		/* Utilities */
 		compileOnly("org.projectlombok:lombok")
 		annotationProcessor("org.projectlombok:lombok")
+		implementation("net.logstash.logback:logstash-logback-encoder")
+		implementation("co.elastic.logging:logback-ecs-encoder")
+		implementation("ch.qos.logback:logback-classic")
 		
 		/* Test */
 		testCompileOnly("org.projectlombok:lombok")
